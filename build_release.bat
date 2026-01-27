@@ -25,6 +25,9 @@ echo Creating run.bat...
 echo @echo off > dist\run.bat
 echo start "RFID Timing System" java -jar TimingSoft.jar >> dist\run.bat
 
+echo Copying run.sh...
+copy run.sh dist\
+
 echo.
 echo ==========================================
 echo Build Complete!
