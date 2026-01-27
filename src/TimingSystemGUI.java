@@ -12,6 +12,8 @@ import java.util.TimerTask;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import com.impinj.octane.AntennaStatus;
 
 public class TimingSystemGUI extends JFrame implements RFIDDataListener {
@@ -19,9 +21,12 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
     private RFIDController controller;
     private JTextField ipField;
     private JLabel statusLabel;
+
     private JLabel clockLabel;
     private JLabel raceTimerLabel;
+    private JLabel uniqueTagsLabel;
     private JTable tagTable;
+    private Set<String> uniqueTags = new HashSet<>();
     private DefaultTableModel tableModel;
     private JButton connectButton;
     private JButton startButton;
@@ -63,7 +68,7 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
         setLayout(new BorderLayout());
 
         // --- TOP PANEL: Clock & Timer ---
-        JPanel topPanel = new JPanel(new GridLayout(1, 2));
+        JPanel topPanel = new JPanel(new GridLayout(1, 3));
         topPanel.setBackground(Color.DARK_GRAY);
 
         clockLabel = new JLabel("00:00:00", SwingConstants.CENTER);
@@ -75,6 +80,12 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
         raceTimerLabel.setForeground(Color.YELLOW);
 
         topPanel.add(clockLabel);
+
+        uniqueTagsLabel = new JLabel("Unique Tags: 0", SwingConstants.CENTER);
+        uniqueTagsLabel.setFont(new Font("Monospaced", Font.BOLD, 24));
+        uniqueTagsLabel.setForeground(Color.CYAN);
+        topPanel.add(uniqueTagsLabel);
+
         topPanel.add(raceTimerLabel);
         add(topPanel, BorderLayout.NORTH);
 
@@ -118,7 +129,11 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
             isRaceRunning = false;
         });
 
-        clearButton.addActionListener(e -> tableModel.setRowCount(0));
+        clearButton.addActionListener(e -> {
+            tableModel.setRowCount(0);
+            uniqueTags.clear();
+            uniqueTagsLabel.setText("Unique Tags: 0");
+        });
 
         controlPanel.add(new JLabel("Reader IP:"));
         controlPanel.add(ipField);
@@ -229,6 +244,11 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
         SwingUtilities.invokeLater(() -> {
             int count = tableModel.getRowCount() + 1;
             tableModel.insertRow(0, new Object[] { count, epc, timestamp, readerIp });
+
+            // Update Unique Count
+            if (uniqueTags.add(epc)) {
+                uniqueTagsLabel.setText("Unique Tags: " + uniqueTags.size());
+            }
 
             // Blink Antenna
             blinkAntenna(antennaPort);

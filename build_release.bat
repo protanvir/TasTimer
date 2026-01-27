@@ -20,9 +20,15 @@ REM --- Package JAR ---
 echo Packaging JAR...
 "C:\Program Files\Java\jdk-25.0.2\bin\jar.exe" cvfm dist\TimingSoft.jar MANIFEST.MF -C bin .
 
+echo Copying mock-server...
+xcopy /E /I /Y mock-server dist\mock-server
+
 REM --- Create Run Script ---
 echo Creating run.bat...
 echo @echo off > dist\run.bat
+echo echo Starting Mock Server... >> dist\run.bat
+echo start "RFID Mock Server" /MIN cmd /c "node mock-server\server.js" >> dist\run.bat
+echo timeout /t 2 > nul >> dist\run.bat
 echo start "RFID Timing System" java -jar TimingSoft.jar >> dist\run.bat
 
 echo Copying run.sh...
