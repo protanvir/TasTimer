@@ -16,9 +16,9 @@ A Java-based RFID timing application supporting both **Impinj Octane** and **Zeb
 2.  **Node.js**
     *   Required for the mock server simulation.
 3.  **Zebra SDK Dependencies (Windows Only)**
-    *   **Requirement**: To use Zebra readers, the `RFIDAPI32PC.dll` file must be accessible.
-    *   The `build_release.bat` script automatically copies this DLL to the distribution folder.
-    *   If running manually, ensure `RFIDAPI32PC.dll` is in the project root or system PATH.
+    *   **Requirement**: To use Zebra readers, the `RFIDAPI32PC.dll` file (Windows) or `.so` files (Linux) must be accessible.
+    *   The `build_release.bat` script automatically copies these libraries to the distribution folder.
+    *   If running manually, ensure the native libraries are in your path.
 
 ## Project Structure
 
@@ -41,7 +41,9 @@ A Java-based RFID timing application supporting both **Impinj Octane** and **Zeb
     *   `run.bat`
     *   `lib/` (Dependencies)
     *   `mock-server/`
-    *   `RFIDAPI32PC.dll` (Required for Zebra)
+    *   `lib/` (Dependencies)
+    *   `mock-server/`
+    *   `RFIDAPI32PC.dll` and Linux `.so` libraries
 
 ## Running the Application
 
@@ -74,4 +76,4 @@ A Java-based RFID timing application supporting both **Impinj Octane** and **Zeb
 
 ## Dependencies
 *   **Impinj Octane SDK**: `lib/octane-sdk.jar`
-*   **Zebra RFID API3 SDK**: `lib/Symbol.RFID.API3.jar` + `RFIDAPI32PC.dll`
+*   **Zebra RFID API3 SDK**: `lib/Symbol.RFID.API3.jar` + Native Libraries (`.dll` for Windows, `.so` for Linux)

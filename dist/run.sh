@@ -9,4 +9,5 @@ trap "kill $SERVER_PID" EXIT
 # Wait a moment for the server to start
 sleep 2
 
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.
 java -jar TimingSoft.jar

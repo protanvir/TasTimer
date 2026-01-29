@@ -12,6 +12,7 @@ echo Copying libraries...
 copy lib\octane-sdk.jar dist\lib\
 copy lib\Symbol.RFID.API3.jar dist\lib\
 copy RFIDAPI32PC.dll dist\
+copy lib\*.so dist\
 
 REM --- Compile ---
 echo Compiling source code...
