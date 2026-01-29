@@ -10,11 +10,13 @@ mkdir dist\data
 REM --- Copy Dependencies ---
 echo Copying libraries...
 copy lib\octane-sdk.jar dist\lib\
+copy lib\Symbol.RFID.API3.jar dist\lib\
+copy RFIDAPI32PC.dll dist\
 
 REM --- Compile ---
 echo Compiling source code...
 if not exist bin mkdir bin
-javac -cp lib/octane-sdk.jar -d bin src/*.java
+javac -cp "lib/*" -d bin src/*.java
 
 REM --- Package JAR ---
 echo Packaging JAR...

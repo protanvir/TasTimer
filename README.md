@@ -1,89 +1,77 @@
 # RFID Timing System
 
-A Java-based RFID timing application with a Node.js mock server for testing and simulation. This system is designed to read RFID tags via the Impinj Octane SDK and display timing data.
+A Java-based RFID timing application supporting both **Impinj Octane** and **Zebra FX Series** readers. It includes a Node.js mock server for testing and simulation.
+
+## Features
+- **Dual Reader Support**: Connect to either Impinj (Octane SDK) or Zebra (API3 SDK) readers.
+- **Unified Interface**: Real-time tag reading visualization regardless of hardware.
+- **Mock Server**: Node.js server to simulate tag reads (`http://localhost:3000`).
+- **Data Export**: Save tag reads to CSV and send data to Wiclax / Local API.
 
 ## Prerequisites
 
-Before running the application, ensure you have the following installed:
-
 1.  **Java Development Kit (JDK)**
-    *   Version 21 or higher is recommended.
-    *   Ensure `java` and `javac` are in your system PATH.
+    *   Version 21 or higher recommended.
+    *   Ensure `java` and `javac` are in your PATH.
 2.  **Node.js**
-    *   Required for running the mock server simulation.
-    *   Download from [nodejs.org](https://nodejs.org/).
+    *   Required for the mock server simulation.
+3.  **Zebra SDK Dependencies (Windows Only)**
+    *   **Requirement**: To use Zebra readers, the `RFIDAPI32PC.dll` file must be accessible.
+    *   The `build_release.bat` script automatically copies this DLL to the distribution folder.
+    *   If running manually, ensure `RFIDAPI32PC.dll` is in the project root or system PATH.
 
 ## Project Structure
 
 *   `src/`: Java source code.
-*   `lib/`: External dependencies (Impinj Octane SDK).
+*   `lib/`: External dependencies (`octane-sdk.jar`, `Symbol.RFID.API3.jar`).
 *   `mock-server/`: Node.js server to simulate RFID tag reads.
 *   `build_release.bat`: Windows batch script to compile and create a release.
-*   `run.sh`: Linux/macOS shell script to run the application (used in the release folder).
+*   `run.sh`: Linux/macOS shell script.
+*   `data/`: Directory where CSV logs are saved.
 
 ## Installation & Building
 
-To build the project from source, use the provided build script.
-
 ### Windows
-1.  Open a command prompt or PowerShell in the project root.
-2.  Run the build script:
+1.  Run the build script:
     ```cmd
     build_release.bat
     ```
-3.  This will:
-    *   Clean previous builds.
-    *   Compile the Java source code.
-    *   Package the application into a JAR file.
-    *   Create a portable distribution folder named `dist`.
+2.  This generates a `dist` folder containing:
+    *   `TimingSoft.jar`
+    *   `run.bat`
+    *   `lib/` (Dependencies)
+    *   `mock-server/`
+    *   `RFIDAPI32PC.dll` (Required for Zebra)
 
 ## Running the Application
 
-The easiest way to run the application is using the generated release in the `dist` folder.
-
-### Windows
-1.  Navigate to the `dist` folder:
-    ```cmd
-    cd dist
-    ```
-2.  Double-click `run.bat` or run it from the command line.
-    *   This will automatically start the mock server in the background and launch the Java GUI.
-
-### Linux / macOS
+### Using the Release (Recommended)
 1.  Navigate to the `dist` folder.
-2.  Ensure `run.sh` is executable:
-    ```bash
-    chmod +x run.sh
-    ```
-3.  Run the script:
-    ```bash
-    ./run.sh
-    ```
+2.  Run `run.bat`. This will:
+    *   Start the Node.js mock server.
+    *   Launch the Java GUI.
 
 ### Manual / Development Mode
-
-If you prefer to run components manually or during development:
-
-1.  **Start the Mock Server:**
+1.  **Start Mock Server**:
     ```bash
     node mock-server/server.js
     ```
-    The server will listen on `http://localhost:3000`. You can view live reads in your browser at this address.
+2.  **Run Java Application**:
+    ```bash
+    java -cp "lib/*;bin" TimingSystemGUI
+    # Or if compiling from source directly:
+    javac -cp "lib/*;." src/*.java
+    java -cp "lib/*;src" TimingSystemGUI
+    ```
 
-2.  **Run the Java Application:**
-    *   **From Source (after compiling to `bin`):**
-        ```bash
-        java -cp "lib/octane-sdk.jar;bin" TimingSystemGUI
-        ```
-        *(Note: On Linux/Mac use `:` instead of `;` as the classpath separator)*
+## Usage
+1.  **Select Reader Type**:
+    *   **Impinj**: For Impinj Speedway/R-Series readers.
+    *   **Zebra**: For Zebra FX7500/FX9600 readers.
+2.  **Enter IP Address**: Input the IP of your reader.
+3.  **Connect**: Click the **Connect** button.
+    *   Status indicators for antennas (1-4) will light up upon successful connection and tag reads.
 
-    *   **Using the JAR:**
-        ```bash
-        java -jar dist/TimingSoft.jar
-        ```
-
-## Mock Server API
-
-The mock server simulates an RFID reader pushing data to the application.
-*   **Web Interface:** `http://localhost:3000` (Displays active tag reads).
-*   **POST Endpoint:** `/api/tags` - Accepts JSON tag data.
+## Dependencies
+*   **Impinj Octane SDK**: `lib/octane-sdk.jar`
+*   **Zebra RFID API3 SDK**: `lib/Symbol.RFID.API3.jar` + `RFIDAPI32PC.dll`
