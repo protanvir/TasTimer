@@ -1,0 +1,33 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Read Points</title>
+</head>
+
+<body>
+
+<h2>Read Points</h2>
+
+<p>The function <SPAN style="FONT-FAMILY: 'Courier New'; mso-no-proof: yes">rm.ReadPoint.setReadPointStatus</SPAN> allows enabling
+or disabling the read point (Antenna) for the specified antenna
+ID.</p>
+
+<p><SPAN style="COLOR: green; FONT-FAMILY: 'Courier New'; mso-no-proof: yes">// set read point (antenna 1) enable<O:P></O:P></SPAN></p>
+
+<p><SPAN style="FONT-FAMILY: 'Courier New'">rm.ReadPoint.setReadPointStatus((<SPAN style="COLOR: blue; FONT-FAMILY: 'Courier New'; mso-no-proof: yes">short</SPAN>)1, <SPAN style="COLOR: teal">READPOINT_STATUS</SPAN>.ENABLE);<O:P></O:P></SPAN></p>
+
+<p>To know the current status of the specified read point
+(Antenna), the method <SPAN style="FONT-FAMILY: 'Courier New'">rm.ReadPoint.getReadPointStatus </SPAN>can be
+called.</p>
+
+<p><SPAN style="COLOR: green; FONT-FAMILY: 'Courier New'; mso-no-proof: yes">// get read point (antenna 1) status<O:P></O:P></SPAN></p>
+
+<p><SPAN style="COLOR: blue; FONT-FAMILY: 'Courier New'; mso-no-proof: yes">short</SPAN><SPAN style="FONT-FAMILY: 'Courier New'; mso-no-proof: yes"> antennaID = 1;<O:P></O:P></SPAN></p>
+
+<p><SPAN style="COLOR: teal; FONT-FAMILY: 'Courier New'; mso-no-proof: yes">READPOINT_STATUS</SPAN><SPAN style="FONT-FAMILY: 'Courier New'; mso-no-proof: yes"> readPointStatus =
+rm.ReadPoint.getReadPointStatus(antennaID);</SPAN></p>
+</body>
+</html>

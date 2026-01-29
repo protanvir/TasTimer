@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RFIDController implements TagReportListener {
+public class RFIDController implements TagReportListener, ReaderInterface {
 
     private ImpinjReader reader;
     private RFIDDataListener listener;
@@ -28,7 +28,7 @@ public class RFIDController implements TagReportListener {
 
     // Wiclax Config
     private static final String WICLAX_USER = "totalactivesports";
-    private static final String WICLAX_DEVICE_ID = "tas245";
+    private static final String WICLAX_DEVICE_ID = "tas246";
 
     public RFIDController(RFIDDataListener listener) {
         this.listener = listener;
@@ -60,7 +60,18 @@ public class RFIDController implements TagReportListener {
                         .getAntennaStatusGroup()
                         .getAntennaList();
                 if (listener != null) {
-                    listener.onAntennaStatus(antennaStatuses);
+                    List<UnifiedAntennaStatus> unifiedStatuses = new ArrayList<>();
+                    for (AntennaStatus as : antennaStatuses) {
+                        // Assuming port number is 1-based index or using explicit port number from
+                        // object
+                        // AntennaStatus in Octane usually has 'portNumber' or similar.
+                        // Checking docs or previous usages: t.getAntennaPortNumber() exists on Tag.
+                        // Validating AntennaStatus methods:
+                        // It has getPortNumber() and isConnected().
+                        unifiedStatuses.add(new UnifiedAntennaStatus(as.getPortNumber(), as.isConnected(),
+                                as.isConnected() ? "Connected" : "Disconnected"));
+                    }
+                    listener.onAntennaStatus(unifiedStatuses);
                 }
             } catch (Exception e) {
                 System.err.println("Failed to query antenna status: " + e.getMessage());
@@ -108,6 +119,11 @@ public class RFIDController implements TagReportListener {
         } catch (Exception e) {
             notifyStatus("Stop Failed: " + e.getMessage(), true);
         }
+    }
+
+    @Override
+    public boolean isConnected() {
+        return reader != null && reader.isConnected();
     }
 
     // --- Tag Processing ---

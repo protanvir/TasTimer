@@ -1,0 +1,56 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<title>Generic Reader Interface</title>
+</head>
+
+<body>
+
+<h1>Generic Reader Interface</h1>
+
+<h2>Overview</h2>
+
+<p>This section provides detailed information on how to develop
+RFID applications using RFID API3 generic interface. RFID API3
+allows applications to talk to RFID Readers which support the
+LLRP Interface. LLRP is a standard specification for the network
+interface between the reader and its controlling software or
+hardware. </p>
+
+<p>To develop applications using RFID API3 follow the steps
+beneath:</p>
+
+<ol>
+    <li><a href="Connecting%20to%20a%20RFID%20Reader.htm">Connecting
+        to Reader</a> </li>
+    <li><a href="Knowing%20the%20Reader%20Capabilities.htm">Knowing
+        Reader Capabilities</a> </li>
+    <li><a href="Configuring%20the%20Reader.htm">Configuring the
+        Reader</a> </li>
+    <li><a href="Managing%20Events.htm">Managing Events</a> </li>
+    <li><a href="Managing%20Tags.htm">Managing Tags</a> </li>
+    <li><a href="Basic%20Operations.htm">Basic operations</a> </li>
+    <li><a href="Advanced%20Operations.htm">Advanced operations</a></li>
+    <li><a href="Gen2%20V2%20Commands.htm">Gen2 V2 Commands</a></li>
+    <li><a href="NXP%20Commands.htm">NXP Commands</a></li>
+    <li><a href="Impinj%20Commands.htm">Impinj Commands</a></li>
+    <li><a href="Clean-up%20and%20Disconnect.htm">Disconnecting
+        from the Reader </a></li>
+</ol>
+
+<p>In general, if the function call fails, the function throws an
+exception. <span>The application calls all APIs in try-catch block for handling 
+exceptions.</span> The following are the exceptions:</p>
+
+<p><b>InvalidUsageException: </b>This exception is thrown when
+the user passes invalid parameter</p>
+
+<p><b>OperationFailureException: </b>This exception is thrown
+when the requested operation is failed. The Exception contains
+the Operation result, status description, time stamp &amp; vendor
+specific message for the operation failure.</p>
+</body>
+</html>

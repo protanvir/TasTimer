@@ -1,0 +1,293 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<title>Impinj QT Commands</title>
+<style type="text/css">
+.auto-style1 {
+	margin-left: 40px;
+	margin-bottom: .0001pt;
+}
+.auto-style2 {
+	margin-left: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<h1
+style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+line-height:normal">Impinj Commands</h1>
+
+<h2>QT commands</h2>
+
+<p class="MsoNormal"
+style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+line-height:normal">
+<span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;">Readers
+which support Impinj QT Custom command features report the same
+in IsImpinjQTCommand- Supported<span style="mso-spacerun:yes">&nbsp; </span>property of the Reader
+Capabilities class . Impinj QT tags support additional features
+like public/private modes of memory map, short/normal range of
+operation. QT tags default in public memory map mode in which the
+tag&#146;s other memory bank&#146;s content is inaccessible. By
+Impinj QT Write operation, tags may be moved into private memory
+map mode, whose EPC itself is different and public mode&#146;s
+EPC is now remapped to a block inside the TID of the private
+mode&#146;s memory map. Also, to offer protection to the memory
+bank content from stray RFID readers, the range of operation may
+be set to short range /normal range by the Impinj QT Write
+operation. Besides, the changes in modes may be made persistent
+(i.e. retained after tag de-Energization) or short lived (i.e.
+until the tag de-energizes). The status of the modes may be read
+back by Impinj QT Read operation. A single control word describes
+the desired/current status of the QT tags &#150; 16<sup>th</sup>
+bit (MSB) for Public/Private mode and 15<sup>th</sup> bit for
+Short range/normal range mode<o:p></o:p></span></p>
+
+<blockquote>
+    <p class="MsoNormal"
+    style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;color:#2B91AF;mso-no-proof:yes">Impinj</span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">.<span style="color:#2B91AF">QTReadAccessParams</span>
+    qtReadAccessParams = <span style="color:blue">new</span> <span style="color:#2B91AF">Impinj</span>.<span style="color:#2B91AF">QTReadAccessParams</span>();<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">qtReadAccessParams.setAccessPassword(0x00);<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;color:#2B91AF;mso-no-proof:yes">Impinj</span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">.<span style="color:#2B91AF">QTWriteAccessParams</span>
+    qtWriteParams = n<span style="color:blue">ew<o:p> </o:p>
+	</span></span>
+	<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;color:#2B91AF;mso-no-proof:yes">Impinj</span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">.<span style="color:#2B91AF">QTWriteAccessParams</span>();<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">qtWriteParams.setAccessPassword(0x0);<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">qtWriteParams.setQTPersist(<span style="color:blue">true)</span>;<o:p></o:p></span></p>
+    <p class="MsoNormal"><span style="font-size:10.0pt;line-height:115%;font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">qtWriteParams.setQTControlData((short)0x00);</span></p>
+</blockquote>
+
+<p class="MsoNormal">&nbsp;</p>
+
+<h2>TagFocus feature</h2>
+
+<p class="MsoNormalCxSpFirst" style="margin-bottom:0in;margin-bottom:.0001pt;
+mso-add-space:auto;line-height:normal;mso-layout-grid-align:none;text-autospace:
+none">
+<span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif">
+Impinj&#8217;s Monza 4, Monza 5, and Monza R6 tag chips offer a feature called 
+TagFocus. This feature enables a reader to instruct tags to continue to refresh 
+their A/B flag setting such that they remain in a non-responsive state. By 
+instructing tags that have already been inventoried to remain silent while 
+inventorying other tags, reader has a far greater chance of finding 
+difficult-to-read tags. This feature can be enabled by configuring antenna&#8217;s 
+singulation settings and applying a pre-filter (same as the Select command of 
+C1G2 specification) with specific parameter values. This feature can be disabled 
+by deleting the pre-filter with specific parameter values from the API.<o:p></o:p></span></p>
+<p class="MsoNormalCxSpMiddle" style="margin-bottom:0in;margin-bottom:.0001pt;
+mso-add-space:auto;line-height:normal;mso-layout-grid-align:none;text-autospace:
+none"><b style="mso-bidi-font-weight:normal">
+<span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,serif">Note</span></b><span style="font-size:
+12.0pt;font-family:&quot;Times New Roman&quot;,serif">: This feature is 
+applicable only for FX7500 and FX9600.<o:p></o:p></span></p>
+<p class="MsoNormalCxSpFirst" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;mso-add-space:auto;line-height:normal">
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#00B050;
+mso-no-proof:yes">// configure antenna&#8217;s singulation settings using Session 1 
+with Flag A<o:p></o:p></span></p>
+<p class="auto-style1" style="mso-add-space: auto; line-height: normal; mso-layout-grid-align: none; text-autospace: none">
+<span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+NSimSun;color:blue;mso-no-proof:yes">short</span><span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;mso-no-proof:yes">[]
+<span style="color:#020002">antID</span> = <span style="color:#020002">reader</span>.<span style="color:#020002">Config</span>.<span style="color:#020002">Antennas</span>.<span style="color:#020002">getAvailableAntennas()</span>; <o:p></o:p>
+</span></p>
+<p class="auto-style1" style="mso-add-space: auto; line-height: normal; mso-layout-grid-align: none; text-autospace: none">
+<span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+NSimSun;color:blue;mso-no-proof:yes">for</span><span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;mso-no-proof:yes"> 
+(<span style="color:blue">int</span> index = 0; index &lt; antID.<span style="color:#2B91AF">length</span>; 
+index++)<o:p></o:p></span></p>
+<p class="auto-style1" style="mso-add-space: auto; line-height: normal; mso-layout-grid-align: none; text-autospace: none">
+<span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+NSimSun;mso-no-proof:yes">{<o:p></o:p></span></p>
+<p class="auto-style1" style="mso-add-space: auto; line-height: normal; mso-layout-grid-align: none; text-autospace: none">
+<span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+NSimSun;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp; &nbsp;&nbsp;</span><span style="color:#2B91AF">SingulationControl</span>
+<span style="color:#020002">singularControl</span> = reader.<span style="color:#020002">Config</span>.<span style="color:#020002">Antennas</span>.g<span style="color:#020002">etSingulationControl</span>(antID[index]);<o:p></o:p></span></p>
+<p class="auto-style1" style="mso-add-space: auto; line-height: normal; mso-layout-grid-align: none; text-autospace: none">
+<span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+NSimSun;mso-no-proof:yes"><o:p>&nbsp;</o:p><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>s<span style="color:#020002">ingularControl</span>.<span style="color:#020002">Action.setPerformStateAwareSingulationAction(</span><span style="color:blue">true</span><span style="color:#020002">);</span><o:p></o:p></span></p>
+<p class="auto-style1" style="mso-add-space: auto; line-height: normal; mso-layout-grid-align: none; text-autospace: none">
+<span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+NSimSun;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#020002">singularControl</span>.<span style="color:#020002">setSession(</span><span style="color:#2B91AF">SESSION</span><span style="color:#020002">.SESSION_S1);</span><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><o:p></o:p></span></p>
+<p class="auto-style1" style="mso-add-space: auto; line-height: normal; mso-layout-grid-align: none; text-autospace: none">
+<span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+NSimSun;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#020002">singularControl</span>.<span style="color:#020002">Action.setInventoryState(</span><span style="color:#2B91AF">INVENTORY_STATE</span><span style="color:#020002">.INVENTORY_STATE_A);</span><o:p></o:p></span></p>
+<p class="auto-style1" style="mso-add-space: auto; line-height: normal; mso-layout-grid-align: none; text-autospace: none">
+<span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+NSimSun;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#020002">singularControl</span>.<span style="color:#020002">Action.setSLFlag(</span><span style="color:#2B91AF">SL_FLAG</span><span style="color:#020002">.SL_FLAG_DEASSERTED);</span><o:p></o:p></span></p>
+<p class="auto-style1" style="mso-add-space: auto; line-height: normal; mso-layout-grid-align: none; text-autospace: none">
+<span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+NSimSun;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#020002">reader</span>.<span style="color:#020002">Config</span>.<span style="color:#020002">Antennas</span>.setSingulationControl(antID[index],
+<span style="color:#020002">singularControl</span>);<o:p></o:p></span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;mso-no-proof:yes">
+}<o:p></o:p></span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;mso-no-proof:yes"><o:p>
+&nbsp;</o:p></span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#00B050;
+mso-no-proof:yes">//apply a pre-filter to the reader with specific parameter 
+values<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#020002;
+mso-no-proof:yes">reader.Actions.PreFilters.deleteAll(); </span>
+<span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;
+color:#00B050;mso-no-proof:yes">// delete all existing pre-filters first</span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;
+color:#020002;mso-no-proof:yes"><o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#020002;
+mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;color:#2B91AF">
+PreFilters</span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;"> 
+filters = <span style="color:blue">new</span> <span style="color:#2B91AF">
+PreFilters</span>();<o:p></o:p></span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;color:#2B91AF">
+PreFilters</span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;">.<span style="color:#2B91AF">PreFilter</span>
+</span>
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;mso-no-proof:yes">
+tagFocus<span style="color:#020002">Filter</span> </span>
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;">
+= filters.<span style="color:blue">new</span> <span style="color:#2B91AF">
+PreFilter</span>();<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#020002;
+mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+<p class="auto-style1" style="mso-add-space: auto; line-height: normal; mso-layout-grid-align: none; text-autospace: none">
+<span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+NSimSun;color:blue;mso-no-proof:yes">byte</span><span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#020002;
+mso-no-proof:yes">[] tagMask = { (</span><span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:blue;
+mso-no-proof:yes">byte</span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:NSimSun;color:#020002;mso-no-proof:yes">)0x80, (</span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;
+color:blue;mso-no-proof:yes">byte</span><span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#020002;
+mso-no-proof:yes">)0x06, (</span><span style="font-size:10.0pt;font-family:
+&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:blue;mso-no-proof:yes">byte</span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;
+color:#020002;mso-no-proof:yes">)0x00 };<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;mso-no-proof:
+yes">tagFocus<span style="color:#020002">Filter</span>.setBitOffset(6);<o:p></o:p></span></p>
+<p class="auto-style1" style="mso-add-space: auto; line-height: normal; mso-layout-grid-align: none; text-autospace: none">
+<span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+NSimSun;mso-no-proof:yes">tagFocus<span style="color:#020002">Filter</span>.setAntennaID((<span style="color:blue">short</span>)0);<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;mso-no-proof:
+yes">tagFocus<span style="color:#020002">Filter</span>.setTagPattern(tagMask);<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;mso-no-proof:
+yes">tagFocus<span style="color:#020002">Filter</span>.setTagPatternBitCount(20);<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;mso-no-proof:
+yes">tagFocus<span style="color:#020002">Filter</span>.setMemoryBank(<span style="color:#2B91AF">MEMORY_BANK</span>.MEMORY_BANK_TID);<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;mso-no-proof:
+yes">tagFocus<span style="color:#020002">Filter.</span>setFilterAction(<span style="color:#2B91AF">FILTER_ACTION</span>.FILTER_ACTION_STATE_AWARE);<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;mso-no-proof:
+yes">tagFocus<span style="color:#020002">Filter</span>.StateAwareAction.setTarget(<span style="color:#2B91AF">TARGET</span>.TARGET_INVENTORIED_STATE_S1);<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;mso-no-proof:
+yes">tagFocus<span style="color:#020002">Filter</span>.StateAwareAction.setStateAwareAction(<span style="color:#2B91AF">STATE_AWARE_ACTION</span>.STATE_AWARE_ACTION_INV_B);<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;mso-no-proof:
+yes"><o:p>&nbsp;</o:p></span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#020002;
+mso-no-proof:yes">reader</span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:NSimSun;mso-no-proof:yes">.<span style="color:#020002">Actions</span>.<span style="color:#020002">PreFilters</span>.a<span style="color:#020002">dd</span>(tagFocus<span style="color:#020002">Filter</span>); <o:p></o:p>
+</span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#00B050;
+mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#00B050;
+mso-no-proof:yes">//perform simple inventory <o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#020002;
+mso-no-proof:yes">reader.Actions.Inventory.perform();<o:p></o:p></span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#00B050;
+mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:9.0pt;
+font-family:NSimSun;mso-hansi-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:
+&quot;Times New Roman&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:9.0pt;
+font-family:NSimSun;mso-hansi-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:
+&quot;Times New Roman&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#00B050;
+mso-no-proof:yes">//disable TagFocus feature<o:p></o:p></span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#020002;
+mso-no-proof:yes">reader</span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:NSimSun;mso-no-proof:yes">.<span style="color:#020002">Actions</span>.<span style="color:#020002">PreFilters</span>.<span style="color:#020002">delete</span>(tagFocus<span style="color:#020002">Filter</span>);<span style="color:#00B050"><o:p></o:p></span></span></p>
+<p class="auto-style2" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-add-space: auto; line-height: normal">
+<span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:NSimSun;color:#00B050;
+mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormalCxSpMiddle" style="mso-add-space: auto; line-height: normal; mso-layout-grid-align: none; text-autospace: none; margin-bottom: .0001pt">
+&nbsp;</p>
+</body>
+</html>

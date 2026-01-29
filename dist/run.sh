@@ -1,6 +1,6 @@
 #!/bin/bash
 # Start the mock server in the background
-node mock-server/server.js > /dev/null 2>&1 &
+node mock-server/tcp_server.js > /dev/null 2>&1 &
 SERVER_PID=$!
 
 # Ensure the server is killed when the script exits

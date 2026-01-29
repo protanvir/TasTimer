@@ -1,0 +1,92 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>User LED</title>
+</head>
+
+<body>
+
+<h2 class="MsoNormal"
+style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto"><b>User
+LED</b></h2>
+
+<p class="Default"><span style="font-family:&quot;Times New Roman&quot;;color:windowtext">Setting the user LED is supported only on FX
+series readers. The method </span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">rm.setUserLED</span><span style="font-family:&quot;Times New Roman&quot;;color:windowtext"> can be used for this.<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:blue;mso-no-proof:yes">try</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">
+{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Change User LED to Red&quot;</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>LedInfo ledInfo = <span style="color:blue">new</span> LedInfo(LED_COLOR.LED_RED, 1, <span style="color:blue">false</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Set User LED Information<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>rm.setUserLED(ledInfo);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">}
+<span style="color:blue">catch</span> (OperationFailureException exception) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">"SetUserLED failed &quot;</span> +
+exception.getVendorMessage());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">}
+<span style="color:blue">catch</span> (InvalidUsageException exception) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">}<o:p></o:p></span></p>
+
+<p class="MsoNormal"><o:p>&nbsp;</o:p>
+    &nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>USB operation Mode</title>
+</head>
+
+<body>
+
+<h2 class="MsoNormal"
+style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto"><b>USB
+operation Mode</b></h2>
+
+<p><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;font-weight:
+normal">This feature is supported only on FX series readers. The FX
+Reader&#146;s USB connection can be configured to be either
+ActiveSync or Network. While in ActiveSync mode, the ActiveSync
+application running on host gets connected as soon as the USB
+cable connected to the Reader is plugged in to the host. While in
+Network mode, the Reader and the host gets connected as a virtual
+network, reader being 169.254.10.1. This acts as a fallback
+mechanism to login to the Reader&#146;s web console to know its
+primary IP. The class </span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;font-weight:normal;
+mso-no-proof:yes">USBOperationMode</span><span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;font-weight:normal"> can be used for getting or
+setting this information.<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:blue;mso-no-proof:yes">try</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">
+{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Get USB Mode<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>USBOperationMode usbOpMode = rm.getUSBOperationMode();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Current USB Operation Mode is<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>: &quot;</span> + usbOpMode.getMode().toString()<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>+ <span style="color:#A31515">&quot;AllowLLRPConnectionOverride = &quot;</span> +
+usbOpMode.getAllowLLRPConnectionOverride());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Set USB Mode<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>USBOperationMode newUSBOpMode = <span style="color:blue">new</span>
+USBOperationMode(USB_OPERATION_MODE.NETWORK, <span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>rm.setUSBOperationMode(newUSBOpMode);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">}
+<span style="color:blue">catch</span> (OperationFailureException ex) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;USB Operation Mode failed &quot;</span> +
+ex.getStatusDescription() + <span style="color:#A31515">&quot; &quot;</span> +
+ex.getVendorMessage());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">}
+<span style="color:blue">catch</span> (InvalidUsageException ex) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">}<o:p></o:p></span></p>
+
+<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+</body>
+</html>

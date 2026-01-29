@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
@@ -14,12 +16,12 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import com.impinj.octane.AntennaStatus;
 
 public class TimingSystemGUI extends JFrame implements RFIDDataListener {
 
-    private RFIDController controller;
+    private ReaderInterface controller;
     private JTextField ipField;
+    private JComboBox<String> readerTypeCombo;
     private JLabel statusLabel;
 
     private JLabel clockLabel;
@@ -36,6 +38,8 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
     private JPanel antennaPanel;
     private Map<Integer, JPanel> antennaIndicators = new HashMap<>();
     private Map<Integer, Boolean> antennaConnectionState = new HashMap<>();
+    private Map<Integer, Integer> antennaTagCounts = new HashMap<>();
+    private Map<Integer, JLabel> antennaCountLabels = new HashMap<>();
 
     // Timer
     private Timer timer;
@@ -47,6 +51,7 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
 
     public TimingSystemGUI() {
         super("RFID Race Timing System");
+        // Default to Impinj
         controller = new RFIDController(this);
         initComponents();
         loadConfig();
@@ -96,6 +101,8 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
         controlPanel.setPreferredSize(new Dimension(200, 0));
 
         ipField = new JTextField("172.16.1.114");
+        readerTypeCombo = new JComboBox<>(new String[] { "Impinj", "Zebra" });
+        readerTypeCombo.setMaximumSize(new Dimension(180, 30));
         connectButton = new JButton("Connect");
         JButton disconnectButton = new JButton("Disconnect");
         startButton = new JButton("Start Reading");
@@ -115,7 +122,20 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
         stopButton.setEnabled(false);
 
         // Actions
-        connectButton.addActionListener(e -> new Thread(() -> controller.connect(ipField.getText())).start());
+        // Actions
+        connectButton.addActionListener(e -> {
+            String type = (String) readerTypeCombo.getSelectedItem();
+            if ("Zebra".equals(type)) {
+                if (!(controller instanceof ZebraReaderAdapter)) {
+                    controller = new ZebraReaderAdapter(TimingSystemGUI.this);
+                }
+            } else {
+                if (!(controller instanceof RFIDController)) {
+                    controller = new RFIDController(TimingSystemGUI.this);
+                }
+            }
+            new Thread(() -> controller.connect(ipField.getText())).start();
+        });
         disconnectButton.addActionListener(e -> new Thread(() -> controller.disconnect()).start());
 
         startButton.addActionListener(e -> {
@@ -135,6 +155,9 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
             uniqueTagsLabel.setText("Unique Tags: 0");
         });
 
+        controlPanel.add(new JLabel("Reader Type:"));
+        controlPanel.add(readerTypeCombo);
+        controlPanel.add(Box.createVerticalStrut(5));
         controlPanel.add(new JLabel("Reader IP:"));
         controlPanel.add(ipField);
         controlPanel.add(Box.createVerticalStrut(10));
@@ -170,10 +193,20 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
             JPanel indicator = createIndicator(i);
             antennaIndicators.put(i, indicator);
             antennaConnectionState.put(i, false); // Default disconnected
+            antennaTagCounts.put(i, 0); // Default 0 tags
             antennaPanel.add(indicator);
         }
 
-        bottomPanel.add(statusLabel, BorderLayout.WEST);
+        // Status Panel (Status + Node Server IP)
+        JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0));
+        statusPanel.add(statusLabel);
+
+        JLabel nodeServerLabel = new JLabel("Node Server: " + getLocalIpAddress() + ":3000");
+        nodeServerLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        nodeServerLabel.setForeground(Color.BLUE);
+        statusPanel.add(nodeServerLabel);
+
+        bottomPanel.add(statusPanel, BorderLayout.WEST);
         bottomPanel.add(antennaPanel, BorderLayout.EAST);
         bottomPanel.setBorder(BorderFactory.createEtchedBorder());
 
@@ -182,14 +215,24 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
 
     private JPanel createIndicator(int id) {
         JPanel p = new JPanel();
-        p.setPreferredSize(new Dimension(25, 25));
+        p.setPreferredSize(new Dimension(60, 25)); // Widen for count display
         p.setBackground(Color.LIGHT_GRAY);
         p.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
         p.setToolTipText("Antenna " + id);
-        JLabel l = new JLabel(String.valueOf(id));
+        JLabel l = new JLabel(id + ": 0");
         l.setForeground(Color.BLACK);
+        l.setFont(new Font("SansSerif", Font.BOLD, 10));
+        antennaCountLabels.put(id, l);
         p.add(l);
         return p;
+    }
+
+    private String getLocalIpAddress() {
+        try {
+            return InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            return "Unknown Host";
+        }
     }
 
     private void startClock() {
@@ -250,20 +293,25 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
                 uniqueTagsLabel.setText("Unique Tags: " + uniqueTags.size());
             }
 
+            // Update Antenna Count
+            int currentCount = antennaTagCounts.getOrDefault(antennaPort, 0);
+            antennaTagCounts.put(antennaPort, currentCount + 1);
+
+            JLabel countLabel = antennaCountLabels.get(antennaPort);
+            if (countLabel != null) {
+                countLabel.setText(antennaPort + ": " + (currentCount + 1));
+            }
+
             // Blink Antenna
             blinkAntenna(antennaPort);
         });
     }
 
     @Override
-    public void onAntennaStatus(List<AntennaStatus> antennaStatuses) {
+    public void onAntennaStatus(List<UnifiedAntennaStatus> antennaStatuses) {
         SwingUtilities.invokeLater(() -> {
-            for (AntennaStatus status : antennaStatuses) {
+            for (UnifiedAntennaStatus status : antennaStatuses) {
                 int port = status.getPortNumber();
-                // Assuming isConnected or state check.
-                // Based on "antenna Status for the set of reader antennas", presence in list
-                // usually implies connectivity or we check a property.
-                // Researching AntennaStatus showed isConnected().
                 boolean isConnected = status.isConnected();
 
                 antennaConnectionState.put(port, isConnected);

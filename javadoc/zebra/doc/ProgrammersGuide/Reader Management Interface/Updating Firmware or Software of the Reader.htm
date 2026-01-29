@@ -1,0 +1,199 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Updating Firmware or Software of the Reader</title>
+</head>
+
+<body>
+
+<h2>Updating Firmware or Software of the Reader</h2>
+
+<p><b>Fixed Reader</b></p>
+
+<p>The reader allows to update software includes the OS,
+applications from the given FTP Server location. If supported by
+Reader, the API also supports the &#147;push model&#148; software
+update, which allows updating software from non-FTP locations
+also. This is currently supported on FX 7400 Version 1.1.0 and
+higher. The following snippet shows setting of update location
+from local D: drive.</p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;color:green;mso-no-proof:yes">// create
+Reader management object instance<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">ReaderManagement
+rm = <span style="color:blue">new</span> ReaderManagement();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">LoginInfo
+loginfo = <span style="color:blue">new</span> LoginInfo(<span style="color:#A31515">&quot;157.235.208.172&quot;</span>, <span style="color:#A31515">&quot;admin&quot;</span>,
+<span style="color:#A31515">&quot;change&quot;</span>, SECURE_MODE.HTTP, <span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;color:green;mso-no-proof:yes">// Login
+operation<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;color:blue;mso-no-proof:yes">try<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>rm.Login(loginInfo, READER_TYPE.FX);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;color:blue;mso-no-proof:yes">catch</span><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">
+(OperationFailureException ex)<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#2B91AF">System</span>.out.println(<span style="color:#A31515">&quot;Login Failed &quot;</span> +
+ex.getStatusDescription() + ex.getVendorMessage());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">}<o:p></o:p></span></p>
+
+<p><span style="mso-spacerun:yes">&nbsp;</span>The method <span style="font-family:
+&quot;Courier New&quot;">rm.SoftwareUpdate.Update</span> helps to perform the
+software update functionality.</p>
+
+<p><b>Hand held reader</b></p>
+
+<p>The reader radio firmware can be updated using <SPAN style="FONT-FAMILY: 'Courier New'; mso-no-proof: yes">rm.RadioFirmwareUpdate.Update</SPAN>
+method. The reader radio config (OEM) data can be updated using <SPAN style="FONT-SIZE: 9pt; FONT-FAMILY: 'Courier New'; mso-no-proof: yes">rm.RadioConfigUpdate.Update
+</SPAN>method.<SPAN style="FONT-FAMILY: 'Courier New'"><O:P></O:P></SPAN></p>
+
+<p>The firmware or software update progress status can be queried
+by calling function <SPAN style="FONT-FAMILY: 'Courier New'">getUpdateStatus</SPAN> of class <SPAN style="FONT-FAMILY: 'Courier New'; mso-no-proof: yes">SoftwareUpdate</SPAN>, <SPAN style="FONT-FAMILY: 'Courier New'; mso-no-proof: yes">RadioFirmwareUpdate</SPAN>
+and <SPAN style="FONT-SIZE: 9pt; FONT-FAMILY: 'Courier New'; mso-no-proof: yes">RadioConfigUpdate</SPAN> which gives which gives the percentage of
+upload completed along with additional information like partition
+name and/or details of operation in progress at reader.</p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;color:green;mso-no-proof:yes">// Reader
+software update from FTP location<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;color:blue;mso-no-proof:yes">try<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>SoftwareUpdateInfo ftpServerInfo = <span style="color:blue">new</span> SoftwareUpdateInfo();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ftpServerInfo.HostName = @<span style="color:#A31515">&quot;ftp://157.235.88.198/pub/XR400/TestRelease/Rev_3_3_7&quot;</span>;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ftpServerInfo.UserName = <span style="color:#A31515">&quot;admin&quot;</span>;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ftpServerInfo.Password = <span style="color:#A31515">&quot;admin&quot;</span>;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>rm.getSoftwareUpdate().Update(ftpServerInfo);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="mso-spacerun:yes">&nbsp;</span><o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>UpdateStatus updateStatus;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">while</span> (<span style="color:blue">true</span>)<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>updateStatus = rm.getSoftwareUpdate().getUpdateStatus();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#2B91AF">System</span>.out.println(<span style="color:#A31515">&quot;UpdateSoftware.GetUpdateStatus is &quot;</span>
++ updateStatus.Percentage.ToString());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="mso-spacerun:yes">&nbsp;</span><o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">if</span> (updateStatus.Percentage == 100)<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="mso-tab-count:3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">break</span>;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;color:blue;mso-no-proof:yes">catch</span><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">
+(OperationFailureException exception)<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:
+1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#2B91AF">System</span>.out.println(<span style="color:#A31515">&quot;UpdateSoftware failed &quot;</span> +
+ex.getStatusDescription() + ex.getVendorMessage());<o:p></o:p></span></p>
+<span style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;;mso-ansi-language:EN-US;mso-fareast-language:EN-US;
+mso-bidi-language:AR-SA;mso-no-proof:yes">
+<p>}</span></p>
+</body>
+</html>

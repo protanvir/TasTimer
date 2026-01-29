@@ -1,0 +1,375 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<title>Gen2 V2 Commands</title>
+<style type="text/css">
+.auto-style4 {
+	margin-left: 80px;
+}
+.auto-style5 {
+	margin-left: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Gen2 V2 Commands</h2>
+
+<p>Readers which support Gen2 V2 commands report the same in the
+field IsG2V2CommandSupported<span style="font-size:12.0pt;font-weight:normal"> of ReaderCapabilities as true. The
+following operations can be performed on Gen2 V2 commands in TagAccess class:<o:p>&nbsp;</o:p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+<ol type="1" start="1" style="margin-top:0in">
+    <li class="MsoNormal"
+    style="mso-list:l0 level1 lfo1;tab-stops:list .5in;
+     mso-layout-grid-align:none;text-autospace:none">AuthenticateWait / 
+	AuthenticateEvent - This API allows reader to perform mutual authentication 
+	with tag </li>
+</ol>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">TagData</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> readAccessTag;<o:p></o:p></span></p>
+<p class="MsoNormal">
+<span class="auto-style4" style="font-size: 9.5pt; line-height: 107%; font-family: Consolas; mso-bidi-font-family: Consolas; color: blue">
+byte</span><span style="font-size:9.5pt;line-height:107%;font-family:Consolas;mso-bidi-font-family:
+Consolas;color:black">[] TAM1 = { 0x00, 0x00, (</span><span style="font-size:
+9.5pt;line-height:107%;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">byte</span><span style="font-size:9.5pt;line-height:107%;
+font-family:Consolas;mso-bidi-font-family:Consolas;color:black">)0x96, 0x56, 
+0x44, 0x02, 0x37, (</span><span style="font-size:9.5pt;line-height:107%;
+font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">byte</span><span style="font-size:9.5pt;line-height:107%;font-family:Consolas;mso-bidi-font-family:
+Consolas;color:black">)0x57, (</span><span style="font-size:9.5pt;line-height:
+107%;font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">byte</span><span style="font-size:9.5pt;line-height:107%;font-family:Consolas;mso-bidi-font-family:
+Consolas;color:black">)0x96, (</span><span style="font-size:9.5pt;line-height:
+107%;font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">byte</span><span style="font-size:9.5pt;line-height:107%;font-family:Consolas;mso-bidi-font-family:
+Consolas;color:black">)0xC6, (</span><span style="font-size:9.5pt;line-height:
+107%;font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">byte</span><span style="font-size:9.5pt;line-height:107%;font-family:Consolas;mso-bidi-font-family:
+Consolas;color:black">)0x96, (</span><span style="font-size:9.5pt;line-height:
+107%;font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">byte</span><span style="font-size:9.5pt;line-height:107%;font-family:Consolas;mso-bidi-font-family:
+Consolas;color:black">)0x64 };<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">
+TagAccess</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> tagAccess = </span>
+<span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:blue">new</span><span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black"> </span>
+<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:#2B91AF">TagAccess</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">();<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">
+TagAccess</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">.</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:#2B91AF">AuthenticateAccessParams</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> authenticateParams = tagAccess.</span><span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">new</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> AuthenticateAccessParams();<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+authenticateParams.setSenResp(</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">true</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+authenticateParams.setIncRespLen(</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">true</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+authenticateParams.setCSI((</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">byte</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">)0);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+authenticateParams.setMessageBitLength((</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">short</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">)96);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+authenticateParams.setMessage(TAM1);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+authenticateParams.setAccessPassword(1);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">String</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> epc = </span>
+<span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:#A31515">&quot;DADACAFEDADACAFEDADACAFE&quot;</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">;<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+readAccessTag = reader.Actions.TagAccess.AuthenticateWait(epc, 
+authenticateParams, </span>
+<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">null</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">);<o:p></o:p></span></p>
+<ol start="2" style="margin-top:0in">
+    <li class="MsoNormal"
+    style="mso-list:l0 level1 lfo1;tab-stops:list .5in;
+     mso-layout-grid-align:none;text-autospace:none">ReadBufferWait / 
+	ReadBufferEvent - This API allows reader to read data stored in a Tag&#8217;s 
+	ResponseBuffer.<p class="auto-style5">
+	<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">TagData</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> readAccessTag;<o:p></o:p></span></p>
+	<p class="auto-style5">
+	<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">
+	TagAccess</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> tagAccess = </span>
+	<span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:blue">new</span><span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black"> </span>
+	<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:#2B91AF">TagAccess</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">();<o:p></o:p></span></p>
+	<p class="auto-style5">
+	<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">
+	TagAccess</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">.</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:#2B91AF">ReadBufferAccessParams</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> readBufferAccessParams = tagAccess.</span><span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">new</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> ReadBufferAccessParams();<o:p></o:p></span></p>
+	<p class="auto-style5">
+	<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+	readBufferAccessParams.setWordPtr((</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">short</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">)0);<o:p></o:p></span></p>
+	<p class="auto-style5">
+	<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+	readBufferAccessParams.setBitCount((</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">short</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">)0x80);<o:p></o:p></span></p>
+	<p class="auto-style5">
+	<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+	readBufferAccessParams.setAccessPassword(1);<o:p></o:p></span></p>
+	<p class="auto-style5">
+	<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">String</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> epc = </span>
+	<span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:#A31515">&quot;DADACAFEDADACAFEDADACAFE&quot;</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">;<o:p></o:p></span></p>
+	<p class="auto-style5">
+	<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+	readAccessTag = reader.Actions.TagAccess.ReadBufferWait(epc, 
+	readBufferAccessParams, </span>
+	<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">null</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">);<o:p></o:p></span></p>
+	</li>
+</ol>
+<ol>
+	<li value="3">UntraceableWait / UntraceableEvent - This API performs 
+	Untraceable command and allows to reader alter U bits in EPC memory, hide 
+	memory (EPC, TID, user memory), reduce operating range.</li>
+</ol>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">TagData</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> readAccessTag;<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">
+TagAccess</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> tagAccess = </span>
+<span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:blue">new</span><span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black"> </span>
+<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:#2B91AF">TagAccess</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">();<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">
+TagAccess</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">.</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:#2B91AF">UntraceableAccessParams</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> untraceParams = tagAccess.</span><span style="font-size:9.5pt;
+font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">new</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> UntraceableAccessParams();<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+untraceParams.setAssertU(</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">true</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">); ;<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+untraceParams.setHideEPC(</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">false</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+untraceParams.setHideTID(</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:#2B91AF">TID_HIDE_STATE</span><span style="font-size:9.5pt;font-family:
+Consolas;mso-bidi-font-family:Consolas;color:black">.TID_HIDE_NONE);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+untraceParams.setHideUser(</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">false</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+untraceParams.setOperatingRange(</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:#2B91AF">TAG_OPERATING_RANGE</span><span style="font-size:9.5pt;
+font-family:Consolas;mso-bidi-font-family:Consolas;color:black">.RANGE_NORMAL);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+untraceParams.setEPCLength((</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">byte</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">)6);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">String</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> epc = </span>
+<span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:#A31515">&quot;DADACAFEDADACAFEDADACAF1&quot;</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">;<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+readAccessTag = reader.Actions.TagAccess.UntraceableWait(epc, untraceParams,
+</span>
+<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">null</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">);<o:p></o:p></span></p>
+<ol>
+	<li value="4">CryptoWait / CryptoEvent - This API performs crypto function 
+	with tag</li>
+</ol>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">TagData</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> readAccessTag;<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">
+TagAccess</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> tagAccess = </span>
+<span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:blue">new</span><span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black"> </span>
+<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:#2B91AF">TagAccess</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">();<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">
+TagAccess</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">.</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:#2B91AF">CryptoAccessParams</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> cryptoAccessparams = tagAccess.</span><span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">new</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> CryptoAccessParams();<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+cryptoAccessparams.setAccessPassword(1);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+cryptoAccessparams.setBlockCount((</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">byte</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">)0x01);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+cryptoAccessparams.setCustomData(</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">true</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+cryptoAccessparams.setProtMode((</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">byte</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">)0x01);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+cryptoAccessparams.setProfile((</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">byte</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">)0x01);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+cryptoAccessparams.setOffset((</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">byte</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">)0x00);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">int</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">[] ichallenge = </span>
+<span style="font-size:9.5pt;font-family:
+Consolas;mso-bidi-font-family:Consolas;color:blue">new</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> </span>
+<span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:blue">int</span><span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">[3];<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+ichallenge[0] = 0x96564402;<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+ichallenge[1] = 0x2375796C;<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+ichallenge[2] = 0x96640000;<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+cryptoAccessparams.setIChallenge(ichallenge);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+cryptoAccessparams.setKeyID((</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">byte</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">)0x01);<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">String</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> epc = </span>
+<span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:#A31515">&quot;DADACAFEDADACAFEDADACAF1&quot;</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">;<o:p></o:p></span></p>
+<p class="auto-style4">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+readAccessTag = reader.Actions.TagAccess.CryptoWait(epc, cryptoAccessparams,
+</span>
+<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:blue">null</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">);<o:p></o:p></span></p>
+<p class="auto-style5"><o:p>&nbsp;</o:p></p>
+</body>
+</html>

@@ -27,9 +27,10 @@ REM --- Create Run Script ---
 echo Creating run.bat...
 echo @echo off > dist\run.bat
 echo echo Starting Mock Server... >> dist\run.bat
-echo start "RFID Mock Server" /MIN cmd /c "node mock-server\server.js" >> dist\run.bat
+echo start "RFID Mock Server" /MIN cmd /c "node mock-server\tcp_server.js" >> dist\run.bat
 echo timeout /t 2 > nul >> dist\run.bat
-echo start "RFID Timing System" java -jar TimingSoft.jar >> dist\run.bat
+echo start /WAIT "RFID Timing System" java -jar TimingSoft.jar >> dist\run.bat
+echo taskkill /FI "WINDOWTITLE eq RFID Mock Server" /T /F >> dist\run.bat
 
 echo Copying run.sh...
 copy run.sh dist\

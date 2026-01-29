@@ -1,0 +1,86 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Getting System Info</title>
+</head>
+
+<body>
+
+<h2>Getting System Info</h2>
+
+<p>The method <span style='font-family:"Courier New";
+mso-no-proof:yes'>rm.GetSystemInfo </span>helps to get the reader system
+information. This includes Radio Firmware version, FPGA version, Up time,
+reader name, location, RAM available &amp; Flash memory available.<o:p>&nbsp;</o:p></p>
+
+<p><span style='font-family:"Courier New";color:green;
+mso-no-proof:yes'>// Get Reader System Information <o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New";color:blue;
+mso-no-proof:yes'>try<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>{<o:p>&nbsp;</o:p></span></p>
+
+<p><span style='font-family:"Courier New"'><span
+style='mso-spacerun:yes'>    </span><span style='color:teal'>SystemInfo</span>
+readerSystemInfo = readerSystemInfo = rm.GetSystemInfo();<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'><span
+style='mso-spacerun:yes'>    </span><o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'><span
+style='mso-spacerun:yes'>    </span><span style='color:teal'>Console</span>.WriteLine(<span
+style='color:maroon'>&quot;Reader Name<span style='mso-spacerun:yes'>     
+</span>: &quot;</span> + readerSystemInfo.ReaderName);<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'><span
+style='mso-spacerun:yes'>    </span><span style='color:teal'>Console</span>.WriteLine(<span
+style='color:maroon'>&quot;Firmware Version : &quot;</span> + readerSystemInfo.RadioFirmwareVersion);<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'><span
+style='mso-spacerun:yes'>    </span><span style='color:teal'>Console</span>.WriteLine(<span
+style='color:maroon'>&quot;FPGA Version<span style='mso-spacerun:yes'>    
+</span>: &quot;</span> + readerSystemInfo.FPGAVersion);<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'><span
+style='mso-spacerun:yes'>    </span><span style='color:teal'>Console</span>.WriteLine(<span
+style='color:maroon'>&quot;RAM Available<span style='mso-spacerun:yes'>   
+</span>: &quot;</span> + readerSystemInfo.RAMAvailable + <span
+style='color:maroon'>&quot;bytes&quot;</span>);<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'><span
+style='mso-spacerun:yes'>    </span><span style='color:teal'>Console</span>.WriteLine(<span
+style='color:maroon'>&quot;Flash Available<span style='mso-spacerun:yes'> 
+</span>: &quot;</span> + readerSystemInfo.FlashAvailable + <span
+style='color:maroon'>&quot;bytes&quot;</span>);<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'><span
+style='mso-spacerun:yes'>    </span><span style='color:teal'>Console</span>.WriteLine(<span
+style='color:maroon'>&quot;Up Time<span style='mso-spacerun:yes'>         
+</span>: &quot;</span> + readerSystemInfo.UpTime);<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'><span
+style='mso-spacerun:yes'>    </span><span style='color:teal'>Console</span>.WriteLine(<span
+style='color:maroon'>&quot;Reader Location<span style='mso-spacerun:yes'> 
+</span>: &quot;</span> + readerSystemInfo.ReaderLocation);<o:p>&nbsp;</o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>}<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New";color:blue;
+mso-no-proof:yes'>catch</span><span style='font-family:"Courier New";
+mso-no-proof:yes'> (<span style='color:teal'>OperationFailureException</span>
+exception)<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>{<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'><span
+style='mso-spacerun:yes'>    </span><span style='color:teal'>Console</span>.WriteLine(<span
+style='color:maroon'>&quot;GetSystemInfo failed &quot;</span> +
+exception.Message);<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>}</span></p>
+
+</body>
+
+</html>

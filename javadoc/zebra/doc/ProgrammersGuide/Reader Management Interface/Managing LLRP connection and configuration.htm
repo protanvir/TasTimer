@@ -1,0 +1,195 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Managing LLRP connection and configuration</title>
+</head>
+
+<body>
+
+<h2 class="MsoNormal"
+style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto"><b>Managing
+LLRP connection and configuration</b></h2>
+
+<p><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;font-weight:
+normal">The RFID Reader can be configured in LLRP client or server
+mode using the function</span><span style="font-size:12.0pt;font-weight:normal"> </span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;font-weight:normal;
+mso-no-proof:yes">rm.LLRPConnection.getLLRPConnectionConfig
+</span><span style="font-size:12.0pt;
+font-weight:normal">. </span><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+font-weight:normal">While acting in client mode, the method
+rm.LLRPConnection.initiateFromReader</span><span style="font-size:12.0pt;
+font-weight:normal"> </span><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+font-weight:normal">can be used to intiate an
+LLRP Connection from the reader to the port on the Server-IP as
+configured in setLLRPConnectionConfig.</span><span style="font-size:12.0pt;font-weight:normal"> </span><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;font-weight:normal;mso-no-proof:yes">rm.LLRPConnection.disconnectFromReader</span><span style="font-size:12.0pt;font-weight:normal">
+</span><span style="font-size:
+12.0pt;font-family:&quot;Times New Roman&quot;;font-weight:normal">disconnects the current LLRP Connection from the reader.<o:p></o:p></span></p>
+
+<p>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:blue;mso-no-proof:yes">try</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">
+{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Get LLRP Connection Configuration<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>LLRPConnectionConfig config =
+rm.LLRPConnection.getLLRPConnectionConfig();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Get LLRP Connection&quot;</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;IsClient<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>: &quot;</span> + config.isClient());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Port<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>: &quot;</span> + config.getPort());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Host Server IP<span style="mso-spacerun:yes">&nbsp;&nbsp; </span>: &quot;</span> +
+config.getHostServerIP());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>config.setClient(<span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Set LLRP Connection Configuration<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>rm.LLRPConnection.setLLRPConnectionConfig(config);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Initialate LLRP connection from the reader<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>rm.LLRPConnection.initiateFromReader();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>&#133;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>rm.LLRPConnection.disconnectFromReader();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">}
+<span style="color:blue">catch</span> (OperationFailureException exception) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;LLRPConnection.GetConfig failed &quot;</span> +
+exception.getStatusDescription() + <span style="color:#A31515">&quot; &quot;</span> +
+exception.getVendorMessage());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">}<o:p></o:p></span></p>
+
+<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+</body>
+</html>

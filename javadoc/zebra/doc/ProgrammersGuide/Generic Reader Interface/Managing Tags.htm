@@ -1,0 +1,546 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<title>Managing Tags</title>
+</head>
+
+<body>
+
+<h2>Managing Tags</h2>
+
+<p>Application needs to get the Tags information which is reported by Reader. Tags can be reported as part of an Inventory
+operation (<span style="font-family:
+&quot;Courier New&quot;">reader.Actions.Inventory.perform</span>) or a Read Access
+operation (<span style="font-family:&quot;Courier New&quot;">reader.Actions.TagAccess.readEvent or
+reader.Actions.TagAccess.readWait</span>). </p>
+
+<p>Applications can also configure to receive Tag reports that
+indicate the results of access operations as shown beneath. </p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;color:#2B91AF;mso-no-proof:yes">TagStorageSettings</span><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">
+tagStorageSettings = reader.Config.getTagStorageSettings();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">tagStorageSettings.enableAccessReports
+( <span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">reader.Config.setTagStorageSettings(tagStorageSettings);<o:p></o:p></span></p>
+
+<p>Each Tag has a set of associated information along with it.
+During Inventory operation the Reader reports the EPC-ID of the
+Tag where as during Read-Access operation the requested Memory
+Bank Data is also reported apart from EPC-ID. In either case,
+there is additional information like PC-bits, RSSI, last time
+seen, tag seen count, etc that will be available for each Tag.
+This information is reported to the Application as <span style="font-family:&quot;Courier New&quot;;
+color:teal">TagData</span> for
+each Tag reported by the Reader.</p>
+
+<p>The Application can specify its customized memory bank data
+size using the function <span style="font-family:&quot;Courier New&quot;">reader.Config.setTagStorageSettings</span>. The
+Application shall initialize the tag storage settings for <span style="font-family:&quot;Courier New&quot;;color:teal">TagData</span>
+so that all Tag allocations reflect the applications customized
+memory requirement.</p>
+
+<p><span style="font-family:&quot;Courier New&quot;;color:teal">TagStorageSettings</span><span style="font-family:&quot;Courier New&quot;"> tagStorageSettings = <span style="color:
+blue">new</span> <span style="color:teal">TagStorageSettings</span>(100,
+512, 512); </span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;">reader.Config.setTagStorageSettings(tagStorageSettings);</span></p>
+
+<p class="codeindent1">Applications can also choose to
+enable/disable reporting of certain fields in TAG_DATA. Disabling
+certain fields can sometimes improve the performance as the
+Reader shall not be processing that information. It
+can also result in specific behavior. For e.g. disabling
+reporting of Antenna Id can result in application receiving as
+single unique tag even though they were multiple entries of the
+same tag reported from different Antennas. The following snippet
+shows enabling the reporting of PeakRSSI, Tag Seen count, PC and
+CRC only and disabling other fields like Antenna ID, time stamps
+and XPC.</p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;color:#2B91AF;mso-no-proof:yes">TagStorageSettings</span><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">
+tagStorageSettings = reader.Config.getTagStorageSettings();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">TAG_FIELD[]
+tagField = <span style="color:blue">new</span> TAG_FIELD[4];<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">tagField[0]
+= TAG_FIELD.PC;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">tagField[1]
+= TAG_FIELD.PEAK_RSSI;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">tagField[2]
+= TAG_FIELD.TAG_SEEN_COUNT;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">tagField[3]
+= TAG_FIELD.CRC;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">tagStorageSettings.setTagFields(tagField);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">reader.Config.setTagStorageSettings(tagStorageSettings);<o:p></o:p></span></p>
+
+<p>Following are few use-cases that get Tags from the Reader: </span></p>
+
+<p><b>Inventory operation:</b> When RFID<font face="Courier New">
+reader.Actions.Inventory.perform</font> is invoked, the
+application will get notified of <font color="#0000FF"><u>eventReadNotify</u></font>
+if tags are reported back from the Reader if registered for read
+notification. When notified of the same, the event argument
+contains the tag data. </p>
+
+<p>TagData.OpCode for inventory operation will be
+ACCESS_OPERATION_NONE, and TagData.OpStatus to be ignored.</p>
+
+<p><font color="#008000" face="Courier New">// Simple Inventory
+with tag events</font></p>
+
+<p><font face="Courier New">reader.Events.addEventsListener(</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#008080"
+face="Courier New">EventHandler</font><font face="Courier New">());</font></p>
+
+<p><font color="#008080" face="Courier New">TagData</font><font
+face="Courier New"> reportedTag = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">TagData</font><font
+face="Courier New">();</font></p>
+
+<p><font face="Courier New">reader.Actions.Inventory.perform();</font></p>
+
+<p><font color="#008080" face="Courier New">Thread</font><font
+face="Courier New">.Sleep(1000);</font></p>
+
+<p><font face="Courier New">reader.Actions.Inventory.stop();</font></p>
+
+<p><font color="#008000" face="Courier New">// Read Notify Event
+handler</font></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;color:blue;mso-no-proof:yes">class</span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">
+EventHandler implements RfidEventsListener {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Read Event Notification<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">void</span> eventReadNotify(RfidReadEvents e){<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>TagData tag = e.getReadEventData().tagData;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Tag ID &quot;</span> + tag.getTagID());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">if</span> (tag.getOpCode() ==
+ACCESS_OPERATION_CODE.ACCESS_OPERATION_READ &amp;&amp;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>tag.getOpStatus() == ACCESS_OPERATION_STATUS.ACCESS_SUCCESS)<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">if</span> (tag.getMemoryBankData().length() &gt; 0) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot; Mem Bank Data &quot;</span> +
+tag.getMemoryBankData());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Status Event Notification<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">void</span> eventStatusNotify(RfidStatusEvents e) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Status Notification &quot;</span> +
+e.StatusEventData.getStatusEventType());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">}<o:p></o:p></span></p>
+
+<p>Application can call GetReadTags method to fetch tags by specifying the number of expected tags.</p>
+
+<p><font color="#008000" face="Courier New">// Simple Inventory
+operation for 1 seconds and get the tags</font></p>
+
+<p><font color="#008000" face="Courier New">// with GetReadTags
+method</font></p>
+
+<p><font face="Courier New">reader.Actions.Inventory.perform();</font></p>
+
+<p><font color="#008080" face="Courier New">Thread</font><font
+face="Courier New">.sleep(1000);</font></p>
+
+<p><font face="Courier New">reader.Actions.Inventory.stop();</font></p>
+
+<p><font color="#008080" face="Courier New">TagData</font><font
+face="Courier New">[] remainingTags =
+reader.Actions.getReadTags(100);</font></p>
+
+<p><font color="#0000FF" face="Courier New">for</font><font
+face="Courier New">(</font><font color="#0000FF"
+face="Courier New">int</font><font face="Courier New"> nIndex =
+0; nIndex &lt; remainingTags.Length; nIndex++)</font></p>
+
+<p><font face="Courier New">{</font></p>
+
+<p><font color="#008080" face="Courier New">System.out.println(</font><font
+face="Courier New">remainingTags[nIndex].TagID);</font></p>
+
+<p><font face="Courier New">}</font></p>
+
+<p><b>Single Tag &#150; Read Access: </b>When the application
+calls the method <font face="Courier New">reader.Actions.TagAccess.readWait</font>
+to read data from a specific memory bank of a particular tag, the
+method returns the <font color="#008080" face="Courier New">TagData</font>
+for which TagData.getOpCode will be ACCESS_OPERATION_READ, and
+TagData.getOpStatus indicating the result of the operation; if
+TagData.getOpStatus is ACCESS_SUCCESS, the requested memory bank
+data can be found in TagData.getMemoryBankData. </p>
+
+<p><font color="#008000" face="Courier New">/*Simple Read Access
+Operation on Specific Tag*/</font></p>
+
+<p><font color="#008080" face="Courier New">String</font><font
+face="Courier New"> tagId = &quot;</font><font color="#800000"
+face="Courier New">1234ABCD00000000000025B1</font><font
+face="Courier New">&quot;;</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New"> tagAccess = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess.ReadAccessParams</font><font
+face="Courier New"> readParams = tagAccess.</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#008080"
+face="Courier New">ReadAccessParams</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#008080" face="Courier New">TagData</font><font
+face="Courier New"> readAccessTag;</font></p>
+
+<p><font face="Courier New">readParams.setAccessPassword(0);</font></p>
+
+<p><font face="Courier New">readParams.setByteCount(8);</font></p>
+
+<p><font face="Courier New">readParams.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_USER);</font></p>
+
+<p><font face="Courier New">readParams.setByteOffset(0);</font></p>
+
+<p><font face="Courier New">readAccessTag =
+reader.Actions.TagAccess.readWait(tagId, readParams, </font><font
+color="#0000FF" face="Courier New">null</font><font
+face="Courier New">);</font></p>
+
+<p><font face="Courier New">System.</font><font color="#008080"
+face="Courier New">out</font><font face="Courier New">.println(readAccessTag.getMemoryBank().toString()
++ &quot; : &quot; + readAccessTag.getMemoryBankData());</font></p>
+
+<p><b>Multiple Tags &#150; Read Access: </b>When the application
+calls the method <font face="Courier New">reader.Actions.TagAccess.readEvent</font>
+to read data from a specific memory bank of multiple tags, the
+method returns immediately, and reports the Tags asynchronously
+as done in Inventory operation. Tags reported as part of read
+access operation will have TagData.getOpCode as
+ACCESS_OPERATION_READ, and TagData.getOpStatus indicating the
+result of the operation; if TagData.getOpStatus is
+ACCESS_SUCCESS, the requested memory bank data can be found in
+TagData.getMemoryBankData. </p>
+
+<p><font color="#008000" face="Courier New">/*Simple Access
+Operation on Multiple Tags*/</font></p>
+
+<p><font face="Courier New">reader.Events.setInventoryStartEvent(</font><font
+color="#0000FF" face="Courier New">true</font><font
+face="Courier New">);</font></p>
+
+<p><font face="Courier New">reader.Events.setInventoryStopEvent(</font><font
+color="#0000FF" face="Courier New">true</font><font
+face="Courier New">);</font></p>
+
+<p><font face="Courier New">reader.Events.setAccessStartEvent(</font><font
+color="#0000FF" face="Courier New">true</font><font
+face="Courier New">);</font></p>
+
+<p><font face="Courier New">reader.Events.setAccessStopEvent(</font><font
+color="#0000FF" face="Courier New">true</font><font
+face="Courier New">);</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New"> tagAccess = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">ReadAccessParams</font><font
+face="Courier New"> readParams = tagAccess.</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#008080"
+face="Courier New">ReadAccessParams</font><font
+face="Courier New">();</font></p>
+
+<p><font face="Courier New">readParams.setAccessPassword(0);</font></p>
+
+<p><font face="Courier New">readParams.setByteCount(0);</font></p>
+
+<p><font face="Courier New">readParams.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_USER);</font></p>
+
+<p><font face="Courier New">readParams.setByteOffset(0);</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.readEvent(readParams,
+</font><font color="#0000FF" face="Courier New">null</font><font
+face="Courier New">, </font><font color="#0000FF"
+face="Courier New">null</font><font face="Courier New">);</font></p>
+
+<p><b>Access Operation Sequence</b> &#150; Read Access: When the
+application calls the method <font face="Courier New">reader.Actions.TagAccess.OperationSequence.performSequence</font>
+further to adding operations for Read (using <font
+face="Courier New">reader.Actions.TagAccess.OperationSequence.Add
+of </font><font color="#008080" face="Courier New">ACCESS_OPERATION_CODE</font><font
+face="Courier New">.ACCESS_OPERATION_READ</font>), the method
+reader.Actions.TagAccess.OperationSequence.performSequence
+returns immediately, and reports tags asynchronously.</p>
+
+<p><font color="#008000" face="Courier New">/*Access Sequence
+Operation &#150; reads all memory banks */</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New"> tagAccess = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">Sequence</font><font face="Courier New">
+opSequence = tagAccess.</font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">Sequence</font><font
+face="Courier New">(tagAccess);</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">Sequence</font><font face="Courier New">.</font><font
+color="#008080" face="Courier New">Operation</font><font
+face="Courier New"> op1 = opSequence.</font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">Operation</font><font
+face="Courier New">();</font></p>
+
+<p><font face="Courier New">op1.setAccessOperationCode(</font><font
+color="#008080" face="Courier New">ACCESS_OPERATION_CODE</font><font
+face="Courier New">.ACCESS_OPERATION_READ);</font></p>
+
+<p><font face="Courier New">op1.ReadAccessParams.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_RESERVED);</font></p>
+
+<p><font face="Courier New">op1.ReadAccessParams.setByteCount(0);</font></p>
+
+<p><font face="Courier New">op1.ReadAccessParams.setByteOffset(0);</font></p>
+
+<p><font face="Courier New">op1.ReadAccessParams.setAccessPassword(0);</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.OperationSequence.Add(op1);</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">Sequence</font><font face="Courier New">.</font><font
+color="#008080" face="Courier New">Operation</font><font
+face="Courier New"> op2 = opSequence.</font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">Operation</font><font
+face="Courier New">();</font></p>
+
+<p><font face="Courier New">op2.setAccessOperationCode(</font><font
+color="#008080" face="Courier New">ACCESS_OPERATION_CODE</font><font
+face="Courier New">.ACCESS_OPERATION_READ);</font></p>
+
+<p><font face="Courier New">op2.ReadAccessParams.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_EPC);</font></p>
+
+<p><font face="Courier New">op2.ReadAccessParams.setByteCount(0);</font></p>
+
+<p><font face="Courier New">op2.ReadAccessParams.setByteOffset(0);</font></p>
+
+<p><font face="Courier New">op2.ReadAccessParams.setAccessPassword(0);</font></p>
+
+<p><font face="Courier New">rfid3.Actions.TagAccess.OperationSequence.Add(op2);</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">Sequence</font><font face="Courier New">.</font><font
+color="#008080" face="Courier New">Operation</font><font
+face="Courier New"> op3 = opSequence.</font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">Operation</font><font
+face="Courier New">();</font></p>
+
+<p><font face="Courier New">op3.setAccessOperationCode(</font><font
+color="#008080" face="Courier New">ACCESS_OPERATION_CODE</font><font
+face="Courier New">.ACCESS_OPERATION_READ);</font></p>
+
+<p><font face="Courier New">op3.ReadAccessParams.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_TID);</font></p>
+
+<p><font face="Courier New">op3.ReadAccessParams.setByteCount(0);</font></p>
+
+<p><font face="Courier New">op3.ReadAccessParams.setByteOffset(0);</font></p>
+
+<p><font face="Courier New">op3.ReadAccessParams.setAccessPassword(0);</font></p>
+
+<p><font face="Courier New">rfid3.Actions.TagAccess.OperationSequence.Add(op3);</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">Sequence</font><font face="Courier New">.</font><font
+color="#008080" face="Courier New">Operation </font><font
+face="Courier New">op4 = opSequence.</font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">Operation</font><font
+face="Courier New">();</font></p>
+
+<p><font face="Courier New">op4.setAccessOperationCode(</font><font
+color="#008080" face="Courier New">ACCESS_OPERATION_CODE</font><font
+face="Courier New">.ACCESS_OPERATION_READ);</font></p>
+
+<p><font face="Courier New">op4.ReadAccessParams.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_USER);</font></p>
+
+<p><font face="Courier New">op4.ReadAccessParams.setByteCount(0);</font></p>
+
+<p><font face="Courier New">op4.ReadAccessParams.setByteOffset(0);</font></p>
+
+<p><font face="Courier New">op4.ReadAccessParams.setAccessPassword(0);</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.OperationSequence.Add(op4);</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.OperationSequence.performSequence();</font></p>
+
+<p><font color="#008000" face="Courier New">/* performs only for
+2000 seconds.. */</font></p>
+
+<p><font color="#008080" face="Courier New">Thread</font><font
+face="Courier New">.sleep(2000);</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.OperationSequence.stopSequence();</font></p>
+</body>
+</html>

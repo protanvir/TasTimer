@@ -1,0 +1,78 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Connecting to the Reader</title>
+</head>
+
+<body>
+
+<h2>Connecting to the Reader</h2>
+
+<p>The <span style='font-family:"Courier New"'>rm.Login</span> must be called first to perform any reader management
+functions. </p>
+
+<p>In case of fixed readers, the login information such as user
+name, password and secured mode are required for performing login operation.
+The secure mode parameter specifies that whether the mode of communication is
+HTTP or HTTPS. Based on this parameter, the internal communication between the
+client and the reader uses the specified transport interface.</p>
+
+<p>The login Info is not required for the Hand held readers.
+But it is must to call the <span style='font-family:"Courier New"'>rm.Login</span> method first prior to other reader management functions.</p>
+
+<p><span style='font-family:"Courier New";color:green;
+mso-no-proof:yes'>// create Reader management object instance<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New";color:teal;
+mso-no-proof:yes'>ReaderManagement</span><span style='font-family:"Courier New";
+mso-no-proof:yes'> rm = <span style='color:blue'>new</span> <span
+style='color:teal'>ReaderManagement</span>();<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New";color:teal;
+mso-no-proof:yes'>LoginInfo</span><span style='font-family:"Courier New";
+mso-no-proof:yes'> loginInfo = <span style='color:blue'>new</span> <span
+style='color:teal'>LoginInfo</span>();<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>loginInfo.HostName
+= m_pHostname;<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>loginInfo.UserName
+= <span style='color:maroon'>&quot;admin&quot;</span>;<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>loginInfo.Password
+= <span style='color:maroon'>&quot;admin&quot;</span>;<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>loginInfo.SecureMode
+= <span style='color:teal'>SECURE_MODE</span>.HTTP;<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New";color:green;
+mso-no-proof:yes'>// Login operation<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New";color:blue;
+mso-no-proof:yes'>try<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>{<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'><span
+style='mso-spacerun:yes'>    </span>rm.Login(loginInfo, <span style='color:
+teal'>READER_TYPE</span>.XR);<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>}<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New";color:blue;
+mso-no-proof:yes'>catch</span><span style='font-family:"Courier New";
+mso-no-proof:yes'> (<span style='color:teal'>OperationFailureException</span>
+exception)<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>{<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'><span
+style='mso-spacerun:yes'>    </span><span style='color:teal'>Console</span>.WriteLine(<span
+style='color:maroon'>&quot;Login failed &quot;</span> + exception.Message);<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>}</span></p>
+
+</body>
+
+</html>

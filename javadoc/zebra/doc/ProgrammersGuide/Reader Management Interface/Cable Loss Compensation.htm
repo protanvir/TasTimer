@@ -1,0 +1,437 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Cable Loss Compensation</title>
+</head>
+
+<body>
+
+<h2 class="MsoNormal"
+style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto"><b>Cable Loss Compensation</b></h2>
+
+<p class="Default"><span style="font-family:&quot;Times New Roman&quot;;color:windowtext">This feature is supported only in FX Series reader. Typically RF power transmitted at the antenna
+    is lesser than transmit power at the port due to GPI&#146;s loss in cable. Once
+    the cable loss in dB per 100 feet and cable length in feet are configured per antenna,
+    the reader sets new upper limit for the transmit power after accounting for the
+    specified loss in cable. The methods setCableLossCompensation and getCableLossCompensation
+    can be used for this.
+</span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: green">
+                // Get Cable Loss Compensation for the antenna 1<?xml namespace="" ns="urn:schemas-microsoft-com:office:office"
+                    prefix="o" ?><o:p></o:p></span></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; color: green; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: blue">
+                try<o:p></o:p></span></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; color: blue; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>{<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; </span>CableLossCompensation cableLossCompensation
+                            = rm.getCableLossCompensation(1);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; </span>System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">"getCableLossCompensation()
+                                AntennaID: "</span> + cableLossCompensation.getAntennaID() +<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: maroon">" cableLengthInFt: "</span>
+            + cableLossCompensation.getCableLengthInFeet() +<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: maroon">" cableLossPer100Ft: "</span> + cableLossCompensation.getCableLossPer100Feet());<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>}<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: blue">
+                catch</span> (OperationFailureException
+            exception)<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>{<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; </span>System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">"getCableLossCompensation
+                failed "</span> + exception.toString());<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>}<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: green">
+                // Set Cable Loss Compensation for the antenna 1 and 2<o:p></o:p></span></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; color: green; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: blue">
+                try<o:p></o:p></span></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; color: blue; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>{<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; </span>CableLossCompensation[] cableLossArray = <span style="color: blue">new</span>
+            CableLossCompensation[2];<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; </span>cableLossArray[0] = <span style="color: blue">new</span> CableLossCompensation();<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; </span>cableLossArray[1] = <span style="color: blue">new</span> CableLossCompensation();<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; </span><span style="color: blue">if</span> (cableLossArray != null)<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; </span>{<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; </span>cableLossArray[0].setAntennaID(1);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; </span>cableLossArray[0].setCableLengthInFeet(11.11F);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; </span>cableLossArray[0].setCableLossPer100Feet(0.11F);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; </span>cableLossArray[1].setAntennaID(2);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; </span>cableLossArray[1].setCableLengthInFeet(21.21F);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; </span>cableLossArray[1].setCableLossPer100Feet(0.21F);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; </span>rm.setCableLossCompensation(cableLossArray);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; </span>}<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>}<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: blue">
+                catch</span> (Exception
+                            ex)<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>{<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; </span>System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">"setCableLossCompensation
+                failed "</span> + ex.toString());<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>}<span
+                style="mso-spacerun: yes"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span>
+            <o:p></o:p>
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 10pt">
+        <o:p><SPAN 
+style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri">&nbsp;</SPAN></o:p>
+    </p>
+
+<p class="MsoNormal">
+
+<span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">
+        <span style="font-size: 10pt; font-family: 'Courier New'; mso-no-proof: yes"><span
+            style="mso-spacerun: yes"><span style="font-size: 10pt; line-height: 150%; font-family: 'Courier New';
+                mso-no-proof: yes"><span style="mso-spacerun: yes">
+                    &nbsp;</p>
+    
+</body>
+</html>

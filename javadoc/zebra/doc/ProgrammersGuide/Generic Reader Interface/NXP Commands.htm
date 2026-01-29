@@ -1,0 +1,382 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<title>NXP Commands</title>
+</head>
+
+<body>
+
+<h2>NXP Commands</h2>
+
+<p>Readers which support NXP commands report the same in the
+field <span style="font-size:10.0pt;
+font-family:&quot;Courier New&quot;;mso-no-proof:yes">isNXPCommandSupported</span><span style="font-size:12.0pt;font-weight:normal"> of ReaderCapabilities as true. The
+following operations can be performed on NXP Tags:<o:p>&nbsp;</o:p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+<ol type="1" start="1" style="margin-top:0in">
+    <li class="MsoNormal"
+    style="mso-list:l0 level1 lfo1;tab-stops:list .5in;
+     mso-layout-grid-align:none;text-autospace:none">Set
+        EAS &#150; This feature can be used to set/reset the EAS
+        (Electronic Article Surveillance) Bit. Tags can be
+        monitored for EAS bit for the purpose of theft detection.
+        For e.g. tags with EAS enabled moving out could be an
+        indication of unbilled item or theft. The methods
+        SetEASWait and SetEASEvent allow setting or resetting the
+        EAS bits on one or more NXP tags. An NXP tag with EAS bit
+        set will raise an NXP_EAS_ALARM_EVENT when running EAS
+        SCAN (NXP_EAS_SCAN) on the reader. </li>
+    <li class="MsoNormal"
+    style="mso-list:l0 level1 lfo1;tab-stops:list .5in;
+     mso-layout-grid-align:none;text-autospace:none">ReadProtect
+        and ResetReadProtect - The feature ReadProtect sets
+        the Quiet bit on one or more NXP tags. The methods for
+        the same are <span style="font-size:
+     10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">readProtectEvent</span> and <span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:
+     yes">readProtectWait</span>. As a
+        result, these tags report a string of zeroes during
+        Inventory and don't respond to access-operations, thereby preventing unsecure access to Tag information. To put
+        them back into normal mode, one has to call <span style="font-size:10.0pt;font-family:
+     &quot;Courier New&quot;;mso-no-proof:yes">resetReadProtectEvent.</span></li>
+    <li class="MsoNormal"
+    style="mso-list:l0 level1 lfo1;tab-stops:list .5in;
+     mso-layout-grid-align:none;text-autospace:none">Performing
+        NXP Scan &#150; To track NXP tags in which the EAS bit is
+        set, an NXP_EAS_SCAN can be initiated on the reader by
+        calling reader.Actions.TagAccess.NXP.performEASScan or
+        reader.Actions.Inventory.Perform with its AntennaInfo
+        parameter specifying NXP_EAS_SCAN as the
+        OPERATION_QUALIFIER for at least one of the Antenna IDs in
+        the AntennaList array.
+
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:blue;mso-no-proof:yes"></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none;
+        mso-margin-top-alt: auto">
+        <span style="font-size: 10pt; color: blue; line-height: 200%; font-family: 'Courier New';
+            mso-no-proof: yes; mso-fareast-font-family: 'Times New Roman'">short</span><span
+                style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes;
+                mso-fareast-font-family: 'Times New Roman'">[]
+antennaID = <span style="color: blue">
+                    new</span> <span style="color: blue">short</span>[reader.ReaderCapabilities.getNumAntennaSupported()];</span><span
+                        style="font-size: 10pt; line-height: 200%; font-family: 'Times New Roman','serif';
+                        mso-fareast-font-family: 'Times New Roman'"><?xml namespace="" ns="urn:schemas-microsoft-com:office:office"
+                            prefix="o" ?><o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 37.5pt; line-height: 200%; mso-layout-grid-align: none;
+        mso-margin-top-alt: auto">
+        <span style="font-size: 10pt; color: blue; line-height: 200%; font-family: 'Courier New';
+            mso-no-proof: yes; mso-fareast-font-family: 'Times New Roman'">for</span><span style="font-size: 10pt;
+                line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes; mso-fareast-font-family: 'Times New Roman'">
+                (<span style="color: blue">int</span> nIndex = 0; nIndex &lt; antennaID.length; nIndex++)<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 37.5pt; line-height: 200%; mso-layout-grid-align: none;
+        mso-margin-top-alt: auto">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes;
+            mso-fareast-font-family: 'Times New Roman'"><span style="mso-spacerun: yes">&nbsp; </span>
+            antennaID[nIndex] = (<span style="color: blue">short</span>)(nIndex + 1);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none;
+        mso-margin-top-alt: auto">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Times New Roman','serif';
+            mso-fareast-font-family: 'Times New Roman'">&nbsp;<o:p></o:p></span>&nbsp;</p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none;
+        mso-margin-top-alt: auto">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes;
+            mso-fareast-font-family: 'Times New Roman'">OPERATION_QUALIFIER[]
+antennaOpList = <span style="color: blue">new</span>
+OPERATION_QUALIFIER[reader.ReaderCapabilities.getNumAntennaSupported()];</span><span
+                style="font-size: 10pt; line-height: 200%; font-family: 'Times New Roman','serif';
+                mso-fareast-font-family: 'Times New Roman'"><o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none;
+        mso-margin-top-alt: auto">
+        <span style="font-size: 10pt; color: blue; line-height: 200%; font-family: 'Courier New';
+            mso-no-proof: yes; mso-fareast-font-family: 'Times New Roman'">for</span><span style="font-size: 10pt;
+                line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes; mso-fareast-font-family: 'Times New Roman'">
+                (<span style="color: blue">int</span> nIndex = 0; nIndex &lt; antennaOpList.length; nIndex++)</span><span style="font-size: 10pt; line-height: 200%; font-family: 'Times New Roman','serif';
+                    mso-fareast-font-family: 'Times New Roman'"><o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none;
+        mso-margin-top-alt: auto">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes;
+            mso-fareast-font-family: 'Times New Roman'"><span style="mso-spacerun: yes">&nbsp; &nbsp;
+            </span>antennaOpList[nIndex] = OPERATION_QUALIFIER.NXP_EAS_SCAN;</span><span style="font-size: 10pt;
+                line-height: 200%; font-family: 'Times New Roman','serif'; mso-fareast-font-family: 'Times New Roman'"><o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none;
+        mso-margin-top-alt: auto">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes;
+            mso-fareast-font-family: 'Times New Roman'">AntennaInfo
+antennaInfo = <span style="color: blue">
+                new</span> AntennaInfo(antennaID, antennaOpList);</span></p>
+        <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none;
+            mso-margin-top-alt: auto">
+            <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes;
+                mso-fareast-font-family: 'Times New Roman'"></span><span style="font-size: 10pt;
+                    line-height: 200%; font-family: 'Times New Roman','serif'; mso-fareast-font-family: 'Times New Roman'"><o:p></o:p></span>&nbsp;</p>
+    </li>
+    
+
+<li class="MsoNormal">
+    <p class="MsoNormal" style="margin: 0in 0in 10pt">
+        <span style="font-size: 12pt; line-height: 115%; font-family: 'Times New Roman','serif'">
+            Change Config -<span style="mso-spacerun: yes">&nbsp; </span>NXP 
+		G2iL and G2iL+ tags support in addition operations for 'bank wise read protection', 
+		'product
+            status flag', 'back scatter strength reduction'. The G2iL+ tags also offer more
+            advanced features like 'read range reduction', 'tag tamper alarm', 'digital switch', 
+		'data
+            transfer mode', 'external power supply', 'external digital input'. These additional features
+            can be controlled (i.e. turned on/off) by modifying change Config word when the
+            EPC memory bank of the tag is not locked. Config word is part of the tag's EPC memory and setting/resetting
+            the bits of the Config word turns on/off the corresponding tag features. </span>
+    </p>
+    <span style="font-size: 12pt; line-height: 115%; font-family: 'Times New Roman','serif'">
+        <span style="font-size: 12pt; font-family: 'Courier New'; mso-no-proof: yes">
+            <p class="MsoNormal" style="margin: 0in 0in 0pt; text-indent: 0.5in; line-height: 200%;
+                mso-layout-grid-align: none">
+                <span style="font-size: 12pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+                    &nbsp; <span style="font-size: 10pt">TagAccess tagAccess = <span style="color: blue">
+                        new</span> TagAccess();<?xml namespace="" ns="urn:schemas-microsoft-com:office:office"
+                            prefix="o" ?><o:p></o:p></span></span></p>
+            <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: 200%; mso-layout-grid-align: none">
+                <span style="line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes"><span
+                    style="font-size: 10pt"><span style="mso-spacerun: yes">&nbsp; &nbsp; &nbsp; &nbsp;
+                    </span>NXP.ChangeConfigParams ChangeConfigParams = tagAccess.NXP.<span style="color: blue">new</span>
+                    ChangeConfigParams();<o:p></o:p></span></span></p>
+            <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: 200%; mso-layout-grid-align: none">
+                <span style="line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes"><span
+                    style="font-size: 10pt"><span style="mso-spacerun: yes">&nbsp; &nbsp; &nbsp; &nbsp;
+                    </span>ChangeConfigParams.setAccessword(0x01);<o:p></o:p></span></span></p>
+            <p class="MsoNormal" style="margin: 0in 0in 5pt; line-height: 200%; mso-layout-grid-align: none">
+                <span style="line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes"><span
+                    style="font-size: 10pt"><span style="mso-spacerun: yes">&nbsp; &nbsp; &nbsp; &nbsp;
+                    </span>ChangeConfigParams.setNXPChangeConfigWord((<span style="color: blue">short</span>)0x0002);</span></span></p>
+            <p>
+            </p>
+        </span></span><span style="font-size: 12pt; line-height: 115%; font-family: 'Times New Roman','serif'">
+            <o:p><SPAN 
+  style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Given 
+  below is the list of the bits in Change Config word and the corresponding 
+  features.</SPAN></P><P style="MARGIN: 0in 0in 10pt" class="MsoNormal"><B><SPAN 
+  style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><SPAN 
+  style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &nbsp;</SPAN>Config Word</SPAN></B><SPAN 
+  style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><o:p></o:p></SPAN></P><P><TABLE 
+  style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; MARGIN: auto auto auto 53.6pt; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none; BORDER-COLLAPSE: collapse; mso-border-alt: solid windowtext .5pt; mso-yfti-tbllook: 1184; mso-padding-alt: 0in 5.4pt 0in 5.4pt" 
+  class="MsoNormalTable" cellSpacing=0 cellPadding=0 border=1><TBODY><TR 
+    style="mso-yfti-irow: 0; mso-yfti-firstrow: yes"><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 1pt solid; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: windowtext 1pt solid; WIDTH: 53.9pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt" 
+      vAlign=top width=72><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><B><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Bit 
+        Offset</SPAN></B><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 1pt solid; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 158.5pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt" 
+      vAlign=top width=211><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><SPAN 
+        style="mso-spacerun: yes">&nbsp;</SPAN><B><SPAN 
+        style="mso-spacerun: yes">&nbsp;</SPAN>Content</B><o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 1pt solid; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 1.5in; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt" 
+      vAlign=top width=144><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><B><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Remark</SPAN></B><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><o:p></o:p></SPAN></P></TD></TR><TR 
+    style="mso-yfti-irow: 1"><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: windowtext 1pt solid; WIDTH: 53.9pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=72><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><SPAN 
+        style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; 
+        </SPAN>0<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 158.5pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=211><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Tamper 
+        alarm flag ( G2iL+)<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 1.5in; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=144><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Indicator 
+        bit<o:p></o:p></SPAN></P></TD></TR><TR style="mso-yfti-irow: 2"><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: windowtext 1pt solid; WIDTH: 53.9pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=72><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><SPAN 
+        style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; 
+        </SPAN>1<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 158.5pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=211><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">External 
+        supply Input(G2iL+)<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 1.5in; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=144><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Indicator 
+        bit<o:p></o:p></SPAN></P></TD></TR><TR style="mso-yfti-irow: 3"><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: windowtext 1pt solid; WIDTH: 53.9pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=72><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><SPAN 
+        style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; 
+        </SPAN>4<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 158.5pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=211><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Invert 
+        digital output<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 1.5in; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=144><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Temporary 
+        bit<o:p></o:p></SPAN></P></TD></TR><TR style="mso-yfti-irow: 4"><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: windowtext 1pt solid; WIDTH: 53.9pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=72><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><SPAN 
+        style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; 
+        </SPAN>5<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 158.5pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=211><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Transparent 
+        mode on/off<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 1.5in; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=144><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Temporary 
+        bit<o:p></o:p></SPAN></P></TD></TR><TR style="mso-yfti-irow: 5"><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: windowtext 1pt solid; WIDTH: 53.9pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=72><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><SPAN 
+        style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; 
+        </SPAN>6<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 158.5pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=211><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Transparent 
+        mode data/raw<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 1.5in; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=144><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Temporary 
+        bit<o:p></o:p></SPAN></P></TD></TR><TR style="mso-yfti-irow: 6"><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: windowtext 1pt solid; WIDTH: 53.9pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=72><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><SPAN 
+        style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; 
+        </SPAN>9<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 158.5pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=211><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Maximum 
+        back scatter strength<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 1.5in; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=144><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Unlocked 
+        memory<o:p></o:p></SPAN></P></TD></TR><TR style="mso-yfti-irow: 7"><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: windowtext 1pt solid; WIDTH: 53.9pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=72><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><SPAN 
+        style="mso-spacerun: yes">&nbsp;&nbsp; 
+      </SPAN>10<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 158.5pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=211><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Digital 
+        Output <o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 1.5in; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=144><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Unlocked 
+        memory<o:p></o:p></SPAN></P></TD></TR><TR style="mso-yfti-irow: 8"><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: windowtext 1pt solid; WIDTH: 53.9pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=72><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><SPAN 
+        style="mso-spacerun: yes">&nbsp;&nbsp; 
+      </SPAN>11<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 158.5pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=211><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Read 
+        range reduction on/off<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 1.5in; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=144><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Unlocked 
+        memory<o:p></o:p></SPAN></P></TD></TR><TR style="mso-yfti-irow: 9"><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: windowtext 1pt solid; WIDTH: 53.9pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=72><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><SPAN 
+        style="mso-spacerun: yes">&nbsp;&nbsp; 
+      </SPAN>13<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 158.5pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=211><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Read 
+        protect EPC bank<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 1.5in; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=144><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Unlocked 
+        memory<o:p></o:p></SPAN></P></TD></TR><TR style="mso-yfti-irow: 10"><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: windowtext 1pt solid; WIDTH: 53.9pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=72><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><SPAN 
+        style="mso-spacerun: yes">&nbsp;&nbsp; 
+      </SPAN>14<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 158.5pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=211><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Read 
+        protect TID bank<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 1.5in; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=144><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Unlocked 
+        memory<o:p></o:p></SPAN></P></TD></TR><TR 
+    style="mso-yfti-irow: 11; mso-yfti-lastrow: yes"><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: windowtext 1pt solid; WIDTH: 53.9pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=72><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><SPAN 
+        style="mso-spacerun: yes">&nbsp;&nbsp; 
+      </SPAN>15<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 158.5pt; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=211><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">PSF 
+        Alarm flag<o:p></o:p></SPAN></P></TD><TD 
+      style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #f0f0f0; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0in; BORDER-LEFT: #f0f0f0; WIDTH: 1.5in; PADDING-TOP: 0in; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+      vAlign=top width=144><P style="MARGIN: 0in 0in 10pt" 
+        class="MsoNormal"><SPAN 
+        style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Unlocked 
+        memory<o:p></o:p></SPAN></P></TD></TR></TBODY></TABLE></P><P 
+  style="MARGIN: 0in 0in 10pt" class="MsoNormal"><B><SPAN 
+  style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'"><o:p>&nbsp;</o:p></SPAN></B></P><P 
+  style="MARGIN: 0in 0in 10pt" class="MsoNormal"><SPAN 
+  style="FONT-SIZE: 12pt; LINE-HEIGHT: 115%; FONT-FAMILY: 'Times New Roman','serif'">Though, 
+  a 16 bit Change Config word on a tag with unlocked EPC can turn on/off certain 
+  advanced features supported by G2iL tags and<SPAN 
+  style="mso-spacerun: yes">&nbsp; </SPAN>the tags reports back the modified 
+  Config word, setting the Change Config word to zero however does not change 
+  the current Config word but the tag still responds with current Config 
+  word.<o:p></o:p></SPAN></P><P></o:p>
+        </span>&nbsp;</P></li></ol>    
+</body>
+</html>

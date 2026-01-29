@@ -1,0 +1,280 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="CREATED" content="0;0">
+<meta name="CHANGEDBY" content="Suresh R">
+<meta name="CHANGED" content="20110717;20473570">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Reader and System Information</title>
+<STYLE TYPE="text/css">
+<!--
+		H2.ctl { font-family: "Mangal" }
+	-->
+</STYLE>
+</head>
+
+<body lang="en-US" dir="LTR">
+
+<h2 class="western">Reader and System Information</h2>
+
+<p>The function <font face="Courier New">rm.getSystemInfo </font>helps
+to get the reader system information. This includes Radio
+Firmware version, FPGA version, Up time, reader name, location,
+RAM available &amp; Flash memory available.&nbsp;</p>
+
+<p style="margin-bottom: 0in"><a
+href="/%20Get%20Reader%20System%20Information%20%20%20%20%20%20%20%20%20try%20{%20%20%20%20%20%20%20%20%20%20%20%20SystemInfo%20readerSystemInfo%20=%20rm.getSystemInfo();%20%20%20%20%20%20%20%20%20%20%20%20System.out.println(%22Reader%20Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%20:%20%22%20+%20readerSystemInfo.getReaderName());%20%20%20%20%20%20%20%20%20%20%20%20System.out.println(%22Firmware%20Version%20:%20%22%20+%20readerSystemInfo.getRadioFirmwareVersion());%20%20%20%20%20%20%20%20%20%20%20%20System.out.println(%22FPGA%20Version&nbsp;&nbsp;&nbsp;&nbsp;%20:%20%22%20+%20readerSystemInfo.getFPGAVersion());%20%20%20%20%20%20%20%20%20%20%20%20System.out.println(%22RAM%20Available&nbsp;&nbsp;&nbsp;%20:%20%22%20+%20readerSystemInfo.getRAMAvailable()%20+%20%22bytes%22);%20%20%20%20%20%20%20%20%20%20%20%20System.out.println(%22Flash%20Available&nbsp;%20:%20%22%20+%20readerSystemInfo.getFlashAvailable()%20+%20%22bytes%22);%20%20%20%20%20%20%20%20%20%20%20%20System.out.println(%22Up%20Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%20:%20%22%20+%20readerSystemInfo.getUpTime());%20%20%20%20%20%20%20%20%20%20%20%20System.out.println(%22Reader%20Location&nbsp;%20:%20%22%20+%20readerSystemInfo.getReaderLocation());%20%20%20%20%20%20%20%20}%20catch%20(OperationFailureException%20exception)%20{%20%20%20%20%20%20%20%20%20%20%20%20System.out.println(%22GetSystemInfo%20failed%20%22%20+%20exception.getStatusDescription()%20+%20%22%20%22%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20+%20exception.getVendorMessage());%20%20%20%20%20%20%20%20}%20%20%20%20%20%20%20%20%20%20catch%20(InvalidUsageException%20ex)%20{%20%20%20%20%20%20%20%20}%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20/%20Getting%20and%20Setting%20the%20Reader%20Information%20like%20name,%20description,%20%20%20%20%20%20%20%20/%20location%20and%20contact%20information%20can%20be%20done%20using%20the%20property%20%20%20%20%20%20%20%20%20/%20ReaderInfo.%20%20%20%20%20%20%20%20/%20Get%20Reader%20Info&nbsp;&nbsp;&nbsp;&nbsp;%20%20%20%20%20%20%20%20try%20%20%20%20%20%20%20%20{%20%20%20%20%20%20%20%20%20%20%20%20ReaderInfo%20readerInfo%20=%20rm.getReaderInfo();%20%20%20%20%20%20%20%20%20%20%20%20System.out.println(%22Reader%20Info%22);%20%20%20%20%20%20%20%20%20%20%20%20System.out.println(%22%20Reader%20Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%20:%20%22%20+%20readerInfo.getName());%20%20%20%20%20%20%20%20%20%20%20%20System.out.println(%22%20Reader%20Description&nbsp;&nbsp;%20:%20%22%20+%20readerInfo.getDescription());%20%20%20%20%20%20%20%20%20%20%20%20System.out.println(%22%20Reader%20Location&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%20:%20%22%20+%20readerInfo.getLocation());%20%20%20%20%20%20%20%20%20%20%20%20System.out.println(%22%20Reader%20Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%20:%20%22%20+%20readerInfo.getContact());%20%20%20%20%20%20%20%20%20%20%20%20/%20Set%20Reader%20Info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%20%20%20%20%20%20%20%20%20%20%20%20%20readerInfo.setContact(%22Zebra%20Technologies%22);%20%20%20%20%20%20%20%20%20%20%20%20readerInfo.setDescription(%22API3%20Test%20Reader%22);%20%20%20%20%20%20%20%20%20%20%20%20rm.setReaderInfo(readerInfo);%20%20%20%20%20%20%20%20}%20%20%20%20%20%20%20%20catch%20(InvalidUsageException%20ex){%20%20%20%20%20%20%20%20}%20%20%20%20%20%20%20%20catch%20(OperationFailureException%20ex){%20%20%20%20%20%20%20%20}"></a>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:green;mso-no-proof:yes">//
+Get Reader System Information <o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:blue;mso-no-proof:yes">try</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">
+{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>SystemInfo readerSystemInfo = rm.getSystemInfo();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Reader
+Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &quot;</span> +
+readerSystemInfo.getReaderName());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Firmware Version : &quot;</span> +
+readerSystemInfo.getRadioFirmwareVersion());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;FPGA Version&nbsp;&nbsp;&nbsp;&nbsp; :
+&quot;</span> + readerSystemInfo.getFPGAVersion());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;RAM Available&nbsp;&nbsp;&nbsp; : &quot;</span>
++ readerSystemInfo.getRAMAvailable() + <span style="color:#A31515">&quot;bytes&quot;</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Flash Available&nbsp; : &quot;</span> +
+readerSystemInfo.getFlashAvailable() + <span style="color:#A31515">&quot;bytes&quot;</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Up
+Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
+&quot;</span> + readerSystemInfo.getUpTime());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Reader Location&nbsp; : &quot;</span> +
+readerSystemInfo.getReaderLocation());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">}
+<span style="color:blue">catch</span> (OperationFailureException exception) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;GetSystemInfo failed &quot;</span> +
+exception.getStatusDescription() + <span style="color:#A31515">&quot; &quot;<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>+ exception.getVendorMessage());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;
+</span><span style="color:blue">catch</span> (InvalidUsageException ex) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:green;mso-no-proof:yes">//
+Getting and Setting the Reader Information like name,
+description,<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:green;mso-no-proof:yes">//
+location and contact information can be done using the property <o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:green;mso-no-proof:yes">//
+ReaderInfo.<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:green;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:green;mso-no-proof:yes">//
+Get Reader Info&nbsp;&nbsp;&nbsp;&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:blue;mso-no-proof:yes">try<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>ReaderInfo readerInfo = rm.getReaderInfo();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Reader Info&quot;</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot; Reader
+Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
+&quot;</span> + readerInfo.getName());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot; Reader Description&nbsp;&nbsp; : &quot;</span>
++ readerInfo.getDescription());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot; Reader
+Location&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &quot;</span> +
+readerInfo.getLocation());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot; Reader
+Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &quot;</span> +
+readerInfo.getContact());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Set Reader Info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>readerInfo.setContact(<span style="color:#A31515">&quot;Zebra Technologies&quot;</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>readerInfo.setDescription(<span style="color:#A31515">&quot;API3 Test Reader&quot;</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span>rm.setReaderInfo(readerInfo);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:blue;mso-no-proof:yes">catch</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">
+(InvalidUsageException ex){<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:blue;mso-no-proof:yes">catch</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">
+(OperationFailureException ex){<o:p></o:p></span></p>
+<span style="font-size:11.0pt;line-height:115%;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;mso-ansi-language:
+EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA;mso-no-proof:yes">
+<p>}</span></p>
+</body>
+</html>

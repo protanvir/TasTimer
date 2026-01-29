@@ -1,0 +1,480 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<title>User App Deployment</title>
+</head>
+
+<body>
+
+<h2 class="MsoNormal"
+style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto"><b>User
+App Deployment</b></h2>
+
+<p class="Default"><span style="font-family:&quot;Times New Roman&quot;;color:windowtext">This feature is supported only in FX Series
+reader. The following functionalities are supported
+for facilitating embedded user application on the FX Series. </span></p>
+
+<ul>
+    <li class="Default"><span style="color: windowtext; font-family: 'Times New Roman'"> Installation and un-installation of the
+        user application </span></li>
+    <li class="Default"><span style="color: windowtext; font-family: 'Times New Roman'"> Listing the set of currently installed
+        user applications </span></li>
+    <li class="Default"><span style="color: windowtext; font-family: 'Times New Roman'"> Starting and Stopping the user
+        application </span></li>
+    <li class="Default"><span style="color: windowtext; font-family: 'Times New Roman'"> Getting the current Run status </span></li>
+    <li class="Default"><span style="color: windowtext; font-family: 'Times New Roman'"> Auto start of the upper application on
+        reader reboot </span></li>
+</ul>
+
+<p class="Default"><span style="color: windowtext; font-family: 'Times New Roman'">The methods that are exposed in RFID3 to
+support of deployment of user application are: rm.UserApp.install,
+    rm.UserApp.uninstall, rm.UserApp.start, rm.UserApp.stop, rm.UserApp.getRunStatus,
+    rm.UserApp.list and rm.UserApp.autoStart</span></p>
+
+<p>&nbsp;</p>
+<span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">
+<span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+<span style="mso-spacerun: yes">
+    </span> </span><o:p><SPAN style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri">&nbsp;</SPAN></o:p> &nbsp;<p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            String appName;<?xml namespace="" ns="urn:schemas-microsoft-com:office:office" prefix="o" ?><o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            String pkgLocation;<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            boolean autoStart = <span style="color: blue">true</span>;<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            String option;<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; color: blue; line-height: 200%; font-family: 'Courier New';
+            mso-no-proof: yes">try<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            {<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 1">&nbsp; &nbsp; &nbsp; </span>System.<span style="color: #008080">out</span><span
+                style="color: #000000">.</span>println(<span
+                style="color: maroon">&quot;Enter
+the name of the application:&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 1">&nbsp; &nbsp; &nbsp; </span>BufferedReader inputreader = <span style="color: blue">new</span> BufferedReader(<span style="color: blue">new</span>
+            InputStreamReader(System.in));<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 1">&nbsp; &nbsp; &nbsp; </span>
+            appName = inputreader.readLine();
+            <o:p></o:p>
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 1">&nbsp; &nbsp; &nbsp; </span>System.<span style="color: #008080">out</span><span
+                style="color: #000000">.</span>println(<span
+                style="color: maroon">&quot;Enter
+the path to the package:&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 1">&nbsp; &nbsp; &nbsp; </span>pkgLocation
+= inputreader.readLine();<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 1">&nbsp; &nbsp; &nbsp; </span><span style="color: blue">
+                while</span> (<span style="color: blue">true</span>)<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 1">&nbsp; &nbsp; &nbsp; </span>{<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">&quot;User Application
+Deployment&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">&quot;1. Install&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">&quot;2. Uninstall&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">&quot;3. Start&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">&quot;4. Stop&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">&quot;5. AutoStart&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">&quot;6. List&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">&quot;7. Status&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">&quot;8. Exit&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            option = inputreader.readLine();<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            <span style="color: blue">if</span> (option.equals(<span style="color: maroon">"1"</span>))<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            {<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>rm.UserApp.install(pkgLocation);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">&quot;Successfully
+installed application package&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            }<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            <span style="color: blue">else</span> <span style="color: blue">if</span> (option.equals(<span
+                style="color: maroon">&quot;2&quot;</span>))<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            {<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>rm.UserApp.uninstall(appName);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">&quot;Successfully
+uninstalled app&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            }<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            <span style="color: blue">else</span> <span style="color: blue">if</span> (option.equals(<span
+                style="color: maroon">&quot;3&quot;</span>))<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            {<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>rm.UserApp.start(appName);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">&quot;Successfully started
+app&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            }<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            <span style="color: blue">else</span> <span style="color: blue">if</span> (option.equals(<span
+                style="color: maroon">&quot;4&quot;</span>))<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            {<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>rm.UserApp.stop(appName);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>System.<span style="color: #008080">out</span><span style="color: #000000">.</span>println(<span style="color: maroon">&quot;Successfully stopped
+app&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            }<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            <span style="color: blue">else</span> <span style="color: blue">if</span> (option.equals(<span
+                style="color: maroon">&quot;5&quot;</span>))<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            {<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>String szoption;<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>szoption = inputreader.readLine();<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span><span style="color: blue">if</span> (szoption.equals(<span style="color: maroon">"1"</span>))<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; </span>autoStart = <span style="color: blue">true</span>;<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span><span style="color: blue">else<o:p></o:p></span></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; </span>autoStart = <span style="color: blue">false</span>;<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>rm.UserApp.autoStart(appName, autoStart);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            <span style="mso-tab-count: 1">&nbsp; &nbsp; &nbsp; </span><span style="color: blue">
+                if</span> (autoStart == <span style="color: blue">true</span>)<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; </span>System.<span style="color: #008080">out</span><span
+                    style="color: #000000">.</span>println(<span style="color: maroon">&quot;Successfully
+enabled autostart&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span><span style="color: blue">else<o:p></o:p></span></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; </span>System.<span style="color: #008080">out</span><span
+                    style="color: #000000">.</span>println(<span style="color: maroon">&quot;Successfully
+disabled autostart&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            }<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            <span style="color: blue">else</span> <span style="color: blue">if</span> (option.equals(<span
+                style="color: maroon">&quot;6&quot;</span>))<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            {<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>UserAppInfo[] appList = rm.UserApp.list();<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span><span style="color: blue">if</span> (appList != null &amp;&amp; appList.length
+&gt; 0)<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>{<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: blue">for</span> (<span style="color: blue">int</span>
+            index
+    = 0; index &lt; appList.length; index++)<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; </span>{<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 5">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>System.<span style="color: #008080">out</span><span
+                    style="color: #000000">.</span>println((appList[index].getAppName()
+            + <span style="color: maroon">&quot;:&quot;</span> + appList[index].getMetaData()));<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; </span>}<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>}<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span><span style="color: blue">else<o:p></o:p></span></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; </span>System.<span style="color: #008080">out</span><span
+                    style="color: #000000">.</span>println(<span style="color: maroon">&quot;No Apps
+installed&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            }<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            <span style="color: blue">else</span> <span style="color: blue">if</span> (option.equals (<span style="color: maroon">&quot;7&quot;</span>))<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            {<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>boolean runStatus = <span style="color: blue">false</span>;<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span>runStatus = rm.UserApp.getRunStatus(appName);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span><span style="color: blue">if</span> (runStatus == <span style="color: blue">
+                    true</span>)<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; </span>System.<span style="color: #008080">out</span><span
+                    style="color: #000000">.</span>println(<span style="color: maroon">"App
+                    is running"</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span><span style="color: blue">else<o:p></o:p></span></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 4">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; </span>System.<span style="color: #008080">out</span><span
+                    style="color: #000000">.</span>println(<span style="color: maroon">&quot;App is
+not running&quot;</span>);<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            }<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            <span style="color: blue">else</span> <span style="color: blue">if</span> (option.equals(<span
+                style="color: maroon">&quot;8&quot;</span>))<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            {<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 3">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; </span><span style="color: blue">break</span>;<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+            }<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 1">&nbsp; &nbsp; &nbsp; </span>}<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <o:p>&nbsp;</o:p>
+            &nbsp;
+        </span>
+    </p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            }<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; color: blue; line-height: 200%; font-family: 'Courier New';
+            mso-no-proof: yes">catch</span><span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New';
+                mso-no-proof: yes"> (Exception ex)<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            {<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            <span style="mso-tab-count: 1">&nbsp; &nbsp; &nbsp; </span>System.<span style="color: #008080">out</span><span
+                style="color: #000000">.</span>println(<span
+                style="color: maroon">&quot;User
+App Deployment Failed &quot;</span> + ex.toString());<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span style="font-size: 10pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+            }<o:p></o:p></span></p>
+    <p class="MsoNormal" style="margin: 0in 0in 10pt 0.5in; line-height: 200%">
+        <o:p>&nbsp;</o:p>
+    </p>
+<p class="MsoNormal"
+style="margin: 0in 0in 0pt; line-height: 200%; mso-layout-grid-align: none"> &nbsp;<span style="font-size: 11pt; font-family: Calibri"></span></span>
+
+
+</body>
+</html>

@@ -1,4 +1,3 @@
-import com.impinj.octane.AntennaStatus;
 import java.util.List;
 
 public interface RFIDDataListener {
@@ -6,5 +5,5 @@ public interface RFIDDataListener {
 
     void onReaderStatus(String status, boolean isConnected);
 
-    void onAntennaStatus(List<AntennaStatus> antennaStatuses);
+    void onAntennaStatus(List<UnifiedAntennaStatus> antennaStatuses);
 }

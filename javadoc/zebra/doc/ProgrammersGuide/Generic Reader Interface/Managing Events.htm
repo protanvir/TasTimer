@@ -1,0 +1,461 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<title>Managing Events</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: "Courier New";
+}
+</style>
+</head>
+
+<body>
+
+<h2>Managing Events</h2>
+
+<p>The Application can register for one or more events so as to
+be notified of the same when it occurs. There are basically two
+main events.</p>
+
+<p class="MsoNormal"><span style="font-family:Symbol;mso-ascii-font-family:&quot;Times New Roman&quot;">·</span><span style="mso-spacerun:yes">&nbsp; </span><span style="font-family:&quot;Courier New&quot;">eventReadNotify</span>&#150; Notifies
+whenever read tag event occurs with read tag data as argument. By
+default, the event comes with tag data. If not required, we can
+disable using function <span style="font-family:&quot;Courier New&quot;">setAttachTagDataWithReadEvent.</span> </p>
+
+<p class="MsoNormal"><span style="font-family:Symbol;mso-ascii-font-family:&quot;Times New Roman&quot;">·</span><span style="mso-spacerun:yes">&nbsp; </span><span style="font-family:&quot;Courier New&quot;">eventStatusNotify</span>&#150; Notifies
+whenever status event occurs with status event data as argument. </p>
+
+<p>&nbsp;</p>
+
+<table border="1" cellpadding="0" cellspacing="0" width="102%"
+class="MsoNormalTable"
+style="width:102.0%;mso-cellspacing:0in;margin-left:-5.75pt;border:outset black 1.0pt;
+ mso-border-alt:outset black .75pt;mso-padding-alt:1.5pt 1.5pt 1.5pt 1.5pt">
+    <tr>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt"><b>Event</b></td>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt"><b>Description</b></td>
+    </tr>
+    <tr>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">GPI_EVENT&nbsp;</td>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">A
+        GPI event (state change from high to low, or low to high)
+        has occurred on a GPI port. When this event is signaled, <span style="font-family:&quot;Courier New&quot;;color:#009900">StatusEventData</span>
+        contains <st1:place w:st="on"><st1:PlaceName w:st="on">GPI</st1:PlaceName> <st1:PlaceType w:st="on">Port</st1:PlaceType></st1:place> and GPI Event that has occurred. </td>
+    </tr>
+    <tr>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">BUFFER_FULL_WARNING_EVENT</td>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">When
+        the internal tag buffer is 90% full, this event will be
+        signaled. </td>
+    </tr>
+    <tr>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">ANTENNA_EVENT</td>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">A
+        particular Antenna has been Connected/Disconnected. When
+        this event is signaled, <span style="font-family:&quot;Courier New&quot;;color:#009900">StatusEventData</span> contains Antenna
+        and the Connection Status that has occurred.</td>
+    </tr>
+    <tr>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">INVENTORY_START_EVENT</td>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">Inventory
+        Operation has started. In case of periodic trigger this
+        event will be triggered for each period.</td>
+    </tr>
+    <tr>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">INVENTORY_STOP_EVENT</td>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">Inventory
+        Operation has stopped. In case of periodic trigger this
+        event will be triggered for each period.</td>
+    </tr>
+    <tr>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">ACCESS_START_EVENT</td>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">Access
+        Operation has started.</td>
+    </tr>
+    <tr>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">ACCESS_STOP_EVENT</td>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">Access
+        Operation has stopped.</td>
+    </tr>
+    <tr>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">DISCONNECTION_EVENT</td>
+        <td
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">Event
+        notifying disconnection from the Reader. The Application
+        can call <span style="font-family:&quot;Courier New&quot;;color:blue">reconnect</span> method periodically to attempt
+        reconnection or call <span style="font-family:
+  &quot;Courier New&quot;;color:blue">disconnect</span> method to cleanup and
+        exit.</td>
+    </tr>
+    <tr>
+        <td valign="top"
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">BUFFER_FULL_EVENT</td>
+        <td valign="top"
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">When
+        the internal tag data buffer is 100% full, this event will be
+        signaled and tags are discarded in FIFO manner.</td>
+    </tr>
+    <tr>
+        <td valign="top"
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">NXP_EAS_ALARM_EVENT</td>
+        <td valign="top"
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">This
+        Event is generated when Reader finds a(NXP)tag with it's
+        EAS System bit still set to true.</td>
+    </tr>
+    <tr>
+        <td valign="top"
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">READER_EXCEPTION_EVENT</td>
+        <td valign="top"
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">Event
+        notifying that an exception has occurred in the Reader.
+        When this event is signaled,
+        StatusEventData.ReaderExceptionEventData.ReaderExceptionEventType
+        can be called to know the reason for the exception which
+        is coming as part of Events.StatusEventArgs. The
+        Application can continue to use the connection if the
+        reader renders is usable.</td>
+    </tr>
+    <tr>
+        <td   style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">
+            TEMPERATURE_ALARM_EVENT</td>
+        <td valign="top"
+        style="border:inset black 1.0pt;mso-border-alt:inset black .75pt;
+  padding:1.5pt 1.5pt 1.5pt 1.5pt">
+            When Temperature reaches Threshold level, this event will be generated. The event
+            data contains source name (PA/Ambient), current Temperature and alarm Level (Low,
+            High or Critical)
+        </td>
+    </tr>
+</table>
+
+<p><span style="font-family:&quot;Courier New&quot;;color:green"><o:p>&nbsp;</o:p>
+    &nbsp;</span>&nbsp;</p>
+
+<p><span style="font-family:&quot;Courier New&quot;;color:green">// registering for read tag data notification</span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">EventHandler
+eventHandler = <span style="color:blue">new</span> EventHandler();<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">reader.Events.addEventsListener(eventHandler);</span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none">&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:green;mso-no-proof:yes">//
+Subscribe required status notification<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none">
+<span class="auto-style1">reader</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">.Events.setInventoryStartEvent(<span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none">
+<span class="auto-style1">reader</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">.Events.setInventoryStopEvent(<span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none">
+<span class="auto-style1">reader</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">.Events.setAccessStartEvent(<span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none">
+<span class="auto-style1">reader</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">.Events.setAccessStopEvent(<span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:green;mso-no-proof:yes">//
+enables tag read notification. if this is set to false, no tag
+read notification will be send<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none">
+<span class="auto-style1">reader</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">.Events.setTagReadEvent(<span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none">
+<span class="auto-style1">reader</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">.Events.setAntennaEvent(<span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none">
+<span class="auto-style1">reader</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">.Events.setBufferFullEvent(<span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none">
+<span class="auto-style1">reader</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">.Events.setBufferFullWarningEvent(<span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none">
+<span class="auto-style1">reader</span><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">.Events.setGPIEvent(<span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span class="auto-style1">reader</span><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">.Events.setReaderDisconnectEvent(<span style="color:blue">true</span>);</span></p>
+
+<p class="MsoNormal">&nbsp;</p>
+
+<p><span style="font-family:&quot;Courier New&quot;;color:#009900">&nbsp; &nbsp;// Read/Status Notify handler</span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;
+</span><span style="color:green">// Implement the RfidEventsLister class to receive event
+notifications<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">class</span> EventHandler implements RfidEventsListener {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p>
+    &nbsp;</span>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Read Event Notification<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">void</span> eventReadNotify(RfidReadEvents e){<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:green">
+        // Recommended to use new method getReadTagsEx for better performance in case of
+        large tag population</span></span><o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>TagData[] myTags = reader.Actions.getReadTags(100);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">if</span> (myTags != null)<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">for</span> (<span style="color:blue">int</span> index = 0; index &lt; myTags.length; index++)<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Tag ID &quot;</span> +
+myTags[index].getTagID());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p>
+    &nbsp;</span>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">if</span> (myTags[index].getOpCode() ==
+ACCESS_OPERATION_CODE.ACCESS_OPERATION_READ &amp;&amp;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>myTags[index].getOpStatus()
+== ACCESS_OPERATION_STATUS.ACCESS_SUCCESS)<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:
+blue">if</span> (myTags[index].getMemoryBankData().length() &gt; 0) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot; Mem Bank Data &quot;</span> +
+myTags[index].getMemoryBankData());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p>
+    &nbsp;</span>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p>
+    &nbsp;</span>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Status Event Notification<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">void</span> eventStatusNotify(RfidStatusEvents e) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Status Notification: &quot;</span> +
+e.StatusEventData.getStatusEventType());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span style="font-size:10.0pt;line-height:115%;font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}</span><span style="font-size:10.0pt;line-height:115%"><o:p></o:p></span></p>
+
+<p class="MsoNormal">&nbsp;</p>
+
+<p><span style="font-family:&quot;Courier New&quot;;color:green">// Unregistering for read tag data notification</span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">reader.Events.removeEventsListener(eventHandler);</span></p>
+
+<p><a
+href="class%20EventHandler%20implements%20RfidEventsListener%20{"></a>&nbsp;</p>
+</body>
+</html>

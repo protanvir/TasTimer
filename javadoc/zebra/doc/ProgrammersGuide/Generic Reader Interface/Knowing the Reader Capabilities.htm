@@ -1,0 +1,237 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<title>Knowing the Reader Capabilities</title>
+</head>
+
+<body>
+
+<h2>Knowing the Reader Capabilities</h2>
+
+<p>The capabilities (or Read-Only properties) of the Reader can
+be known using <u><span style="color:blue">ReaderCapabilites</span></u> class. The reader
+capabilities include the following:</p>
+
+<p><b>General Capabilities</b></p>
+
+<p>Firmware Version &#150; property </p>
+
+<p>Model Name</p>
+
+<p>Number of antennas supported</p>
+
+<p>Number of GPIs &amp; GPOs</p>
+
+<p>UTC Clock supported </p>
+
+<p>Receive Sensitivity Table</p>
+
+<p class="codeindent2">Tag Event Reporting Supported - Indicates
+the reader&#146;s ability to report tag visibility state changes
+(New Tag, Tag Invisible, or Tag Visibility Changed.).</p>
+
+<p class="codeindent2">RSSI Filter Supported - Indicates the
+reader&#146;s ability to report tags based<span style="mso-spacerun:yes">&nbsp; </span>on the signal
+strength of the back-scattered signal from the tag.</p>
+
+<p class="codeindent2">NXP Commands Supported - Indicates whether
+the reader supports NXP commands like Change EAS,set Quiet, Reset
+Quiet,Calibrate.</p>
+
+<p><b>Gen2 LLRP Capabilities</b></p>
+
+<p>Block Erase supported</p>
+
+<p>Block Write supported</p>
+
+<p>State Aware Singulation supported</p>
+
+<p>Maximum Number of Operation in Access Sequence</p>
+
+<p>Maximum Pre-filters allowable per antenna</p>
+
+<p>RF Modes</p>
+
+<p><b>Regulatory Capabilities</b></p>
+
+<p>Country Code</p>
+
+<p>Communication Standard</p>
+
+<p><b>UHF Band capabilities</b></p>
+
+<p>Transmit Power table </p>
+
+<p>Hopping enabled</p>
+
+<p>Frequency Hop table (if hopping enabled, this table has the
+frequency information)</p>
+
+<p>Fixed Frequency table (if hopping not enabled, this table
+contains the frequency list used by the reader. The one-based
+position of a frequency in this list is its channel index.)</p>
+
+<p><b>Reader Identification </b></p>
+
+<p>Reader ID and reader ID type (The reader identification can be
+MAC or EPC.)</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;color:green;mso-no-proof:yes">//
+Get Reader capabilities<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nReader
+ID: &quot;</span> + reader.ReaderCapabilities.ReaderID.getID());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nModelName:
+&quot;</span> + reader.ReaderCapabilities.getModelName());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nCommunication
+Standard: &quot;</span> +
+reader.ReaderCapabilities.getCommunicationStandard().toString());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nCountry
+Code: &quot;</span> + reader.ReaderCapabilities.getCountryCode());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nFirwareVersion:
+&quot;</span> + reader.ReaderCapabilities.getFirwareVersion());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nRSSI
+Filter: &quot;</span> +
+reader.ReaderCapabilities.isRSSIFilterSupported());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nTag
+Event Reporting: &quot;</span> +
+reader.ReaderCapabilities.isTagEventReportingSupported());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nTag
+Locating Reporting: &quot;</span> +
+reader.ReaderCapabilities.isTagLocationingSupported());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nNXP
+Command Support: &quot;</span> +
+reader.ReaderCapabilities.isNXPCommandSupported());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nBlockEraseSupport:
+&quot;</span> + reader.ReaderCapabilities.isBlockEraseSupported());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nBlockWriteSupport:
+&quot;</span> + reader.ReaderCapabilities.isBlockWriteSupported());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nBlockPermalockSupport:
+&quot;</span> + reader.ReaderCapabilities.isBlockPermalockSupported());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nRecommisionSupport:
+&quot;</span> + reader.ReaderCapabilities.isRecommisionSupported());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nWriteWMISupport:
+&quot;</span> + reader.ReaderCapabilities.isWriteUMISupported());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nRadioPowerControlSupport:
+&quot;</span> +
+reader.ReaderCapabilities.isRadioPowerControlSupported());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nHoppingEnabled:
+&quot;</span> + reader.ReaderCapabilities.isHoppingEnabled());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nStateAwareSingulationCapable:
+&quot;</span> +
+reader.ReaderCapabilities.isTagInventoryStateAwareSingulationSupported());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nUTCClockCapable:
+&quot;</span> + reader.ReaderCapabilities.isUTCClockSupported());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nNumOperationsInAccessSequence:
+&quot;</span> +
+reader.ReaderCapabilities.getMaxNumOperationsInAccessSequence());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nNumPreFilters:
+&quot;</span> + reader.ReaderCapabilities.getMaxNumPreFilters());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nNumAntennaSupported:
+&quot;</span> + reader.ReaderCapabilities.getNumAntennaSupported());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nNumGPIPorts:
+&quot;</span> + reader.ReaderCapabilities.getNumGPIPorts());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(<span style="color:#A31515">&quot;\nNumGPIPorts:
+&quot;</span> + reader.ReaderCapabilities.getNumGPOPorts());<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span><o:p></o:p></span></p>
+
+<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+</body>
+</html>

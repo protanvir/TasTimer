@@ -1,0 +1,80 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Reader Configuration using Confi File</title>
+</head>
+
+<body>
+
+<h2>Reader Configuration using Config File</h2>
+
+<p>The reader supports to upload or download the reader
+configuration file. The reader configuration is typically managed in XML file. 
+<o:p>&nbsp;</o:p></p>
+
+<p>The list of configurations supported by a reader can be
+obtained from API <span style='font-family:"Courier New";color:blue;mso-no-proof:
+yes'>rm.Profile.GetList</span>. This method is supported only on FX7400.<o:p>&nbsp;</o:p></p>
+
+<p>The upload of configuration file can be performed using <span
+style='font-family:"Courier New";color:blue;mso-no-proof:yes'>rm.Profile.ExportToReader</span>.
+The absolute file path of the source file must be specified. For example, “C:\Profiles”<o:p>&nbsp;</o:p></p>
+
+<p>The method <span style='font-family:"Courier New";
+color:blue;mso-no-proof:yes'>rm.Profile.ImportFromReader</span> helps to
+download the reader configuration file from the reader to the client i.e. the
+application where runs. The absolute path of the destination is required to download the
+file. For example, “C:\Profiles”. The name of profile to be downloaded can be
+obtained using<span style='font-family:"Courier New";color:blue;mso-no-proof:
+yes'> rm.Profile.GetList</span>. Readers of XR-Series supports only one config
+file, i.e. “Config.xml”.<o:p>&nbsp;</o:p></p>
+
+<p>This functionality is only supported in fixed reader not
+applicable to hand held readers.<o:p>&nbsp;</o:p></p>
+
+<p><span style='font-family:"Courier New";color:blue;
+mso-no-proof:yes'>try<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>{<o:p></o:p></span></p>
+
+<p>
+<span style='mso-tab-count:1; font-size:9.0pt; font-family:Courier New; mso-no-proof:yes'>       </span><span
+style='font-family:"Courier New";color:green;mso-no-proof:yes'>// Download
+configuration file to c:\ drive<o:p></o:p></span></p>
+
+<p><span style='font-size:9.0pt;font-family:"Courier New";
+mso-no-proof:yes'><span style='mso-tab-count:1'>       </span>rm.Profile.ImportFromReader(<span
+style='color:#A31515'>&quot;Config.xml&quot;</span>,<span style='color:#A31515'>
+@&quot;C:\&quot;</span>);</span><span style='font-family:"Courier New";
+mso-no-proof:yes'> <o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New";color:green;
+mso-no-proof:yes'><span style='mso-tab-count:1'>      </span>// Upload
+configuration but do not activate profile</span><span style='font-family:"Courier New";
+mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p><span style='font-size:9.0pt;font-family:"Courier New";
+mso-no-proof:yes'><span style='mso-tab-count:1'>       </span>rm.Profile.ExportToReader((<span
+style='color:#A31515'>&quot;Config.xml&quot;</span>,<span style='color:#A31515'>
+@&quot;C:\&quot;,</span> <span style='color:blue'>false</span>);</span><span style='font-family:"Courier New"'><o:p>&nbsp;</o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>}<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New";color:blue;
+mso-no-proof:yes'>catch</span><span style='font-family:"Courier New";
+mso-no-proof:yes'> (<span style='color:teal'>OperationFailureException</span>
+exception)<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>{<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'><span
+style='mso-spacerun:yes'>    </span><span style='color:teal'>Console</span>.WriteLine(<span
+style='color:maroon'>&quot;Profile.ImportFromReader failed &quot;</span> +
+exception.Message);<o:p></o:p></span></p>
+
+<p><span style='font-family:"Courier New"'>}</span></p>
+
+</body>
+
+</html>

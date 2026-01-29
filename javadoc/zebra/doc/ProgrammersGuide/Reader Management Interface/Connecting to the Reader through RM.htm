@@ -1,0 +1,96 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="keywords"
+content="overhead, add activity, aoverhead activities">
+<meta name="Description"
+content="Describes the window used to select and add overhead activities to a timesheet.">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Connecting to the Reader</title>
+<link href="../tsstyles.css" rel="stylesheet" type="text/css"
+title="default" />
+<link rel="alternate stylesheet" type="text/css"
+href="../tscontrast.css" title="contrast" />
+<!--alternate -->
+</head>
+
+<body>
+
+<h2>Connecting to the Reader</h2>
+
+<p>The <span style="font-family:&quot;Courier New&quot;">rm.Login</span> must be called first to perform any reader
+management functions. </p>
+
+<p>In case of fixed readers, the login information such as user
+name, password and secured mode are required for performing login
+operation. The secure mode parameter specifies that whether the
+mode of communication is HTTP or HTTPS. Based on this parameter,
+the internal communication between the client and the reader uses
+the specified transport interface. If supported by the Reader,
+there is an option to override an existing login session using
+the ForceLogin option of LoginInfo. This is currently supported
+on FX 7400 Version 1.1.0 and higher.</p>
+
+<p>The login Info is not required for the Hand held readers. But
+it is must to call the <span style="font-family:&quot;Courier New&quot;">rm.Login</span> method first prior to other
+reader management functions.</p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;color:green;mso-no-proof:
+yes">// create
+Reader management object instance<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">ReaderManagement
+rm = <span style="color:blue">new</span> ReaderManagement();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">LoginInfo
+loginfo = <span style="color:blue">new</span> LoginInfo(<span style="color:
+#A31515">&quot;157.235.208.172&quot;</span>, <span style="color:#A31515">&quot;admin&quot;</span>,
+<span style="color:#A31515">&quot;change&quot;</span>, SECURE_MODE.HTTP, <span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;color:green;mso-no-proof:
+yes">// Login
+operation<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;color:blue;mso-no-proof:yes">try<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>rm.Login(loginInfo, READER_TYPE.FX);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;color:blue;mso-no-proof:yes">catch</span><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">
+(OperationFailureException ex)<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:#2B91AF">System</span>.out.println(<span style="color:#A31515">&quot;Login Failed &quot;</span> +
+ex.getStatusDescription() + ex.getVendorMessage());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-size:11.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">}<o:p></o:p></span></p>
+
+<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+</body>
+</html>

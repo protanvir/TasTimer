@@ -1,0 +1,380 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<title>Basic Operations</title>
+</head>
+
+<body>
+
+<h2>Basic Operations</h2>
+
+<p>This section covers the basic/simple operations that an
+application would need to perform on an RFID Reader which
+includes Inventory and single tag access operations.</p>
+
+<h3>Simple Inventory (Continuous) </h3>
+
+<p>A simple continuous inventory operation would read all tags in
+the field of view of all antennas of the connected RFID Reader.
+It will use NO filters (pre-filters or post-filters) and the
+start and stop trigger for the inventory would be default, i.e.
+start immediately when <font face="Courier New">reader.Actions.Inventory.perform</font>
+is called, and stop immediately when <font face="Courier New">reader.Actions.Inventory.stop</font>
+is called.</p>
+
+<p><font color="#008000" face="Courier New">// perform simple
+inventory</font></p>
+
+<p><font face="Courier New">reader.Actions.Inventory.perform();</font></p>
+
+<p><font color="#008000" face="Courier New">// Keep getting tags
+in the eventReadNotify event if registered</font></p>
+
+<p><font color="#008000" face="Courier New">// stop the inventory</font></p>
+
+<p><font face="Courier New">reader.Actions.Inventory.stop();</font></p>
+
+<h3>Simple Access Operations - On Single Tag </h3>
+
+<p>Tag Access operations can be performed on a specific tag or
+can be applied on tags that match a specific Access-Filter. If no
+Access-filter is specified the Access Operation will be performed
+on all Tags in the field of view of chosen Antennas. </p>
+
+<p>This section covers simple tag access operation on a specific
+tag which could be in the field of view of any of the antenna of
+the connected RFID Reader.</p>
+
+<h4>Read </h4>
+
+<p>The application can call method <font face="Courier New">reader.Actions.TagAccess.readWait</font>
+to read data from a specific memory bank.</p>
+
+<p><font face="Courier New"><font color?#008000?>// Read user memory bank for the
+given tag ID</font></font></p>
+
+<p>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">String
+tagId = <span style="color:#A31515">&quot;1234ABCD00000000000025B1&quot;</span>;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">TagAccess
+tagAccess = <span style="color:blue">new</span> TagAccess();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">TagAccess.ReadAccessParams
+readAccessParams = tagAccess.<span style="color:blue">new</span> ReadAccessParams();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">TagData
+readAccessTag;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">readAccessParams.setAccessPassword(0);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">readAccessParams.setByteCount(8);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">readAccessParams.setMemoryBank(MEMORY_BANK.MEMORY_BANK_USER);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">readAccessParams.setByteOffset(0);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">readAccessTag
+= reader.Actions.TagAccess.readWait(tagId, readAccessParams, <span style="color:blue">null</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-family:
+&quot;Courier New&quot;;mso-no-proof:yes">System.out.println(readAccessTag.getMemoryBank().toString()
++ <span style="color:#A31515">&quot; : &quot;</span> + readAccessTag.getMemoryBankData());<o:p></o:p></span></p>
+
+<h4>Write, Block-Write </h4>
+
+<p>The application can call method <font face="Courier New">reader.Actions.TagAccess.writeWait</font>
+or <font face="Courier New">reader.Actions.TagAccess.blockWriteWait</font>
+to write data to a specific memory bank.</p>
+
+<p><font face="Courier New"><font color?#008000?>// Write user memory bank data</font></font></p>
+
+<p><font color="#008080" face="Courier New">String</font><font
+face="Courier New"> tagId = </font><font color="#800000"
+face="Courier New">&quot;1234ABCD00000000000025B1&quot;</font><font
+face="Courier New">;</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New"> tagAccess = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">WriteAccessParams</font><font
+face="Courier New"> writeAccessParams = tagAccess.</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#008080"
+face="Courier New">WriteAccessParams</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] writeData = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] {0x11, 0x22, 0x33, 0x44};</font></p>
+
+<p><font face="Courier New">writeAccessParams.setAccessPassword(0);</font></p>
+
+<p><font face="Courier New">writeAccessParams.setWriteDataLength(writeData.Length);</font></p>
+
+<p><font face="Courier New">writeAccessParams.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_USER);</font></p>
+
+<p><font face="Courier New">writeAccessParams.setByteOffset(0);</font></p>
+
+<p><font face="Courier New">writeAccessParams.setWriteData(writeData);</font></p>
+
+<p><font face="Courier New"><font color?#008000?>// antenna Info is null &#150;
+performs on all antenna</font></font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.writeWait(tagId,
+writeAccessParams, </font><font color="#0000FF"
+face="Courier New">null</font><font face="Courier New">);</font></p>
+
+<h4>Lock</h4>
+
+<p>The application can call method reader<font face="Courier New">.Actions.TagAccess.lockWait</font>
+to perform lock operation on one or more memory banks with
+specific privileges.</p>
+
+<p><font face="Courier New"><font color?#008000?>// Lock the tag</font></font></p>
+
+<p><font color="#008080" face="Courier New">String</font><font
+face="Courier New"> tagId = </font><font color="#800000"
+face="Courier New">&quot;1234ABCD00000000000025B1&quot;</font><font
+face="Courier New">;</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New"> tagAccess = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">LockAccessParams</font><font
+face="Courier New"> lockAccessParams = tagAccess.</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#008080"
+face="Courier New">LockAccessParams</font><font
+face="Courier New">();</font></p>
+
+<p><font face="Courier New"><font color?#008000?>/* lock now */</font></font></p>
+
+<p><font face="Courier New">lockAccessParams.setLockPrivilege(</font><font
+color="#008080" face="Courier New">LOCK_DATA_FIELD</font><font
+face="Courier New">.LOCK_USER_MEMORY, </font><font
+color="#008080" face="Courier New">LOCK_PRIVILEGE</font><font
+face="Courier New">.LOCK_PRIVILEGE_READ_WRITE);</font></p>
+
+<p><font face="Courier New">lockAccessParams.setAccessPassword(0);
+</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.lockWait(tagId,
+lockAccessParams, </font><font color="#0000FF" face="Courier New">null</font><font
+face="Courier New">);</font></p>
+
+<h4>Kill </h4>
+
+<p>The application can call method reader<font face="Courier New">.Actions.TagAccess.killWait</font>
+to kill a tag.</p>
+
+<p><font face="Courier New"><font color?#008000?>// Kill the tag</font></font></p>
+
+<p><font color="#008080" face="Courier New">String</font><font
+face="Courier New"> tagId = </font><font color="#800000"
+face="Courier New">&quot;1234ABCD00000000000025B1&quot;</font><font
+face="Courier New">;</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New"> tagAccess = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">KillAccessParams</font><font
+face="Courier New"> killAccessParams = tagAccess.</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#008080"
+face="Courier New">KillAccessParams</font><font
+face="Courier New">();</font></p>
+
+<p><font face="Courier New">killAccessParams.setKillPassword(0);</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.killWait(tagId,
+killAccessParams, </font><font color="#0000FF" face="Courier New">null</font><font
+face="Courier New">);</font></p>
+
+<h4>Block-Erase</h4>
+
+<p>The application can call RFID_BlockErase to erase the contents
+of a tag.</p>
+
+<p><font face="Courier New"><font color?#008000?>// Block Erase </font></font></p>
+
+<p><font color="#008080" face="Courier New">String</font><font
+face="Courier New"> tagId = </font><font color="#800000"
+face="Courier New">&quot;1234ABCD00000000000025B1&quot;</font><font
+face="Courier New">;</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New"> tagAccess = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">BlockEraseAccessParams</font><font
+face="Courier New"> blockEraseAccessParams = tagAccess.</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#008080"
+face="Courier New">BlockEraseAccessParams</font><font
+face="Courier New">();</font></p>
+
+<p><font face="Courier New">blockEraseAccessParams.setAccessPassword(0);
+</font></p>
+
+<p><font face="Courier New">blockEraseAccessParams.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_USER); </font><font
+color="#008000" face="Courier New">// user memory bank</font></p>
+
+<p><font face="Courier New">blockEraseAccessParams.setByteOffset(0);&nbsp;
+</font><font color="#008000" face="Courier New"><font font>// start erasing
+from offset 0</font></font></p>
+
+<p><font face="Courier New">blockEraseAccessParams.setByteCount(16);
+</font><font color="#008000" face="Courier New">// number of
+bytes to erase</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.blockEraseWait(tagId,
+blockEraseAccessParams, </font><font color="#0000FF"
+face="Courier New">null</font><font face="Courier New">);</font></p>
+
+<h4>Block-Permalock </h4>
+
+<p>The application can call method <font face="Courier New">Reader.Actions.TagAccess.blockPermalockWait</font>
+to block&nbsp; permalock a tag. Tags reported as part of
+Block-Permalock access operation will have TagData.getOpCode as <font
+face="Courier New">ACCESS_OPERATION_BLOCK_PERMALOCK</font>, and
+TagData.getOpStatus indicating the result of the operation. If
+TagData.OpStatus is ACCESS_SUCCESS, TagData.getMemoryBankData
+will contain the Block-Permalock Mask Data. </p>
+
+<p><font face="Courier New"><font color?#008000?>// Block-Perma Lock the tag</font></font></p>
+
+<p><font color="#008080" face="Courier New">String</font><font
+face="Courier New"> tagId = </font><font color="#800000"
+face="Courier New">&quot;1234ABCD00000000000025B1&quot;</font><font
+face="Courier New">;</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New"> tagAccess = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#2B91AF"
+face="Courier New">BlockPermalockAccessParams </font><font
+face="Courier New">blockPermalockAccessParams = tagAccess.</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#2B91AF"
+face="Courier New">BlockPermalockAccessParams</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] permalockMask = </font><font
+color="#0000FF" face="Courier New">new byte</font><font
+face="Courier New">[] {(byte)0xF0, 0x00};</font></p>
+
+<p><font face="Courier New">blockPermalockAccessParams.setReadLock(true);</font></p>
+
+<p><font face="Courier New">blockPermalockAccessParams.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_USER);</font></p>
+
+<p><font face="Courier New">blockPermalockAccessParams.setByteOffset(0);</font></p>
+
+<p><font face="Courier New">blockPermalockAccessParams.setByteCount(1);</font></p>
+
+<p><font face="Courier New">blockPermalockAccessParams.setMask(permalockMask);</font></p>
+
+<p><font face="Courier New">blockPermalockAccessParams.setMaskLength(2);</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.blockPermalockWait(tagId,
+blockPermalockAccessParams, </font><font color="#0000FF"
+face="Courier New">null</font><font face="Courier New">);</font></p>
+
+<h4>&nbsp;Access Operations on <span style="mso-bidi-font-weight:normal">specific memory field of </span>Single Tag</h4>
+
+<h4><span style="font-size:12.0pt;font-weight:normal">The following functions assist in writing to specific memory
+fields of a specific Tag:<o:p></o:p></span></h4>
+
+<ol type="1" start="1" style="margin-top:0in">
+    <li class="MsoNormal"
+    style="mso-list:l0 level1 lfo1;tab-stops:list .5in;
+     mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+     10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">writeTagIDWait</span>&#150;
+        This method writes to TagID of tag(s) and adjusts the PC
+        bits according to the length of the TagID. When the TagID
+        is modified, this API ensures that the Tag shall
+        subsequently backscatter the modified EPC, for which it
+        also writes the length of the new or updated (PC + EPC)
+        into the first 5 bits of the Tag&#146;s PC.</li>
+    <li class="MsoNormal"
+    style="mso-list:l0 level1 lfo1;tab-stops:list .5in;
+     mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+     10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">writeKillPasswordWait</span>-
+        This method writes the kill password of the tag(s).</li>
+    <li class="MsoNormal"
+    style="mso-list:l0 level1 lfo1;tab-stops:list .5in;
+     mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+     10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">writeAccessPasswordWait</span>--
+        This method writes the access password of the tag(s).</li>
+</ol>
+
+<p class="hcp3"
+style="margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo1;
+tab-stops:list .5in">&nbsp;</p>
+</body>
+</html>

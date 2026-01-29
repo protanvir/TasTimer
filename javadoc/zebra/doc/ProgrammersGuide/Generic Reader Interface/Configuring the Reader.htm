@@ -1,0 +1,199 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<title>Configuring the Reader</title>
+</head>
+
+<body>
+
+<h2>Configuring the Reader</h2>
+
+<h3>Resetting to Factory Defaults</h3>
+
+<p>The <font color="#0000FF"><u>Config</u></font> class contains
+all the method related to reader configuration. The <font
+color="#0000FF"><u>resetFactoryDefaults</u></font> method informs
+the reader to set all configurable values to factory defaults.</p>
+
+<blockquote>
+    <p><font color="#009900" face="Courier New">// Reset to
+    Factory defaults</font></p>
+</blockquote>
+
+<blockquote>
+    <p><font face="Courier New">reader.Config.resetFactoryDefaults();</font></p>
+</blockquote>
+
+<h3>GPIO (General Purpose Input and Output)</h3>
+
+<p>The set of functions are available for controlling the GPIO
+ports of the Reader. The number of GPIs and GPOs supported by the
+reader can be queried from the reader capabilities. In general
+sensors will be connected to input ports and indicator or lights
+will be connected to output ports.</p>
+
+<blockquote>
+    <h4>a. GPI (General Purpose Input) Port</h4>
+    <p style="MARGIN-LEFT: 0.5in">The function <font
+    color="#0000FF"><u>getPortState</u></font> gets the current
+    GPI port state of the reader. The specified port can be
+    accessed by passing the index. </p>
+    <p style="MARGIN-LEFT: 0.5in">The function <font
+    color="#0000FF"><u>isPortEnabled</u></font> can be used to
+    get the current configuration and state of the specified port
+    number. The specified port can be accessed by passing the
+    index.</p>
+    <p style="MARGIN-LEFT: 0.5in">The function <font
+    color="#0000FF"><u>enablePort</u></font> enables the
+    specified port number. It is possible to register for GPI
+    Port state change notification. Before registering, the
+    interested port must be enabled</p>
+    <p style="MARGIN-LEFT: 83.25pt"><font color="#009900"
+    face="Courier New">// Get numer of GPI ports supported by
+    Reader&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </font></p>
+    <p style="MARGIN-LEFT: 83.25pt"><font face="Courier New">int
+    numGPIPorts = reader.ReaderCapabilities.getNumGPIPorts();</font></p>
+    <p style="MARGIN-LEFT: 83.25pt"><font color="#009900"
+    face="Courier New">// Enable GPI port
+    1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </font></p>
+    <p style="MARGIN-LEFT: 83.25pt"><font face="Courier New">reader.Config.GPI.enablePort(1,
+    </font><font color="#0000FF" face="Courier New">true);</font></p>
+    <p style="MARGIN-LEFT: 83.25pt"><font color="#009900"
+    face="Courier New">// To Query the GPI Port 1</font></p>
+    <p style="MARGIN-LEFT: 83.25pt"><font face="Courier New">boolean
+    portEnabled = reader.Config.GPI.isPortEnabled(1</font><font
+    color="#0000FF" face="Courier New">);</font></p>
+    <p style="MARGIN-LEFT: 83.25pt"><font color="#009900"
+    face="Courier New">// To get the GPI Port State</font></p>
+    <p style="MARGIN-LEFT: 83.25pt"><font face="Courier New">GPI_PORT_STATE
+    gpiPortState = reader.Config.GPI.getPortState(1);</font></p>
+    <p style="MARGIN-LEFT: 83.25pt">&nbsp;</p>
+    <h4>b. GPO (General Purpose Output) Port</h4>
+    <p style="MARGIN-LEFT: 0.5in">The function getPortState gets
+    the current ouput port state of the reader. The specified
+    port can be accessed by passing the index.</p>
+    <p style="MARGIN-LEFT: 83.25pt"><font color="#009900"
+    face="Courier New">// Get numer of GPO ports supported by
+    Reader&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </font></p>
+    <p style="MARGIN-LEFT: 83.25pt"><font face="Courier New">int
+    numGPOPorts = reader.ReaderCapabilities.getNumGPOPorts();</font></p>
+    <p style="MARGIN-LEFT: 83.25pt"><font color="#009900"
+    face="Courier New">// Set GPO port
+    1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </font></p>
+    <p style="MARGIN-LEFT: 83.25pt"><font face="Courier New">reader.Config.GPO.setPortState(1,
+    GPO_PORT_STATE.TRUE</font><font color="#0000FF"
+    face="Courier New">);</font></p>
+    <p style="MARGIN-LEFT: 83.25pt"><font color="#009900"
+    face="Courier New">// To get the port state</font></p>
+    <p style="MARGIN-LEFT: 83.25pt"><font face="Courier New">GPO_PORT_STATE
+    gpoPortState = reader.Config.GPO.getPortState(1);</font></p>
+    <p style="MARGIN-LEFT: 83.25pt">&nbsp;</p>
+</blockquote>
+
+<h3>Radio Power State Configuration</h3>
+
+<p>The function <font
+face="Courier New">reader.Config.getRadioPowerState</font> gets the current 
+power state of the RFID Radio Module whether it is turned ON or OFF. </p>
+
+<blockquote>
+    <p><font color="#009900" face="Courier New">// gets Radio
+    Power state</font></p>
+    <p><font color="#009900" face="Courier New">RADIO_POWER_STATE</font><font
+    color="#000000" face="Courier New"> radioPowerState =
+    reader.Config.getRadioPowerState();</font></p>
+</blockquote>
+
+<h3>Antenna specific configuration</h3>
+
+<p>The config class contains the Antennas object. The individual
+antenna can be accessed and configured using the index.</p>
+
+<h4>Configuration</h4>
+
+<p style="MARGIN-LEFT: 1in">The <font color="#009900"
+face="Courier New">AntennaProperties </font>is used to set the
+antenna configuration to individual antenna or all the antennas.</p>
+
+<p style="MARGIN-LEFT: 1in">The antenna configuration (SetAntennaConfig function) comprises
+of Antenna ID, Receive Sensitivity Index, Transmit Power index,
+Transmit Frequency Index. These indexes are refers to the Receive
+Sensitivity table, Transmit Power table, Frequency Hop table or
+Fixed Frequency table respectively. These tables are available in
+Reader capabilities. getAntennaConfig function gets the antenna configuration for the given
+    antenna ID.</p>
+    <p style="MARGIN-LEFT: 1in">
+        <strong>RF Configuration</strong></p>
+    <p style="MARGIN-LEFT: 1in">
+        The function setAntennaRfConfig is added to configure antenna RF configuration to
+        individual antenna. This function is similar like setAntennaConfig but
+        includes additional parameters specific pertaining to antenna.
+    </p>
+    <p style="MARGIN-LEFT: 1in">
+        The configuration includes Receive Sensitivity Index, Transmit Power index, Transmit
+        Frequency Index, RF Mode Table index. These indexes are refers to the Receive Sensitivity
+        table, Transmit Power table, Frequency Hop table or Fixed Frequency table, RF Mode
+        table respectively. These tables are available in Reader capabilities. Also, includes
+        tari, transmit port, receive port and Antenna Stop trigger condition. The stop condition
+        can be &#8216;n&#8217; number of attempts, duration based. The function getAntennaRfConfig gets
+        the antenna RF configuration for the given antenna ID.</p>
+
+<h4>Singulation Control</h4>
+
+<p style="MARGIN-LEFT: 1in">The function <font color="#0000FF"><u>getSingulationControl</u></font>
+retrieves the current settings of the singulation control from
+the reader for the given Antenna ID. </p>
+
+<p style="MARGIN-LEFT: 1in">To set the singulation control
+settings, the <font color="#0000FF"><u>setSingulationControl</u></font>
+method will be used. The following settings can be configured:</p>
+
+<dir>
+    <li style="MARGIN-LEFT: 1.5in">Session: Session number to use
+        for inventory operation </li>
+    <li style="MARGIN-LEFT: 1.5in">Tag Population: An estimate of
+        the tag population in view of the RF field of the antenna
+    </li>
+    <li style="MARGIN-LEFT: 1.5in">Tag Transit Time: An estimate
+        of the time a tag will typically remain in the RF field </li>
+    <li style="MARGIN-LEFT: 1.5in">State Aware singulation
+        Action: The action includes the Inventory state and SL
+        flag. The action can be used if only reader supports this
+        capability. The <font color="#0000FF"><u>ReaderCapabilities</u></font>
+        class helps to determine whether state-aware singulation
+        is supported or not. <p><font color="#009900"
+        face="Courier New">// Get Singulation Control for the
+        antenna 2</font></p>
+        <p><font color="#009900" face="Courier New">Antennas</font><font
+        face="Courier New">.</font><font color="#009900"
+        face="Courier New">SingulationControl</font><font
+        face="Courier New"> singulationControl;</font></p>
+        <p><font face="Courier New">singulationControl =
+        reader.Config.Antennas.getSingulationControl(2);</font></p>
+        <h4>RF Mode</h4>
+    </li>
+    <li style="MARGIN-LEFT: 1.5in">The reader has one or more set
+        of C1G2 RF mode that the reader is capable of operating.
+        The supported RF mode can be retrieved from RF Mode table
+        using ReaderCapabilities class. </li>
+    <li style="MARGIN-LEFT: 1.5in">The function <font
+        color="#0000FF"><u>getRFMode</u></font> gets the current
+        index to RF Mode table and the Tari from the reader. <font
+        color="#0000FF"><u>setRFMode</u></font> method shall be
+        used to change the RF Mode settings in the reader. <h4>Properties</h4>
+        <p style="MARGIN-LEFT: 1in">The physical antenna
+        properties of the individual antenna can be known by
+        using <font color="#0000FF"><u>getPhysicalProperties</u></font>.
+        This function gets the gain and the connectivity status
+        of the specified antenna.</p>
+    </li>
+</dir>
+</body>
+</html>

@@ -1,0 +1,13 @@
+
+RFIDAPI32 C DLL is already available in C:\WINDOWS\system32
+Existing RFID C DLL Version is 5.5.7.13
+RFID C DLL with EMDK Java Version is 5.5.7.13
+Existing RFID C DLL is newer, so replacement of DLL is not done
+RFIDAPI32 C DLL is already available in C:\WINDOWS\system32
+Existing RFID C DLL Version is 5.5.7.13
+RFID C DLL with EMDK Java Version is 5.5.7.13
+Existing RFID C DLL is newer, so replacement of DLL is not done
+RFIDAPI32 C DLL is already available in C:\WINDOWS\system32
+Existing RFID C DLL Version is 5.5.7.13
+RFID C DLL with EMDK Java Version is 5.5.7.13
+Existing RFID C DLL is newer, so replacement of DLL is not done

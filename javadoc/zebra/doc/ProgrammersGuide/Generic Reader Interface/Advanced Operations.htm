@@ -1,0 +1,1471 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<title>Advanced Operations</title>
+<style type="text/css">
+.auto-style3 {
+	color: black;
+	font-family: "Courier New", Courier, monospace;
+	margin-left: 40px;
+}
+.auto-style4 {
+	font-family: "Courier New";
+}
+.auto-style12 {
+	margin-left: 40px;
+}
+.auto-style13 {
+	color: black;
+	font-family: "Courier New";
+	margin-left: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Advanced Operations</h1>
+
+<h2>Tag Event Reporting</h2>
+
+<h4><span style="font-size:12.0pt;font-weight:normal">This feature can be used to enable reporting tag visibility
+changes. If a reader supports this feature it reports the Reader
+Capability isTagEventReportingSupported as true. The following
+code snippet enabled reporting tags when a Tag is visible/Gone
+out of Visibility/Back to visibility for at least 100 ms;<o:p></o:p></span></h4>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span>&nbsp;</p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;color:#2B91AF;mso-no-proof:yes">TriggerInfo</span><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">
+triggerInfo = <span style="color:blue">new</span> <span style="color:#2B91AF">TriggerInfo</span>();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">triggerInfo.setEnableTagEventReport(<span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">triggerInfo.TagEventReportInfo.setReportNewTagEvent(<span style="color:#2B91AF">TAG_EVENT_REPORT_TRIGGER</span>.MODERATED);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">triggerInfo.TagEventReportInfo.setReportTagInvisibleEvent(<span style="color:#2B91AF">TAG_EVENT_REPORT_TRIGGER</span>.MODERATED);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">triggerInfo.TagEventReportInfo.setReportTagBackToVisibilityEvent(
+<span style="color:#2B91AF">TAG_EVENT_REPORT_TRIGGER</span>.MODERATED);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">triggerInfo.TagEventReportInfo.setNewTagEventModeratedTimeoutMilliseconds((short)100);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">triggerInfo.TagEventReportInfo.setTagInvisibleEventModeratedTimeoutMilliseconds((short)100);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">triggerInfo.TagEventReportInfo.setTagBackToVisibilityModeratedTimeoutMilliseconds((short)100);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">reader.Actions.Inventory.perform(<span style="color:blue">null</span>,
+triggerInfo, <span style="color:blue">null</span>);<o:p></o:p></span></p>
+
+<h4><span style="font-size:12.0pt;font-weight:normal"><o:p>&nbsp;</o:p></span>&nbsp;</h4>
+
+<h4><span style="font-size:12.0pt;font-weight:normal">TAG_EVENT reported as part of TAG_DATA indicates the
+visibility state of the Tag.<o:p></o:p></span></h4>
+
+<p>&nbsp;</p>
+
+<h2>Using Pre-Filters </h2>
+
+<p>Pre-filters are same as the Select command of C1G2
+specification. Once applied, pre-filters are applied prior to
+Inventory and Access operations. </p>
+
+<h3>Introduction </h3>
+
+<h4>Singulation</h4>
+
+<p>Singulation refers to the method of identifying an individual
+Tag in a multiple-Tag environment. RFID Readers could support
+State-Aware or State-Unaware pre-filtering (or singulation) which
+is indicated by the boolean flag <font face="Courier New">IsTagInventoryStateAwareSingulationSupported
+</font>in the <font color="#0000FF"><u>ReaderCapabilities </u></font>class.</p>
+
+<p>In order to filter tags that match a specific condition, it is
+necessary to use the tag-sessions and their states (setting the
+tags to different states based on match criteria- <font
+face="Courier New">reader.Actions.PreFilters.add</font>) so that
+while performing inventory, tags can be instructed to participate
+(singulation - <font face="Courier New">reader.Config.Antennas.setSingulationControl</font>)
+or not participate in the inventory based on their states. </p>
+
+<h4>Sessions and Inventoried Flags</h4>
+
+<p>Tags provide 4 sessions (denoted S0, S1, S2, and S3) and
+maintain an independent inventoried flag for each session. Each
+of the four inventoried flags has two values, denoted A and B.
+These inventoried flag of each session can be set to A or B based
+on match criteria using method <font face="Courier New">reader.Actions.PreFilters.add.</font></p>
+
+<h4>Selected Flag</h4>
+
+<p>Tags provide a selected flag, SL, which can be asserted or
+deasserted based on match criteria using method <font
+face="Courier New">reader.Actions.PreFilters.add</font></p>
+
+<h4>State-Unaware Singulation</h4>
+
+<p>In state-unaware singulation the Reader permits 6 options (as
+enumerated by STATE_UNAWARE_ACTION) of filtering tags. This is
+more simplified than state-aware singulation.</p>
+<table style="width: 81%; height: 204px">
+	<tr>
+		<td style="width: 161px">Option</td>
+		<td style="width: 485px">Description</td>
+	</tr>
+	<tr>
+		<td style="width: 161px">STATE_UNAWARE_ACTION_SELECT_NOT_UNSELECT</td>
+		<td style="width: 485px">Matching tags: SELECT , Non-matching tags: 
+		UNSELECT</td>
+	</tr>
+	<tr>
+		<td style="width: 161px">STATE_UNAWARE_ACTION_SELECT</td>
+		<td style="width: 485px">Matching tags: SELECT, Non-matching tags: do 
+		nothing</td>
+	</tr>
+	<tr>
+		<td style="width: 161px">STATE_UNAWARE_ACTION_NOT_UNSELECT</td>
+		<td style="width: 485px">Matching tags: do nothing, Non-matching tags: 
+		UNSELECT</td>
+	</tr>
+	<tr>
+		<td style="width: 161px">STATE_UNAWARE_ACTION_UNSELECT</td>
+		<td style="width: 485px">Matching tags: UNSELECT , Non-matching tags: do 
+		nothing</td>
+	</tr>
+	<tr>
+		<td style="width: 161px">STATE_UNAWARE_ACTION_UNSELECT_NOT_SELECT</td>
+		<td style="width: 485px">Matching tags: UNSELECT , Non-matching tags: 
+		SELECT</td>
+	</tr>
+	<tr>
+		<td style="width: 161px">&nbsp;STATE_UNAWARE_ACTION_NOT_SELECT</td>
+		<td style="width: 485px">Matching tags: do nothing, Non-matching tags: 
+		SELECT</td>
+	</tr>
+</table>
+
+<h4>&nbsp;</h4>
+<h4>State-Aware Singulation </h4>
+
+<p>In state-aware singulation the Application can specify
+detailed controls for singulation: Action and Target. </p>
+
+<p>Action indicates whether matching Tags assert or deassert SL
+(Selected Flag), or set their inventoried flag to A or to B. Tags
+conforming to the match criteria specified using the method <font
+face="Courier New">reader.Actions.PreFilters.Add</font> are
+considered matching and the remaining are non-matching. </p>
+
+<p>Target indicates whether to modify a Tag&#146;s SL flag or its
+inventoried flag, and in the case of inventoried it further
+specifies one of four sessions. </p>
+
+<table style="width: 24%; height: 62px">
+	<tr>
+		<td>Session</td>
+		<td>Description</td>
+	</tr>
+	<tr>
+		<td>SESSION_S0</td>
+		<td>S0</td>
+	</tr>
+	<tr>
+		<td>SESSION_S1</td>
+		<td>S1</td>
+	</tr>
+	<tr>
+		<td>SESSION_S2</td>
+		<td>S2</td>
+	</tr>
+	<tr>
+		<td>SESSION_S3</td>
+		<td>S3</td>
+	</tr>
+</table>
+<h4>&nbsp;</h4>
+<h4>Truncate Action</h4>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none">Truncate
+action specifies whether a Tag backscatters its entire EPC, or
+only that portion of the EPC immediately following Mask. During
+truncated replies a Tag substitutes 00000 for the PC bits.
+Truncated replies are always followed by the CRC-16 in EPC memory
+00h to 0Fh; a Tag does not re compute this CRC for a truncated
+reply.</p>
+
+<h4>Applying Pre-Filters</h4>
+
+<p>The following are the steps to use pre-filters:</p>
+
+<ul type="square" style="MARGIN-TOP: 0in; MARGIN-BOTTOM: 0in">
+    <li style="mso-list: l12 level1 lfo42; tab-stops: list .5in">Add
+        pre-filters </li>
+    <li style="mso-list: l12 level1 lfo42; tab-stops: list .5in">Set
+        appropriate singulation controls </li>
+    <li style="mso-list: l12 level1 lfo42; tab-stops: list .5in">Perform
+        Inventory or Access operation </li>
+</ul>
+
+<h4>Add pre-filters</h4>
+
+<p>Each RFID Reader supports a maximum number of Pre-Filters per
+Antenna as indicated by <font face="Courier New">reader.ReaderCapabilites.getMaxNumPreFilters</font>
+which can be known using the ReaderCapabilities. </p>
+
+<p>The application can set pre-filters using <font
+face="Courier New">reader.Actions.PreFilters.add</font> and
+remove using <font face="Courier New">reader.Actions.PreFilters.delete</font>.</p>
+
+<h5>State-Unaware Singulation</h5>
+
+<p><font color="#008000" face="Courier New">// Add state unaware
+pre-filter</font></p>
+
+<p><font color="#2B91AF" face="Courier New">PreFilters</font><font
+face="Courier New"> filters = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#2B91AF" face="Courier New">PreFilters</font>();</p>
+
+<p><font color="#2B91AF" face="Courier New">PreFilters</font><font
+face="Courier New">.</font><font color="#2B91AF"
+face="Courier New">PreFilter</font><font face="Courier New">
+filter = filters.</font><font color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#2B91AF"
+face="Courier New">PreFilter</font>();</p>
+
+<p><font color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] tagMask = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] { 0x12, 0x11 };</font></p>
+
+<p><font face="Courier New">filter.setAntennaID((short)3);</font><font
+color="#008000" face="Courier New">// Set this filter for Antenna
+ID 3</font></p>
+
+<p><font face="Courier New">filter.setTagPattern(tagMask);</font><font
+color="#008000" face="Courier New">// Tags which starts with
+0x1211</font></p>
+
+<p><font face="Courier New">filter.setTagPatternBitCount(tagMask.length
+* 8);</font></p>
+
+<p><font face="Courier New">filter.setBitOffset(32); </font><font
+color="#008000" face="Courier New">// skip PC bits (always it
+should be in bit length)</font></p>
+
+<p><font face="Courier New">filter.setMemoryBank(</font><font
+color="#2B91AF" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_EPC);</font></p>
+
+<p><font face="Courier New">filter.setFilterAction(</font><font
+color="#2B91AF" face="Courier New">FILTER_ACTION</font><font
+face="Courier New">.FILTER_ACTION_STATE_UNAWARE); </font><font
+color="#008000" face="Courier New">// use state unaware
+singulation</font></p>
+
+<p><font face="Courier New">filter.StateUnawareAction.setStateUnawareAction(</font><font
+color="#2B91AF" face="Courier New">STATE_UNAWARE_ACTION</font><font
+face="Courier New">.STATE_UNAWARE_ACTION_UNSELECT);&nbsp; </font><font
+color="#008000">// do not select the tags that match the
+pre-filter criteria</font></p>
+
+<p><font face="Courier New">reader.Actions.PreFilters.add(filter);</font></p>
+
+<h5>State-Aware Singulation</h5>
+
+<p><font color="#008000" face="Courier New">// Add state aware
+pre-filter</font></p>
+
+<p><font color="#2B91AF" face="Courier New">PreFilters</font><font
+face="Courier New"> filters = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#2B91AF" face="Courier New">PreFilters</font>();</p>
+
+<p><font color="#2B91AF" face="Courier New">PreFilters</font><font
+face="Courier New">.</font><font color="#2B91AF"
+face="Courier New">PreFilter</font><font face="Courier New">
+filter = filters.</font><font color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#2B91AF"
+face="Courier New">PreFilter</font>();</p>
+
+<p><font color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] tagMask = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] { 0x12, 0x11 };</font></p>
+
+<p><font face="Courier New">filter.setAntennaID((short)3);</font><font
+color="#008000" face="Courier New">// Set this filter for Antenna
+ID 3</font></p>
+
+<p><font face="Courier New">filter.setTagPattern(tagMask);</font><font
+color="#008000" face="Courier New">// Tags which starts with
+0x1211</font></p>
+
+<p><font face="Courier New">filter.setTagPatternBitCount(tagMask.length
+* 8);</font></p>
+
+<p><font face="Courier New">filter.setBitOffset(32); </font><font
+color="#008000" face="Courier New">// skip PC bits (always it
+should be in bit length)</font></p>
+
+<p><font face="Courier New">filter.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_EPC);</font></p>
+
+<p><font face="Courier New">filter.setFilterAction(</font><font
+color="#008080" face="Courier New">FILTER_ACTION</font><font
+face="Courier New">.FILTER_ACTION_STATE_AWARE); </font><font
+color="#008000" face="Courier New">// use state aware singulation</font></p>
+
+<p><font face="Courier New">filter.StateAwareAction.setTarget(</font><font
+color="#008080" face="Courier New">TARGET</font><font
+face="Courier New">.TARGET_INVENTORIED_STATE_S1); </font><font
+color="#008000" face="Courier New">// inventoried flag of session
+S1 of matching tags to B</font></p>
+
+<p><font face="Courier New">filter.StateAwareAction.setStateAwareAction(</font><font
+color="#008080" face="Courier New">STATE_AWARE_ACTION</font><font
+face="Courier New">.STATE_AWARE_ACTION_INV_B; </font><font
+color="#008000" face="Courier New">// not to select tags that
+match the criteria</font></p>
+
+<p><font face="Courier New">reader.Actions.PreFilters.add(filter);</font></p>
+
+<p><font color="#008000" face="Courier New">// It is also
+required to set appropriate singulation control not to </font></p>
+
+<p><font color="#008000" face="Courier New">// get tags with
+inventoried flag B for session 1</font></p>
+
+<h4>Set appropriate singulation controls</h4>
+
+<p>Now that the pre-filters are set (i.e. Tags are classified
+into matching or non-matching criteria), the Application needs to
+specify which tags should participate in the Inventory using <font
+face="Courier New">reader.Config.Antennas.setSingulationControl()</font>.
+Singulation Control must be specified with respect to each
+Antenna like Pre-Filters. &nbsp;</p>
+
+<h4>State-Unaware Singulation</h4>
+
+<p><font color="#008000" face="Courier New">// Set the
+singulation control</font></p>
+
+<p><font color="#008080" face="Courier New">SingulationControl</font><font
+face="Courier New"> s1_singulationControl =
+reader.Config.Antennas.getSingulationControl(1);</font></p>
+
+<p><font face="Courier New">s1_singulationControl.setSession(</font><font
+color="#008080" face="Courier New">SESSION</font><font
+face="Courier New">.SESSION_S1); </font><font color="#008000"
+face="Courier New">// Set session to operate on S1. If not
+specified, reader uses its own way of implementing the
+state-unware singulation</font></p>
+
+<p><font face="Courier New">reader.Config.Antennas.setSingulationControl(1,
+s1_singulationControl);</font></p>
+
+<h4>State-Aware Singulation</h4>
+
+<p><font color="#008000" face="Courier New">// Set the
+singulation control</font></p>
+
+<p><font color="#008080" face="Courier New">SingulationControl</font><font
+face="Courier New"> s1_singulationControl =
+reader.Config.Antennas.getSingulationControl(1);</font></p>
+
+<p><font face="Courier New">s1_singulationControl.setSession(</font><font
+color="#008080" face="Courier New">SESSION</font><font
+face="Courier New">.SESSION_S1);</font></p>
+
+<p><font face="Courier New">s1_singulationControl.Action.setInventoryState(</font><font
+color="#008080" face="Courier New">INVENTORY_STATE</font><font
+face="Courier New">.INVENTORY_STATE_B);</font></p>
+
+<p><font face="Courier New">s1_singulationControl.Action.setSLFlag(</font><font
+color="#008080" face="Courier New">SL_FLAG</font><font
+face="Courier New">.SL_FLAG_DEASSERTED);</font></p>
+
+<p><font face="Courier New">s1_singulationControl.Action.setPerformStateAwareSingulationAction(</font><font
+color="#0000FF" face="Courier New">true)</font><font
+face="Courier New">;</font></p>
+
+<p><font face="Courier New">reader.Config.Antennas.setSingulationControl(1,
+s1_singulationControl);</font></p>
+
+<h4>Perform Inventory or Access operation</h4>
+
+<p>Inventory or Access operation when performed after setting
+pre-filters, will use the tags filtered out of pre-filters for
+their operation.</p>
+
+<h2>Using Triggers</h2>
+
+<p>Triggers are the conditions that should be satisfied in order
+to start or stop an operation (Inventory or Access Sequence).
+This information can be specified using <font color="#008080"
+face="Courier New">TriggerInfo</font> class. The application can
+also configure the Tag-Report trigger which indicates when to
+receive &#145;n&#146; unique Tag-Reports from the Reader. </p>
+
+<p>The following are some use-cases of using TRIGGER_INFO:</p>
+
+<ol type="1" style="MARGIN-TOP: 0in; MARGIN-BOTTOM: 0in">
+    <li style="mso-list: l42 level1 lfo45; tab-stops: list .5in">GPI
+        based Inventory &#150; Start inventory when GPI port
+        &#145;n&#146; changes state to &#145;TRUE&#146; and stop
+        inventory when GPI port &#145;n&#146; changes state to
+        &#145;FALSE&#146;. </li>
+</ol>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008080"
+face="Courier New">TriggerInfo</font><font face="Courier New">
+triggerInfo = </font><font color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#008080"
+face="Courier New">TriggerInfo</font><font face="Courier New">();</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+face="Courier New">// start trigger GPI port 1 changes to true</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StartTrigger.setTriggerType(</font><font
+color="#008080" face="Courier New">START_TRIGGER_TYPE</font><font
+face="Courier New">.START_TRIGGER_TYPE_GPI);</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StartTrigger.GPI.setPortNumber(1);</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StartTrigger.GPI.setGPIEvent(</font><font
+color="#0000FF" face="Courier New">true)</font><font
+face="Courier New">;</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+face="Courier New">// stop trigger GPI port 1 changes to false</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.setTriggerType(</font><font
+color="#008080" face="Courier New">STOP_TRIGGER_TYPE</font><font
+face="Courier New">.STOP_TRIGGER_TYPE_GPI_WITH_TIMEOUT);</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.GPI.setPortNumber(1);</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.GPI.setGPIEvent(</font><font
+color="#0000FF" face="Courier New">false)</font><font
+face="Courier New">; </font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.GPI.setTimeout(1000);
+</font><font color="#008000" face="Courier New">// 1 sec</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+face="Courier New">// report back each tag report as and when it
+is read by Reader</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.setTagReportTrigger(1);</font></p>
+
+<ol type="1" start="2"
+style="MARGIN-TOP: 0in; MARGIN-BOTTOM: 0in">
+    <li style="mso-list: l42 level1 lfo45; tab-stops: list .5in">Periodic
+        Inventory &#150; Start inventory at a specified time for
+        a specified duration repeatedly. </li>
+</ol>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008080"
+face="Courier New">TriggerInfo</font><font face="Courier New">
+triggerInfo = </font><font color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#008080"
+face="Courier New">TriggerInfo</font><font face="Courier New">();</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+face="Courier New">// start inventory on 12th of this month and
+12am and runs 200 milliseconds of every 2 seconds</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StartTrigger.setTriggerType(</font><font
+color="#008080" face="Courier New">START_TRIGGER_TYPE</font><font
+face="Courier New">.START_TRIGGER_TYPE_PERIODIC);</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StartTrigger.Periodic.setPeriod(2000);
+</font><font color="#008000" face="Courier New">// perform
+inventory for 2 seconds</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+face="Courier New">// start time</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008080"
+face="Courier New">SYSTEMTIME</font><font face="Courier New">
+startTime = </font><font color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#008080"
+face="Courier New">SYSTEMTIME</font><font face="Courier New">();</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">startTime.Day
+= 6;</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">startTime.Month
+= 8;</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">startTime.Year
+= 2011;</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">startTime.Hour
+= 9;</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">startTime.Minute
+= 20;</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">startTime.Second
+= 5;</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StartTrigger.Periodic.StartTime
+= startTime;</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+face="Courier New">// stop trigger </font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.setTriggerType(</font><font
+color="#008080" face="Courier New">STOP_TRIGGER_TYPE</font><font
+face="Courier New">.STOP_TRIGGER_TYPE_DURATION);</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.setDurationMilliSeconds(200);
+</font><font color="#008000" face="Courier New">// stop after 200
+milliseconds</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+face="Courier New">// report back all read tags after completion
+of one round of inventory (i.e. one period)</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.setTagReportTrigger(0);</font></p>
+
+<ol type="1" start="3"
+style="MARGIN-TOP: 0in; MARGIN-BOTTOM: 0in">
+    <li style="mso-list: l42 level1 lfo45; tab-stops: list .5in">Perform
+        &#145;n&#146; Rounds of Inventory with a timeout &#150;
+        Start condition could be any; Stop condition is to
+        perform &#145;n&#146; rounds of inventory and then stop
+        or stop inventory after the specified timeout. </li>
+</ol>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008080"
+face="Courier New">TriggerInfo</font><font face="Courier New">
+triggerInfo = </font><font color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#008080"
+face="Courier New">TriggerInfo</font><font face="Courier New">();</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+face="Courier New">// start inventory immediate</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StartTrigger.setTriggerType(</font><font
+color="#008080" face="Courier New">START_TRIGGER_TYPE</font><font
+face="Courier New">.START_TRIGGER_TYPE_IMMEDIATE);</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+face="Courier New">// stop trigger </font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.setTriggerType(</font><font
+color="#008080" face="Courier New">STOP_TRIGGER_TYPE</font><font
+face="Courier New">.STOP_TRIGGER_TYPE_N_ATTEMPTS_WITH_TIMEOUT);</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.NumAttempts.setN((short)3);
+</font><font color="#008000" face="Courier New">// perform 3
+rounds of inventory</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.NumAttempts.setTimeout(3000);
+</font><font color="#008000" face="Courier New">// timeout after
+3 seconds</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+face="Courier New">// report back all read tags after 3 rounds of
+inventory</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.setTagReportTrigger(0);</font></p>
+
+<ol type="1" start="4"
+style="MARGIN-TOP: 0in; MARGIN-BOTTOM: 0in">
+    <li style="mso-list: l42 level1 lfo45; tab-stops: list .5in">Read
+        &#145;n&#146; Tags with a timeout &#150; Start condition
+        could be any; Stop condition is to stop after reading
+        &#145;n&#146; tags or stop inventory after the specified
+        timeout. <p><font color="#008080" face="Courier New">TriggerInfo</font><font
+        face="Courier New"> triggerInfo = </font><font
+        color="#0000FF" face="Courier New">new</font><font
+        face="Courier New"> </font><font color="#008080"
+        face="Courier New">TriggerInfo</font><font
+        face="Courier New">();</font></p>
+        <p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+        face="Courier New">// start inventory immediate</font></p>
+        <p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StartTrigger.setTriggerType(</font><font
+        color="#008080" face="Courier New">START_TRIGGER_TYPE</font><font
+        face="Courier New">.START_TRIGGER_TYPE_IMMEDIATE);</font></p>
+        <p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+        face="Courier New">// stop trigger </font></p>
+        <p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.setTriggerType(</font><font
+        color="#008080" face="Courier New">STOP_TRIGGER_TYPE</font><font
+        face="Courier New">.STOP_TRIGGER_TYPE_TAG_OBSERVATION_WITH_TIMEOUT);</font></p>
+        <p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.TagObservation.setN((short)100);
+        </font><font color="#008000" face="Courier New">// stop
+        inventory after reading 100 tags</font></p>
+        <p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.TagObservation.setTimeout(3000);
+        </font><font color="#008000" face="Courier New">//
+        timeout after 3 seconds</font></p>
+        <p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+        face="Courier New">// report back all read tags after
+        getting 100 unique tags or after 3 seconds</font></p>
+        <p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.setTagReportTrigger(0);</font></p>
+    </li>
+    <li>Inventory based on Handheld Trigger &#150; Start
+        inventory when Handheld Gun/Button Trigger is pulled, and
+        stop inventory when the Handheld Gun/Button Trigger is
+        released or subject to timeout.</li>
+</ol>
+
+<p style="margin-left: 0.5in;"><font color="#008080"
+face="Courier New">TriggerInfo</font><font face="Courier New">
+triggerInfo = </font><font color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#008080"
+face="Courier New">TriggerInfo</font><font face="Courier New">();</font></p>
+
+<p style="margin-left: 0.5in;"><font face="Courier New">triggerInfo.StartTrigger.setTriggerType(</font><font
+color="#008080" face="Courier New">START_TRIGGER_TYPE</font><font
+face="Courier New">.START_TRIGGER_TYPE_HANDHELD);</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+face="Courier New">// Start Inventory when the Handheld trigger
+is pressed</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StartTrigger.Handheld.setHandheldTriggerEvent(</font><font
+color="#008080" face="Courier New">HANDHELD_TRIGGER_EVENT_TYPE</font><font
+face="Courier New">.HANDHELD_TRIGGER_PRESSED);</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.setTriggerType(</font><font
+color="#008080" face="Courier New">STOP_TRIGGER_TYPE</font><font
+face="Courier New">.STOP_TRIGGER_TYPE_HANDHELD_WITH_TIMEOUT);</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font color="#008000"
+face="Courier New">// Stop Inventory when the Handheld trigger is
+released</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.Handheld.setHandheldTriggerEvent(</font><font
+color="#008080" face="Courier New">HANDHELD_TRIGGER_EVENT_TYPE</font><font
+face="Courier New">.HANDHELD_TRIGGER_RELEASED);</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">triggerInfo.StopTrigger.Handheld.setHandheldTriggerTimeout(0);</font></p>
+
+<p style="MARGIN-LEFT: 0.5in"><font face="Courier New">reader.Actions.Inventory.perform(null,
+triggerInfo, null);</font></p>
+
+
+<ol type="1" start="4"
+style="MARGIN-TOP: 0in; MARGIN-BOTTOM: 0in">
+    <li value="6">Periodic Tag Reporting - Tags will be
+        periodically reported on a specified timer interval
+        elapsed. ReportTriggers takes precedence over
+        TagReportTrigger property. In order to use setTagReportTrigger function, set the ReportTriggers.setPeriodicReportTrigger
+        with value 0.</li>
+</ol>
+
+    <p style="margin-left: 0.5in;"><font color="#008080"
+    face="Courier New">TriggerInfo</font><font face="Courier New">
+    triggerInfo = </font><font color="#0000FF" face="Courier New">new</font><font
+    face="Courier New"> </font><font color="#008080"
+    face="Courier New">TriggerInfo</font><font face="Courier New">();</font></p>
+    <p style="margin-left: 0.5in;"><font color="#008000"
+    face="Courier New">// Tags will be periodically reported in
+    every 10 seconds</font></p>
+    <p style="margin-left: 0.5in;"><font face="Courier New">triggerInfo.ReportTriggers.setPeriodicReportTrigger(10);</font></p>
+
+<ol type="1" start="4"
+style="MARGIN-TOP: 0in; MARGIN-BOTTOM: 0in">
+    <li value="7">Extra Trigger - The support for array of start / stop triggers 
+	are added as extra triggers in TriggerInfo class. The field 
+	IsZebraTriggerSupported in ReaderCapabilities determines whether reader 
+	supports this feature or not. This allows to configure multiple start and 
+	start triggers. The reader internally pre-empts and execute the triggers 
+	when it meets the trigger condition. Reader supports maximum of seven extra 
+	triggers.</li>
+</ol>
+
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: #2B91AF">
+TriggerInfo</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black"> 
+triggerInfo = </span>
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: blue">
+new</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">
+</span>
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: #2B91AF">
+TriggerInfo</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">();<o:p></o:p></span></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: green">
+// Configure first pair of triggers </span>
+<span style="font-size:9.5pt;
+font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+<o:p></o:p>
+</span></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">
+triggerInfo.StartTrigger.setTriggerType(</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: #2B91AF">START_TRIGGER_TYPE</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">.START_TRIGGER_TYPE_GPI);<o:p></o:p></span></p>
+<p class="auto-style13" style="mso-bidi-font-family: Consolas;">
+triggerInfo.StartTrigger.GPI.setPortNumber(1);<o:p></o:p></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">
+triggerInfo.StartTrigger.GPI.setGPIEvent(</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: blue">false</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">);<o:p></o:p></span></p>
+<p class="auto-style13" style="mso-bidi-font-family: Consolas;">
+triggerInfo.StartTrigger.GPI.setTimeout(0);<o:p></o:p></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">
+triggerInfo.StopTrigger.setTriggerType(</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: #2B91AF">STOP_TRIGGER_TYPE</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">.STOP_TRIGGER_TYPE_GPI_WITH_TIMEOUT);<o:p></o:p></span></p>
+<p class="auto-style13" style="mso-bidi-font-family: Consolas;">
+triggerInfo.StopTrigger.GPI.setPortNumber(1);<o:p></o:p></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">
+triggerInfo.StopTrigger.GPI.setGPIEvent(</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: blue">true</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">);<o:p></o:p></span></p>
+<p class="auto-style13" style="mso-bidi-font-family: Consolas;">
+triggerInfo.StopTrigger.GPI.setTimeout(0);<o:p></o:p></p>
+<p class="auto-style13" style="mso-bidi-font-family: Consolas;">
+<o:p>&nbsp;</o:p></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: green">
+// Configure Extra Triggers</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black"><o:p></o:p></span></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: green">
+// 1. Start Trigger - Distance</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black"><o:p></o:p></span></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: #2B91AF">
+ExtraTriggerInfo</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black"> 
+extra1 = triggerInfo.getExtraTriggerInfo(1);<o:p></o:p></span></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">
+extra1.StartTrigger.setTriggerType(</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: #2B91AF">START_TRIGGER_TYPE</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">.START_TRIGGER_TYPE_DISTANCE);<o:p></o:p></span></p>
+<p class="auto-style13" style="mso-bidi-font-family: Consolas;">
+extra1.StartTrigger.Distance.setDistance(5);<o:p></o:p></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: green">
+// 1. Stop Trigger - Time Lapse</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black"><o:p></o:p></span></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">
+extra1.StopTrigger.setTriggerType(</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: #2B91AF">STOP_TRIGGER_TYPE</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">.STOP_TRIGGER_TYPE_TIMELAPSE);<o:p></o:p></span></p>
+<p class="auto-style13" style="mso-bidi-font-family: Consolas;">
+extra1.StopTrigger.TimeLapse.setPeriodicDurationSeconds(50);<o:p></o:p></p>
+<p class="auto-style13" style="mso-bidi-font-family: Consolas;">
+extra1.StopTrigger.TimeLapse.setTotalDurationSeconds(120);<o:p></o:p></p>
+<p class="auto-style13" style="mso-bidi-font-family: Consolas;">
+<o:p>&nbsp;</o:p></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: green">
+// 2. Start Trigger - Time Lapse</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black"><o:p></o:p></span></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: #2B91AF">
+ExtraTriggerInfo</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black"> 
+extra2 = triggerInfo.getExtraTriggerInfo(2);<o:p></o:p></span></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">
+extra2.StartTrigger.setTriggerType(</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: #2B91AF">START_TRIGGER_TYPE</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">.START_TRIGGER_TYPE_TIMELAPSE);<o:p></o:p></span></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">
+extra2.StartTrigger.TimeLapse.StartTime = </span>
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: blue">
+new</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black"> 
+TIMEOFDAY((</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: blue">short</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">)15, 
+(</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: blue">short</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">)20, 
+(</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: blue">short</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">)5);<o:p></o:p></span></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">
+extra2.StartTrigger.TimeLapse.setPer**iod(50); </span>
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: green">
+// In 50 Seconds</span><span style="font-size:9.5pt;
+font-family:Consolas;mso-bidi-font-family:Consolas;color:black"><o:p></o:p></span></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: green">
+// 2. Stop Trigger - Duration</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"><o:p></o:p></span></p>
+<p class="auto-style12">
+<span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">
+extra2.StopTrigger.setTriggerType(</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: #2B91AF">STOP_TRIGGER_TYPE</span><span class="auto-style4" style="mso-bidi-font-family: Consolas; color: black">.STOP_TRIGGER_TYPE_DURATION);<o:p></o:p></span></p>
+<p class="auto-style3" style="mso-bidi-font-family: Consolas;">
+<span class="auto-style4">extra2.StopTrigger.setDurationMilliSeconds(6000);</span><o:p></o:p></p>
+<p class="auto-style12">
+<o:p>&nbsp;</o:p></p>
+<h2>Inventory </h2>
+
+<h3>Inventory with Triggers </h3>
+
+<p>There are various situations that act as conditions (triggers)
+for performing inventory. </p>
+
+<p>Refer section &#147;Using Triggers&#148; to configure
+Triggers.</p>
+
+<p>The following shows an example of performing 1 round of
+Inventory on Antennas 1 and 3.</p>
+
+<p><font color="#008080" face="Courier New">TriggerInfo</font><font
+face="Courier New"> triggerInfo = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">TriggerInfo</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#008000" face="Courier New">// perform inventory
+on antenna 1 &amp; 3</font></p>
+
+<p><font color="#0000FF" face="Courier New">short</font><font
+face="Courier New">[] antennaList = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#0000FF" face="Courier New">short</font><font
+face="Courier New">[] { 1, 3 };</font></p>
+
+<p><font color="#008080" face="Courier New">AntennaInfo</font><font
+face="Courier New"> antennaInfo = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">AntennaInfo</font><font
+face="Courier New">(antennaList);</font></p>
+
+<p><font color="#008000" face="Courier New">// start inventory
+immediate</font></p>
+
+<p><font face="Courier New">triggerInfo.StartTrigger.setTriggerType(</font><font
+color="#008080" face="Courier New">START_TRIGGER_TYPE</font><font
+face="Courier New">.START_TRIGGER_TYPE_IMMEDIATE);</font></p>
+
+<p><font color="#008000" face="Courier New">// stop trigger </font></p>
+
+<p><font face="Courier New">triggerInfo.StopTrigger.setTriggerType(</font><font
+color="#008080" face="Courier New">STOP_TRIGGER_TYPE</font><font
+face="Courier New">.STOP_TRIGGER_TYPE_N_ATTEMPTS_WITH_TIMEOUT);</font></p>
+
+<p><font face="Courier New">triggerInfo.StopTrigger.NumAttempts.setN((short)1);
+</font><font color="#008000" face="Courier New">// perform 1
+round of inventory</font></p>
+
+<p><font face="Courier New">triggerInfo.StopTrigger.NumAttempts.setTimeout(0);
+</font><font color="#008000" face="Courier New">// reader default
+timeout</font></p>
+
+<p><font color="#008000" face="Courier New">// report back all
+read tags after 1 round of inventory</font></p>
+
+<p><font face="Courier New">triggerInfo.setTagReportTrigger(0);</font></p>
+
+<p><font color="#008000" face="Courier New">// perform inventory</font></p>
+
+<p><font face="Courier New">reader.Actions.Inventory.perform(</font><font
+color="#0000FF" face="Courier New">null</font><font
+face="Courier New">, triggerInfo, antennaInfo);</font></p>
+
+<h3>Using Post-Filters</h3>
+
+<p>Post-filters are those filters which are applied on the Tags
+that the reader received through the pre-filters (if any).</p>
+
+<p>Post-filters allow the application to set one or two tag
+patterns and to specify a condition as a combination of the
+patterns.</p>
+
+<p>The following snippet shows setting a post-filter that does
+not get tags starting with 0x1122 and 0x2233.</p>
+
+<p><font color="#008080" face="Courier New">PostFilter</font><font
+face="Courier New"> postFilter = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">PostFilter</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] tagMask = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] { 0xff, 0xff };</font></p>
+
+<p><font color="#008000" face="Courier New">// Tag Pattern A </font></p>
+
+<p><font face="Courier New">postFilter.TagPatternA.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_EPC);</font></p>
+
+<p><font face="Courier New">postFilter.TagPatternA.setTagPattern(</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#0000FF"
+face="Courier New">byte</font><font face="Courier New">[] { 0x11,
+0x22 });</font></p>
+
+<p><font face="Courier New">postFilter.TagPatternA.setTagPatternBitCount(2
+* 8);</font></p>
+
+<p><font face="Courier New">postFilter.TagPatternA.setBitOffset(0);</font></p>
+
+<p><font face="Courier New">postFilter.TagPatternA.setTagMask(tagMask);</font></p>
+
+<p><font face="Courier New">postFilter.TagPatternA.setTagMaskBitCount(tagMask.length
+* 8);</font></p>
+
+<p><font color="#008000" face="Courier New">// Tag Pattern B</font></p>
+
+<p><font face="Courier New">postFilter.TagPatternB.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_EPC);</font></p>
+
+<p><font face="Courier New">postFilter.TagPatternB.setTagPattern(</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#0000FF"
+face="Courier New">byte</font><font face="Courier New">[] { 0x22,
+0x33 });</font></p>
+
+<p><font face="Courier New">postFilter.TagPatternB.setTagPatternBitCount(2
+* 8);</font></p>
+
+<p><font face="Courier New">postFilter.TagPatternB.setBitOffset(32);
+</font><font color="#008000" face="Courier New">//skip PC </font></p>
+
+<p><font face="Courier New">postFilter.TagPatternB.setTagMask(tagMask);</font></p>
+
+<p><font face="Courier New">postFilter.TagPatternB.setTagMaskBitCount(tagMask.length
+* 8);</font></p>
+
+<p><font face="Courier New">postFilter.setPostFilterMatchPattern(</font><font
+color="#008080" face="Courier New">FILTER_MATCH_PATTERN</font><font
+face="Courier New">.NOTA_AND_NOTB);</font></p>
+
+<p><font color="#008000" face="Courier New">// perform inventory
+with post filter</font></p>
+
+<p><font face="Courier New">reader.Actions.Inventory.perform(postFilter,
+</font><font color="#0000FF" face="Courier New">null</font><font
+face="Courier New">, </font><font color="#0000FF"
+face="Courier New">null</font><font face="Courier New">);</font></p>
+
+<p class="codeindent1">&nbsp;</p>
+
+<h3 class="codeindent1">Using RSSI Filtering in Post Filters</h3>
+<span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">
+<p>Starting with version </span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA;
+mso-no-proof:yes">RFID_API3_5_1</span><span style="font-size:12.0pt;font-family:
+&quot;Times New Roman&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-ansi-language:
+EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA">, applications can
+use RSSI based filtering if supported by the reader. This is
+indicated by the field </span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA;mso-no-proof:yes">IsRssiFilterSupported </span><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;;mso-ansi-language:EN-US;mso-fareast-language:EN-US;
+mso-bidi-language:AR-SA"> </span>of ReaderCaps. The
+following code snippet does filtering of tags which have RSSI
+value in range -40 to -10. 
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;color:#2B91AF;mso-no-proof:yes">PostFilter</span><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">
+postFilter = <span style="color:blue">new</span> <span style="color:#2B91AF">PostFilter</span>();<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">postFilter.setRSSIRangeFilter(
+<span style="color:blue">true</span>);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">postFilter.RssiRangeFilter.setMatchRange(<span style="color:#2B91AF">MATCH_RANGE</span>.WITHIN_RANGE);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">postFilter.RssiRangeFilter.setPeakRSSILowerLimit((short)-40);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">postFilter.RssiRangeFilter.setPeakRSSIUpperLimit((short)-10);<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="mso-layout-grid-align:none;text-autospace:none"><span style="font-family:&quot;Courier New&quot;;mso-no-proof:yes">reader.Actions.Inventory.perform(postFilter,
+triggerInfo, <span style="color:blue">null</span>);<span style="color:black"><o:p></o:p></span></span></p>
+
+<h2>Access </h2>
+
+<h3>Using Access-Filters </h3>
+
+<p>In order to perform an access operation on multiple tags, the
+Application can set ACCESS_FILTER to filter the required tags. If
+ACCESS_FILTER is not specified, the operation will be performed
+on all Tags. In any case, the PRE_FILTER(s) if any is set will
+apply prior to ACCESS_FILTER.</p>
+
+<p>The following Access-filter gets all tags that have zeroed
+Reserved memory bank.</p>
+
+<p><font color="#008080" face="Courier New">AccessFilter</font><font
+face="Courier New"> accessFilter = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">AccessFilter</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] tagMask = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] { (byte)0xff, (byte)0xff, (byte)0xff,
+(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff };</font></p>
+
+<p><font color="#008000" face="Courier New">// Tag Pattern A </font></p>
+
+<p><font face="Courier New">accessFilter.TagPatternA.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_RESERVED);</font></p>
+
+<p><font face="Courier New">accessFilter.TagPatternA.setTagPattern(</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#0000FF"
+face="Courier New">byte</font><font face="Courier New">[] { 0x00,
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 });</font></p>
+
+<p><font face="Courier New">accessFilter.TagPatternA.setTagPatternBitCount(8
+* 8);</font></p>
+
+<p><font face="Courier New">accessFilter.TagPatternA.setBitOffset(0);</font></p>
+
+<p><font face="Courier New">accessFilter.TagPatternA.setTagMask(tagMask);</font></p>
+
+<p><font face="Courier New">accessFilter.TagPatternA.setTagMaskBitCount(tagMask.length
+* 8);</font></p>
+
+<p><font face="Courier New"></font>&nbsp;</p>
+
+<p><font face="Courier New">accessFilter.setAccessFilterMatchPattern(</font><font
+color="#008080" face="Courier New">FILTER_MATCH_PATTERN</font><font
+face="Courier New">.A);</font></p>
+
+<h3>Access Operation on Multiple Tags</h3>
+
+<p>Performing a single Access operation on multiple tags is an
+asynchronous operation. The function issues the access-operation
+and returns. The Reader performs one round of inventory using
+pre-filters if any, and then applies the access-filters and the
+resultant tags are subject to the access-operation. When the
+access operation is complete, the API signals the <font
+face="Courier New">eventStatusNotify </font>event with event data
+as ACCESS_STOP_EVENT. The Application can call the method <font
+face="Courier New">reader.Actions.TagAccess.getLastAccessResult</font>
+to know the result. In case of Read access operation (<font
+face="Courier New">reader.Actions.TagAccess.readEvent</font>) the
+event <font face="Courier New">eventReadNotify </font>is
+signaled when Tags are reported.</p>
+
+<p>The following snippet shows a sample write-access operation:</p>
+
+<p><font color="#008000" face="Courier New">// Create Event to
+signify access operation complete</font></p>
+
+<p><font face="Courier New">reader.Events.setAccessStartEvent(</font><font
+color="#0000FF" face="Courier New">true)</font><font
+face="Courier New">;</font></p>
+
+<p><font face="Courier New">reader.Events.setAccessStopEvent(</font><font
+color="#0000FF" face="Courier New">true</font><font
+face="Courier New">);</font></p>
+
+<p><font color="#008000" face="Courier New">// Status
+Notification from the reader</font></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;color:blue;mso-no-proof:yes">class</span><span style="font-size:10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes">
+EventHandler implements RfidEventsListener {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Read Event Notification<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">void</span> eventReadNotify(RfidReadEvents e){<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>TagData tag = e.getReadEventData().tagData;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>System.out.println(<span style="color:#A31515">&quot;Tag ID &quot;</span> + tag.getTagID());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">if</span> (tag.getOpCode() ==
+ACCESS_OPERATION_CODE.ACCESS_OPERATION_READ &amp;&amp;<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>tag.getOpStatus() == ACCESS_OPERATION_STATUS.ACCESS_SUCCESS)<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">if</span> (tag.getMemoryBankData().length() &gt; 0) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>System.out.println(<span style="color:
+#A31515">&quot; Mem Bank
+Data &quot;</span> + tag.getMemoryBankData());<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><o:p>&nbsp;</o:p></span>&nbsp;</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Status Event Notification<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">public</span> <span style="color:blue">void</span> eventStatusNotify(RfidStatusEvents e) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">if</span> (e.StatusEventData.getStatusEventType() ==
+STATUS_EVENT_TYPE.ACCESS_START_EVENT) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Access operation started<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:blue">else</span> <span style="color:blue">if</span>(e.StatusEventData.getStatusEventType() ==
+STATUS_EVENT_TYPE.ACCESS_STOP_EVENT) {<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="color:green">// Access operation stopped - Can be used to signal waiting
+thread<o:p></o:p></span></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal;mso-layout-grid-align:none;text-autospace:none"><span style="font-size:
+10.0pt;font-family:&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>}<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span style="font-size:10.0pt;line-height:115%;font-family:
+&quot;Courier New&quot;;mso-no-proof:yes"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}</span><span style="font-size:10.0pt;line-height:115%"><o:p></o:p></span></p>
+
+<p><font color="#008000" face="Courier New">// Access Filter -
+EPC ID starting with 0x1122</font></p>
+
+<p><font color="#008080" face="Courier New">AccessFilter</font><font
+face="Courier New"> accessFilter = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">AccessFilter</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] tagMask = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] { 0xff, 0xff };</font></p>
+
+<p><font color="#008000" face="Courier New">// Tag Pattern A </font></p>
+
+<p><font face="Courier New">accessFilter.TagPatternA.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_EPC);</font></p>
+
+<p><font face="Courier New">accessFilter.TagPatternA.setTagPattern(</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#0000FF"
+face="Courier New">byte</font><font face="Courier New">[] { 0x11,
+0x22});</font></p>
+
+<p><font face="Courier New">accessFilter.TagPatternA.setTagPatternBitCount(2
+* 8);</font></p>
+
+<p><font face="Courier New">accessFilter.TagPatternA.setBitOffset(0);</font></p>
+
+<p><font face="Courier New">accessFilter.TagPatternA.setTagMask(tagMask);</font></p>
+
+<p><font face="Courier New">accessFilter.TagPatternA.setTagMaskBitCount(tagMask.length
+* 8);</font></p>
+
+<p><font face="Courier New"></font>&nbsp;</p>
+
+<p><font face="Courier New">accessFilter.setAccessFilterMatchPattern(</font><font
+color="#008080" face="Courier New">FILTER_MATCH_PATTERN</font><font
+face="Courier New">.A);</font></p>
+
+<p><font face="Courier New"></font>&nbsp;</p>
+
+<p><font color="#008000" face="Courier New">// Write user memory
+bank data</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New"> tagAccess = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">WriteAccessParams</font><font
+face="Courier New"> writeAccessParams = tagAccess.</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#008080"
+face="Courier New">WriteAccessParams</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[] writeData = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#0000FF" face="Courier New">byte</font><font
+face="Courier New">[4] { 0xff, 0xff, 0xff, 0xff };</font></p>
+
+<p><font face="Courier New">writeAccessParams.setAccessPassword(0);</font></p>
+
+<p><font face="Courier New">writeAccessParams.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_USER);</font></p>
+
+<p><font face="Courier New">writeAccessParams.setByteOffset(0);</font></p>
+
+<p><font face="Courier New">writeAccessParams.setWriteDataLength(writeData.length);</font></p>
+
+<p><font face="Courier New">writeAccessParams.setWriteData(writeData);</font></p>
+
+<p><font color="#008000" face="Courier New">// Asynchronous write
+operation</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.writeEvent(writeAccessParams,
+accessFilter, </font><font color="#0000FF" face="Courier New">null</font><font
+face="Courier New">);</font></p>
+
+<p><font color="#008000" face="Courier New">// wait for access
+operation to complete (ACCESS_STOP_EVENT will be signalled after
+completing the access operation in the eventStatusNotify)</font></p>
+
+<p><font color="#008000" face="Courier New"></font>&nbsp;</p>
+
+<p><font color="#008000" face="Courier New">// Get Access
+operation results</font></p>
+
+<p><font color="#008000" face="Courier New">int[]</font><font
+face="Courier New">successCount = new int[1];</font></p>
+
+<p><font face="Courier New">int[]failureCount = new int[1];</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.getLastAccessResult(successCount,
+failureCount);</font></p>
+
+<h2>Using Access Sequence </h2>
+
+<p>The Application can issue multiple access operations on a
+single go using Access-Sequence API. This is useful when each tag
+from a set of (access-filtered) tags is to be subject to an order
+of access operations.</p>
+
+<p>The maximum number of access-operations that can be specified
+in an access sequence is available in <font face="Courier New">reader.ReaderCapabilites.getMaxNumOperationsInAccessSequence</font>of
+<font color="#0000FF"><u>ReaderCapabilities</u></font> class.</p>
+
+<p>The operations will be performed in the same order in which it
+is added to it sequence. An operation can be removed from the
+sequence using <font face="Courier New">reader.Actions.TagAccess.OperationSequence.delete
+</font>and finally de-initialized if no more needed by calling
+the function <font face="Courier New">reader.Actions.TagAccess.OperationSequence.deleteAll().</font></p>
+
+<p><font color="#008000" face="Courier New">// add Write Access
+operation - Write to User memory</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New"> tagAccess = </font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">();</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">Sequence</font><font face="Courier New">
+opSequence = tagAccess.</font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">Sequence</font><font
+face="Courier New">(tagAccess);</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">Sequence</font><font face="Courier New">.</font><font
+color="#008080" face="Courier New">Operation</font><font
+face="Courier New"> op1 = opSequence.</font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">Operation</font><font
+face="Courier New">();</font></p>
+
+<p><font face="Courier New">op1.setAccessOperationCode(</font><font
+color="#008080" face="Courier New">ACCESS_OPERATION_CODE</font><font
+face="Courier New">.ACCESS_OPERATION_WRITE);</font></p>
+
+<p><font face="Courier New">op1.WriteAccessParams.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_USER);</font></p>
+
+<p><font face="Courier New">op1.WriteAccessParams.setAccessPassword(0);</font></p>
+
+<p><font face="Courier New">op1.WriteAccessParams.setByteOffset(0);</font></p>
+
+<p><font face="Courier New">op1.WriteAccessParams.setWriteData(</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#0000FF"
+face="Courier New">byte</font><font face="Courier New">[] {
+(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88 });</font></p>
+
+<p><font face="Courier New">op1.WriteAccessParams.setWriteDataLength(4);</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.OperationSequence.add(op1);</font></p>
+
+<p><font color="#008000" face="Courier New">// add Write Access
+operation - Write to Reserved memory bank</font></p>
+
+<p><font color="#008080" face="Courier New">TagAccess</font><font
+face="Courier New">.</font><font color="#008080"
+face="Courier New">Sequence</font><font face="Courier New">.</font><font
+color="#008080" face="Courier New">Operation</font><font
+face="Courier New"> op2 = opSequence.</font><font color="#0000FF"
+face="Courier New">new</font><font face="Courier New"> </font><font
+color="#008080" face="Courier New">Operation</font><font
+face="Courier New">();</font></p>
+
+<p><font face="Courier New">op2.setAccessOperationCode(</font><font
+color="#008080" face="Courier New">ACCESS_OPERATION_CODE</font><font
+face="Courier New">.ACCESS_OPERATION_WRITE);</font></p>
+
+<p><font face="Courier New">op2.WriteAccessParams.setMemoryBank(</font><font
+color="#008080" face="Courier New">MEMORY_BANK</font><font
+face="Courier New">.MEMORY_BANK_USER);</font></p>
+
+<p><font face="Courier New">op2.WriteAccessParams.setAccessPassword(0);</font></p>
+
+<p><font face="Courier New">op2.WriteAccessParams.setByteOffset(0);</font></p>
+
+<p><font face="Courier New">op2.WriteAccessParams.setWriteData(</font><font
+color="#0000FF" face="Courier New">new</font><font
+face="Courier New"> </font><font color="#0000FF"
+face="Courier New">byte</font><font face="Courier New">[] {
+(byte)0xBB, (byte)0xBB, (byte)0xBB, (byte)0xBB });</font></p>
+
+<p><font face="Courier New">op2.WriteAccessParams.setWriteDataLength(4);</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.OperationSequence.add(op2);</font></p>
+
+<p><font color="#008000" face="Courier New">// perform access
+sequence</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.OperationSequence.performSequence();</font></p>
+
+<p><font color="#008000" face="Courier New">// wait for access
+operation complete</font></p>
+
+<p>&nbsp;</p>
+
+<p><font color="#008000" face="Courier New">// get the access
+operation result</font></p>
+
+<p><font color="#008000" face="Courier New">int[] </font><font
+face="Courier New">successCount = new int[1];</font></p>
+
+<p><font face="Courier New">int[] failureCount = new int[1];</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.getLastAccessResult(successCount,
+failureCount);</font></p>
+
+<p><font color="#008000" face="Courier New">// if the access
+operation is to be terminated without meeting stop trigger (if
+specified), </font></p>
+
+<p><font color="#008000" face="Courier New">// stopSequence
+method can be called</font></p>
+
+<p><font face="Courier New">reader.Actions.TagAccess.OperationSequence.stopSequence();</font></p>
+</body>
+</html>

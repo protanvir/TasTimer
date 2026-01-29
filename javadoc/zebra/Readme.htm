@@ -1,0 +1,723 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+Zebra RFID FXSeries Host Java SDK</title>
+<STYLE>
+</head>
+
+<body>
+
+<p>LI.MsoNormal { FONT-SIZE: 12pt; MARGIN: 0in 0in 0pt; COLOR:
+windowtext; FONT-FAMILY: &quot;Times New Roman&quot;;
+mso-style-parent: &quot;&quot; } DIV.Section1 { page: Section1 }
+body {font-family: Times New Roman, ,helvetica,sans-serif;
+margin: 0px 0px 0px 0px; font-size:12pt;} .body { font-size:
+12pt; font-weight: normal; } td { font-family: Times New Roman, ,
+helvetica; font-size: 12pt; font-weight: normal;}
+    .style1
+    {
+        font-weight: bold;
+    }
+.auto-style1 {
+	margin-left: 40px;
+}
+</STYLE> 
+
+<h1 align="center" style="TEXT-ALIGN: center"><a name="Top"><font
+size="5" face="Times New Roman">Zebra RFID FXSeries Host Java SDK v1.8</font></a></h1>
+
+<h2><font face="Times New Roman">Contents</font></h2>
+
+<ul type="disc" style="MARGIN-BOTTOM: 0in">
+    <li class="MsoNormal"><a href="#description"
+        style="COLOR: blue; TEXT-DECORATION: underline; text-underline: single"><font
+        size="3">Description</font></a> </li>
+    <li class="MsoNormal"><a href="#Release_Notes"
+        style="COLOR: blue; TEXT-DECORATION: underline; text-underline: single"><font
+        size="3">Release Notes</font></a> </li>
+    <li class="MsoNormal"><a href="#Components"
+        style="COLOR: blue; TEXT-DECORATION: underline; text-underline: single"><font
+        size="3">Components</font></a> </li>
+    <li class="MsoNormal"><SPAN style="COLOR: #0000ff; TEXT-DECORATION: underline"><a href="#Installation_-_PC"><font
+        size="3">Installation - PC</SPAN><a href="#Installation_-_PC"><font size="3"> </font></li>
+    <li class="MsoNormal"><font
+        size="3">
+        <a href="#Using"
+        style="COLOR: blue; TEXT-DECORATION: underline; text-underline: single">Usage Notes</a> </li>
+    <li class="MsoNormal"><a href="#Known_Issues"
+        style="COLOR: blue; TEXT-DECORATION: underline; text-underline: single"><font
+        size="3">Known Issues</font></a> </li>
+</ul>
+
+<hr>
+
+<h2><a name="description"><font face="Times New Roman">Description</font></a></h2>
+
+<p style="MARGIN: 5pt 0.5in"><font size="3"
+face="Times New Roman">RFID EMDK for Java provides a set of tools
+necessary to develop Java applications for RFID Reader devices
+from Zebra. These tools include class libraries, sample
+applications, and associated documentation. EMDK for Java allows
+Java developers to programmatically access the RFID reader
+functionality. The application can be developed to run on the host PC.<br>
+<br>
+    RFID EMDK Java should only be used for devices FX Series Readers (FX7500, 
+FX9600)<br>
+<br>
+</font></p>
+
+<p style="MARGIN: 5pt 0.5in"><font size="3"
+face="Times New Roman">For more information on Zebra
+enterprise mobility devices, please visit:</font></p>
+
+<p style="MARGIN: 5pt 0.5in"><font size="3"
+face="Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font><a href="http://www.zebra.com"><font
+size="3" face="Times New Roman">http://www.zebra.com</font></a></p>
+
+<p style="MARGIN: 5pt 0.5in">&nbsp;</p>
+
+<p style="MARGIN: 5pt 0.5in"><font size="3"
+face="Times New Roman"><i>Thank you,</i></font></p>
+
+<p style="MARGIN: 5pt 0.5in"><font size="3"
+face="Times New Roman"><i>The Software Development Team</i></font></p>
+
+<h5><a href="#Top"
+style="COLOR: blue; TEXT-DECORATION: underline; text-underline: single"><font
+size="3" face="Times New Roman">Back to Top</font></a></h5>
+
+<hr>
+
+<h2><a name="Release_Notes"><font face="Times New Roman">Release
+Notes</font></a></h2>
+<p style="margin: 5px 0" class="Section1">
+	<font size="3"
+    face="Times New Roman" class="auto-style1"><b><u>Version 1.8</u></b></font></p>
+<blockquote>
+        <ol start="1" type="1">
+			<li class="MsoNormal">Added 
+            Upgraded openssl version 3 for readers with Firmware 3.26.88 and above.</li>
+		</ol>
+</blockquote>
+
+    <p style="margin: 5px 0" class="Section1">
+	<font size="3"
+    face="Times New Roman" class="auto-style1"><b><u>Version 1.7</u></b></font></p>
+<blockquote>
+        <ol start="1" type="1">
+			<li class="MsoNormal">Added 
+			ExtendedOnTimeMicroseconds in AntennaRfConfig class to get or set 
+			Extended On time in milliseconds (delay after select command)</li>
+			<li class="MsoNormal">
+			Added new stop trigger 
+			type in ANTENNA_STOP_TRIGGER_TYPE to stop after a specified 
+			Millisecond duration Or One round</li>
+			<li class="MsoNormal">
+			Added GetstationaryTags 
+			function in Actions class to get the stationary tags if 
+			Moving/Stationary feature enabled</li>
+			<li>
+			Fix for periodic start 
+			inventory in RFIDSample4 sample app</li>
+	</ol>
+</blockquote>
+    <p style="margin: 5px 0" class="Section1">
+	<font size="3"
+    face="Times New Roman" class="auto-style1"><b><u>Version 1.6</u></b></font></p>
+<blockquote>
+    <font
+        size="3">
+        <ol start="1" type="1">
+			<li class="MsoNormal">Added support for Regulatory Configuration<ol start="1" type="1">
+				<li class="MsoNormal">GetSupportedRegionList</li>
+				<li class="MsoNormal">GetRegionStandardList</li>
+				<li class="MsoNormal">SetActiveRegion</li>
+				<li class="MsoNormal">GetActiveRegion</li>
+				<li class="MsoNormal">GetActiveRegionStandardInfo</li>
+				<li class="MsoNormal">SetFrequencySetting</li>
+			</ol>
+			</li>
+			<li class="MsoNormal"></font>Fix for PreFilter failure when 
+			SetTagStorageSettings is called </li>
+	</ol>
+	<p style="margin: 5px 0" class="Section1">
+	<font size="3"
+    face="Times New Roman"><b><u>Version 1.5</u></b></font></p>
+</blockquote>
+<blockquote>
+    <ol start="1" type="1">
+        <li class="MsoNormal">Gen2 V2 API support added (Crypto, Authenticate, 
+		ReadBuffer, Untraceable)</li>
+		<li class="MsoNormal">License Management API added (AcquireOnLine, 
+		AcquireOffLine, Return, AvailableLicenses)</li>
+		<li class="MsoNormal">Added Extra Triggers</li>
+        <li class="MsoNormal">Added GPS co-ordinates of the tag in TagData class. 
+		This is reported only if GPS modem connected to the reader and enabled 
+		this field in Tag Storage Setting</li>
+		<li class="MsoNormal">Added TimeLapse, Distance Start Trigger</li>
+		<li class="MsoNormal">Added TimeLapse Stop Trigger</li>
+		<li class="MsoNormal">Reader capabilities extended to report 
+		IsZebraTriggerSupported, IsG2V2CommandSupported, 
+		IsGPSReportingSupported, IsTagListFilterSupported</li>
+    </ol>
+</blockquote>
+
+<blockquote>
+    <p style="margin: 5px 0" class="Section1"><font size="3"
+    face="Times New Roman"><b><u>Version 1.2</u></b></font></p>
+</blockquote>
+<blockquote>
+    <ol start="1" type="1">
+        <li class="MsoNormal">Fix for Memory leaks observed in RFID3 API based application 
+            when reading tags overnight</li>
+        <li class="MsoNormal">Fix for the Reader returns incorrect information for 
+            RFID_GetSystemInfo() API</li>
+        <li class="MsoNormal">Fix for C API RFID_ExportProfileToReader</li>
+    </ol>
+</blockquote>
+
+<blockquote>
+    <p style="margin: 5px 0" class="Section1"><font size="3"
+    face="Times New Roman"><b><u>Version 1.1</u></b></font></p>
+
+<blockquote>
+    <ol start="1" type="1">
+        <li class="MsoNormal">New device support for FX7500 Fixed RFID Reader </li>
+        <li class="MsoNormal">64bit support added</li>
+        <li class="MsoNormal">Secure connection</li>
+        <li class="MsoNormal">Added Tag support for Impinj (QT Read/Write) &amp; NXP (Change 
+            Config)</li>
+        <li class="MsoNormal">Set/Get Global Antenna Configuration
+            <ul type="disc">
+                <li class="MsoNormal">New method setAntennaRfConfig, getAntennaRfConfig added in 
+                    Config.Antennas class </li>
+            </ul>
+        </li>
+        <li class="MsoNormal">New Event added to report PA/Ambient temperature
+            <ul type="disc">
+                <li class="MsoNormal">New method setTemperatureAlarmEvent added in Events class
+                </li>
+            </ul>
+        </li>
+        <li class="MsoNormal">Extended INVENTORY_STATE class
+            <ul type="disc">
+                <li class="MsoNormal">INVENTORY_STATE_AB_FLIP </li>
+            </ul>
+        </li>
+        <li class="MsoNormal">Extended SL_FLAG class
+            <ul type="disc">
+                <li class="MsoNormal">SL_ALL </li>
+            </ul>
+        </li>
+        <li class="MsoNormal">Extended TAG_FIELD class
+            <ul type="disc">
+                <li class="MsoNormal">PHASE_INFO </li>
+            </ul>
+        </li>
+        <li class="MsoNormal">New TEMPERATURE_SOURCE class added </li>
+        <li class="MsoNormal">New ALARM_LEVEL class added </li>
+        <li class="MsoNormal">Periodic Tag Report Duration
+            <ul type="disc">
+                <li class="MsoNormal">New ReportTriggers class added in TriggerInfo class </li>
+            </ul>
+        </li>
+        <li class="MsoNormal">Reporting Phase Info as part of TagData
+            <ul type="disc">
+                <li class="MsoNormal">New method getPhase added in TagData class </li>
+            </ul>
+        </li>
+        <li class="MsoNormal">Idle Mode Support
+            <ul type="disc">
+                <li class="MsoNormal">New method turnOffRadioWhenIdle, getRadioIdleTimeout added in 
+                    ReaderManagement class </li>
+            </ul>
+        </li>
+        <font
+        size="3">
+        <li class="MsoNormal"><font
+        size="3">User App Deployment</font>
+            <ul type="disc">
+                <li class="MsoNormal"><font
+        size="3">New UserApp property added in ReaderManagement class (UserApp class contain methods 
+                    to install, unInstall, start, stop, autoStart, list and getRunStatus)</font></li>
+            </ul>
+        </li>
+        </font>
+        <li class="MsoNormal">Cable Loss Compensation
+            <ul type="disc">
+                <li class="MsoNormal">New method setCableLossCompensation,getCableLossCompensation 
+                    added in ReaderManagement class</li>
+            </ul>
+        </li>
+    </ol>
+</blockquote>
+
+<blockquote>
+    <p style="margin: 5px 0" class="Section1"><font size="3"
+    face="Times New Roman"><b><u>Version 1.0</u></b></font></p>
+    <p style="margin: 5px 0" class="Section1">&nbsp;</p>
+    <p class="Section1" style="margin: 5px 0px">
+        <font size="3"
+    face="Times New Roman">The following are the features
+    supported in Java RFID API3 as part of current release.
+    Please refer the Programmer&#146;s guide for more information
+    about the usage of APIs. The complete API reference
+    documentation is available in Java DOC generated format. </font>
+    </p>
+    <p class="Section1" style="margin: 5px 0px">
+        &nbsp;</p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+tab-stops:.5in;mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">1.<span style="mso-tab-count:1">&nbsp;&nbsp;
+        </span>Connection Management (Open/Close connection to the reader)<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">2.<span style="mso-tab-count:
+1">&nbsp;&nbsp;
+</span>Configuration<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+tab-stops:1.0in;mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">a.<span style="mso-tab-count:1">&nbsp;&nbsp;
+        </span>Antenna<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">b.<span style="mso-tab-count:
+1">&nbsp;&nbsp;
+</span>RF Mode<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">c.<span style="mso-tab-count:
+1">&nbsp;&nbsp;
+</span>Singulation 
+        <o:p>
+        </o:p>
+        </span>
+    </p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+tab-stops:.5in;mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">3.<span style="mso-tab-count:1">&nbsp;&nbsp;
+        </span>Inventory<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+tab-stops:1.0in;mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">a.<span style="mso-tab-count:1">&nbsp;&nbsp;
+        </span>Simple<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">b.<span style="mso-tab-count:
+1">&nbsp;&nbsp;
+</span>Trigger Based (Start &amp; Stop)<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+tab-stops:.5in;mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">4.<span style="mso-tab-count:1">&nbsp;&nbsp;
+        </span>Access (Both Synchronous and Asynchronous)<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+tab-stops:1.0in;mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">a.<span style="mso-tab-count:1">&nbsp;&nbsp;
+        </span>Read 
+        <o:p>
+        </o:p>
+        </span>
+    </p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">b.<span style="mso-tab-count:
+1">&nbsp;&nbsp;
+</span>Write<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">c.<span style="mso-tab-count:
+1">&nbsp;&nbsp;
+</span>Lock<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">d.<span style="mso-tab-count:
+1">&nbsp;&nbsp;
+</span>Kill<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">e.<span style="mso-tab-count:
+1">&nbsp;&nbsp;
+</span>Access Sequence<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+tab-stops:.5in;mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">5.<span style="mso-tab-count:1">&nbsp;&nbsp;
+        </span>Filter<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+tab-stops:1.0in;mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">a.<span style="mso-tab-count:1">&nbsp;&nbsp;
+        </span>Pre-Filter<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">b.<span style="mso-tab-count:
+1">&nbsp;&nbsp;
+</span>Access Filter<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">c.<span style="mso-tab-count:
+1">&nbsp;&nbsp;
+</span>Post Filter<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+tab-stops:.5in;mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">6.<span style="mso-tab-count:1">&nbsp;&nbsp;
+        </span>RM (Reader Management) APIs<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">7.<span style="mso-tab-count:
+1">&nbsp;&nbsp;
+</span>NXP Tag support<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;margin-bottom:.0001pt;text-indent:-.25in;line-height:normal;
+mso-layout-grid-align:none;text-autospace:none">
+        <span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black">8.<span style="mso-tab-count:
+1">&nbsp;&nbsp;
+</span>Tag Locationing<o:p></o:p></span></p>
+    <h5>
+        <a href="#Top"
+    style="COLOR: blue; TEXT-DECORATION: underline; text-underline: single">
+        <font
+    size="3" face="Times New Roman">Back to Top</font></a></h5>
+    <hr>
+    <h2>
+        <font size="3" face="Times New Roman"><!-- ******************************************************************************************************** --><!-- ******************************************************************************************************** --><!-- ******************************************************************************************************** --><!-- ******************************************************************************************************** --> 
+        </font><a
+    name="Components"><font face="Times New Roman">Components</font></a></h2>
+    <p style="MARGIN: 5pt 0.5in">
+        <font size="3"
+    face="Times New Roman">If the default location is not
+    changed, the installed components can be found in the
+    following folders:</font></p>
+    <table border="1" cellpadding="0" cellspacing="1" width="938"
+    class="MsoNormalTable" id="table6" style="MARGIN-LEFT: 0.5in">
+        <TBODY>
+            <tr>
+                <td width="167"
+            style="PADDING-RIGHT: 0.75pt; PADDING-LEFT: 0.75pt; PADDING-BOTTOM: 0.75pt; WIDTH: 125.25pt; PADDING-TOP: 0.75pt; HEIGHT: 11.25pt">
+                    <font
+            size="3" face="Times New Roman"><b>Component</b></font></td>
+                <td
+            style="padding:0.75pt; WIDTH: 474px; HEIGHT: 11.25pt">
+                    <font
+            size="3" face="Times New Roman"><b>Location under
+            \Program Files</b></font></td>
+            </tr>
+            <tr>
+                <td width="167"
+            style="PADDING-RIGHT: 0.75pt; PADDING-LEFT: 0.75pt; PADDING-BOTTOM: 0.75pt; WIDTH: 125.25pt; PADDING-TOP: 0.75pt; HEIGHT: 14.25pt">
+                    <font
+            size="3" face="Times New Roman">Class libraries</font></td>
+                <td
+            style="padding:0.75pt; WIDTH: 474px; HEIGHT: 14.25pt">
+                    <font
+            size="3" face="Times New Roman">\Zebra EMDK for 
+            Java\RFID\bin</font></td>
+            </tr>
+            <tr>
+                <td width="167"
+            style="PADDING-RIGHT: 0.75pt; PADDING-LEFT: 0.75pt; PADDING-BOTTOM: 0.75pt; WIDTH: 125.25pt; PADDING-TOP: 0.75pt; HEIGHT: 11.25pt">
+                    <font
+            size="3" face="Times New Roman">Help files</font></td>
+                <td
+            style="padding:0.75pt; WIDTH: 474px; HEIGHT: 11.25pt">
+                    <font
+            size="3" face="Times New Roman">\Zebra EMDK for
+            Java\RFID\doc</font></td>
+            </tr>
+            <tr>
+                <td width="167"
+            style="PADDING-RIGHT: 0.75pt; PADDING-LEFT: 0.75pt; PADDING-BOTTOM: 0.75pt; WIDTH: 125.25pt; PADDING-TOP: 0.75pt; HEIGHT: 11.25pt">
+                    <font
+            size="3" face="Times New Roman">Sample applications</font></td>
+                <td
+            style="padding:0.75pt; WIDTH: 474px; HEIGHT: 11.25pt">
+                    <font
+            size="3" face="Times New Roman">\Zebra EMDK for
+            Java\RFID\Samples</font></td>
+            </tr>
+        </TBODY>
+    </table>
+    <p style="MARGIN: 5pt 0.5in">
+        &nbsp;</p>
+    <h5>
+        <a href="#Top"
+    style="COLOR: blue; TEXT-DECORATION: underline; text-underline: single">
+        <font
+    size="3" face="Times New Roman">Back to Top</font></a></h5>
+    <hr>
+    <h2>
+        <font size="3" face="Times New Roman"><!-- ******************************************************************************************************** --><!-- ******************************************************************************************************** --> 
+        </font><a
+    name="Installation_-_PC"><font face="Times New Roman">Installation
+    - PC</font></a></h2>
+    <blockquote>
+        <SPAN style="FONT-WEIGHT: normal; FONT-STYLE: normal; FONT-VARIANT: normal">
+        <font size="3" face="Times New Roman"></font>
+        <ul>
+            <li><font size="3" face="Times New Roman">Microsoft
+                Microsoft Windows 7 / 10 (64-bit)</font></li>
+            <li>NetBeans IDE 7.3 (64-bit) or above</li>
+            <li>JDK 1.3 or above</li>
+        </ul>
+        <font
+        size="3"><strong>
+    </blockquote>
+    <h5>
+        <a href="#Top"
+    style="COLOR: blue; TEXT-DECORATION: underline; text-underline: single">
+        <font
+    size="3" face="Times New Roman">Back to Top</font></a></h5>
+    <hr>
+    <h2>
+        <a name="Using"><font face="Times New Roman">Usage Notes</font></a></h2>
+    <p class="MsoNormalCxSpFirst"
+    style="margin-top:0in;margin-right:1.0in;
+margin-bottom:5.0pt;margin-left:.75in;mso-add-space:auto;text-indent:-.25in;
+line-height:normal">
+        <span style="font-size:
+7.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;">&nbsp;</span><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;"><b>Documentation<span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;"><o:p></o:p></span></p>
+    </b></strong></span><SPAN style="FONT-STYLE: normal; FONT-VARIANT: normal">
+    <p class="MsoNormalCxSpMiddle"
+    style="margin-top:0in;margin-right:1.5in;
+margin-bottom:5.0pt;margin-left:1.5in;mso-add-space:auto;text-indent:-.25in;
+line-height:normal">
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;">1.</span><span style="font-size:
+7.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><SPAN style="FONT-WEIGHT: normal; FONT-STYLE: normal; FONT-VARIANT: normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;">Host</span><span style="font-size:12.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;"><SPAN 
+            style="FONT-STYLE: normal; FONT-VARIANT: normal">
+    in this documentation refers the application runs on the </span>desk top PC (Windows 
+        XP/7)<SPAN style="FONT-STYLE: normal; FONT-VARIANT: normal"> which consumes Symbol.RFID.API3.jar file and
+    internally uses RFIDAPI32PC.dll (native C API3 library) via
+    RFIDAPI3_JNI_HOST dll<SPAN style="FONT-STYLE: normal; FONT-VARIANT: normal" 
+            class="style1"><o:p></o:p></p>
+    </span>
+    <p class="MsoNormalCxSpMiddle"
+    style="margin-top:5.0pt;margin-right:1.5in;
+margin-bottom:5.0pt;margin-left:1.5in;mso-add-space:auto;text-indent:-.25in;
+line-height:normal">
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;">2.</span><span style="font-size:
+7.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;">Please refer the Programmers guide for details on the API
+    calling sequence.<o:p></o:p></span></p>
+    </span>
+    <SPAN style="FONT-WEIGHT: normal; FONT-STYLE: normal; FONT-VARIANT: normal"><b>
+    <strong>
+    <p class="MsoNormalCxSpMiddle"
+    style="margin-top:0in;margin-right:1.0in;
+margin-bottom:5.0pt;margin-left:.75in;mso-add-space:auto;text-indent:-.25in;
+line-height:normal">
+        &nbsp;</p>
+    <p class="MsoNormalCxSpMiddle"
+    style="margin-top:0in;margin-right:1.0in;
+margin-bottom:5.0pt;margin-left:.75in;mso-add-space:auto;text-indent:-.25in;
+line-height:normal">
+        <b>
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;">Sample Applications</span><span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;"><o:p></o:p></span></b></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:.75in;margin-bottom:.0001pt;line-height:normal">
+        <b>
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;">J_RFIDHostSample1</span><span style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;"><o:p></o:p></span></b></p>
+    </strong></b>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:.75in;margin-bottom:.0001pt;line-height:normal">
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;">The
+    host based sample application runs on the Desk top PC to
+    connect Zebra RFID Reader (MC series/FX/XR) based on the
+    IP/Host Name. This app demonstrates the complete
+    functionality using Java RFID API3 class library
+    (Symbol.RFID.API3.jar)<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:.75in;margin-bottom:.0001pt;line-height:normal">
+        <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;">Access
+    the Reader Connect dialog from <b>Reader-&gt;Connection</b>
+    Menu<o:p></o:p></span></p>
+    <p class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:1.0in;text-indent:-.25in;line-height:normal;tab-stops:list 0in">
+        <span style="font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol">�</span><span style="font-size:7.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:
+Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;">To connect <b>FX/XR Reader</b>, provide the respective IP
+    address and port number (default: 5084). 
+        <o:p>
+        </o:p>
+        </span>
+    </p>
+    <p class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:1.0in;text-indent:-.25in;line-height:normal;tab-stops:list 0in">
+        <span style="font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol">�</span><span style="font-size:7.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:
+Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;">To connect <b>MC Series Reader</b>, provide the IP adress as
+    169.254.2.1 and port number (default: 5084).<b><strong><o:p></o:p></strong></b></span></p>
+    <b><strong>
+    <p class="MsoNormal">
+        <o:p>
+        &nbsp;</o:p></p>
+    <p>
+        <img src="Doc/Images/J_RFIDHostSample1_ScreenShot.JPG"
+    width="977" height="480"></p>
+    </strong></b>
+    <blockquote>
+        <blockquote>
+            <p class="MsoNormal" style="margin: 0in 0in 0pt">
+                This
+            app helps to demonstrate the following functions of
+            RFID Reader:</p>
+            <ul>
+                <li>Secure Connection</li>
+                <li>Gets the Reader capabilities</li>
+                <li>Reader configuration</li>
+                <li>Operation (Inventory &amp; Access Operation
+                    Read, write, lock, kill, block erase and
+                    block write)</li>
+                <li>Filters (Pre-Filter, Post Filter and Access
+                    Filter)</li>
+                <li>Triggers (Start and Stop Condition</li>
+                <li>Reader management functions</li>
+            </ul>
+        </blockquote>
+    </blockquote>
+    <b><strong>
+    <p class="MsoBodyText"
+    style="margin: 6pt 0in 0pt 58pt; text-indent: -0.25in; tab-stops: .5in list 58.0pt;
+                mso-list: l2 level1 lfo1">
+        &nbsp;</p>
+    <b><i>
+    <h5>
+        <font size="3" face="Times New Roman">&nbsp;</font><a
+    href="#Top"
+    style="COLOR: blue; TEXT-DECORATION: underline; text-underline: single"><font
+    size="3" face="Times New Roman">Back to Top to Top</font></a></h5>
+    <hr>
+    <h2>
+        <a name="Known_Issues"><font face="Times New Roman">Known
+    Issues</font></a></h2>
+    <blockquote>
+        <ol>
+            <li><font size="3">
+                <SPAN style="FONT-WEIGHT: normal; FONT-STYLE: normal; FONT-FAMILY: Times New Roman; FONT-VARIANT: normal">Accept connection not yet
+                implemented (In this scenario, Reader will be
+                client and application will act as server. Reader
+                will attempt to make a connection to the
+                application)</SPAN></font></li>
+            </i></b></strong></b></span></span></span></span></span>
+            <SPAN style="FONT-WEIGHT: normal; FONT-STYLE: normal; FONT-VARIANT: normal">
+            <SPAN style="FONT-WEIGHT: normal; FONT-STYLE: normal; FONT-VARIANT: normal">
+            <SPAN style="FONT-WEIGHT: normal; FONT-STYLE: normal; FONT-VARIANT: normal">
+            <span style="font-size:12.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;">
+            <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;">
+            <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;">
+            <li><font size="3"><span style="font-family: Times New Roman">Negative parameter validation is
+                not done in&nbsp; the API. Wherever applicable,
+                the user is expected to provide non-negative
+                values as parameter.<b><i><strong> </strong></i></b></span></font></li>
+            <li><span style="font-size: small; font-family: 'Times New Roman', Times, serif; mso-fareast-font-family: &quot;Times New Roman&quot;; mso-bidi-font-family: &quot;Times New Roman&quot;; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA; layout-grid-mode: line">
+                During un-installation of Zebra RFID FXSeries Host Java SDK v1.4, the RFIDAPI32PC.dll 
+                in the windows system folder will not be deleted. This is to work with other 
+                EMDK for C or .NET product</span><font size="3"><b><i><strong></li>
+        </ol>
+    </blockquote>
+    <p>
+        <a href="#Top"
+    style="COLOR: blue; TEXT-DECORATION: underline; text-underline: single">
+        <font
+    size="3" face="Times New RomBack to Top</font></a></p>
+    <hr>
+    <p><font size="3" face="Times New Roman">Last revised:&nbsp; April 25, 2024</font></p>
+    <div align="left">
+        <address>
+            <font size="3" face="Times New Roman">Copyright (c) 2024
+        Zebra Technologies, Inc. All rights reserved.</font>
+        </address>
+    </div>
+    <div align="left">
+        <address>
+            <font size="3" face="Times New Roman">Zebra Technologies, Inc. </font>
+        </address>
+    </div>
+    <p align="left">
+        &nbsp;</p>
+    <p>
+        &nbsp;</p>
+</blockquote>
+</html>

@@ -1,0 +1,108 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<title>Connecting to an RFID Reader</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: "Courier New";
+	font-size: 12pt;
+}
+.auto-style2 {
+	font-family: "Courier New";
+}
+</style>
+</head>
+
+<body>
+
+<h2>Connecting to an RFID Reader</h2>
+
+<p>This is the first step to talk to an RFID Reader over the
+Generic Reader Interface. The root class for the RFID3 is
+RFIDReader. It is possible to use the API to connect to RFID
+Reader while is acting as LLRP Server as well as LLRP Client.</p>
+
+<p><b>RFID Reader acts in LLRP Server Mode - </b>The RFIDReader
+class instance takes host name or IP address of the RFID-reader
+to connect, the port number and the response timeout. The default
+LLRP port number is 5084 and the default response time out is 5
+seconds. Specifying zero for port number and timeout uses default
+values.</p>
+
+<p>For Host-based readers, hostname shall be the IP address of
+the RFID Reader.</p>
+
+<p style="text-indent:.5in">Import the package </p>
+
+<p style="text-indent:.5in"><span style="color:blue">import com.mot.rfid.api3.*;<o:p></o:p></span></p>
+
+<p style="text-indent:.5in"><span style="font-family:&quot;Courier New&quot;;color:#009900">// Establish connection to the RFID
+Reader</span></p>
+
+<p style="text-indent:.5in"><span style="font-family:&quot;Courier New&quot;;color:green">String</span><span style="font-family:&quot;Courier New&quot;"> hostname = <span style="color:maroon">&quot;157.235.208.20&quot;;</span></span></p>
+
+<p style="text-indent:.5in"><span style="font-family:&quot;Courier New&quot;;color:#009900">RFIDReader</span><span style="font-family:&quot;Courier New&quot;"> reader = <span style="color:blue">new</span> <span style="color:#009900">RFIDReader</span>(hostname,
+0, 0);</span></p>
+
+<p style="text-indent:.5in"><span style="font-family:&quot;Courier New&quot;">reader.connect();</span></p>
+
+<p>The timeout value is also used for configuring the Keep-Alive
+mechanism which helps in determining if the connection to the
+reader is alive or not. If the connection to the reader was
+inactive (i.e. no keep-alive message from the Reader) for a time
+greater than 10 times the timeout, <u><span style="color:blue"> DISCONNECTION_EVENT</span></u>
+will be triggered to the application if the application has
+registered for the same.</p>
+    <p>
+        <strong>Secured Connection</strong></p>
+    <p>
+        Secure LLRP mode allows encrypted and optionally authenticated connection to use
+        LLRP service on the reader using SSL/TLS. Please refer Configure LLRP Settings and Certificates chapter in Reader Integrator Guide for configuring reader in
+        Secure LLRP mode.</p>
+    <p>
+        RFID API3 can internally manage secure connection to LLRP service and clients using
+        RFID API3 can enable secure connection by setting options in <span style="font-family: Courier New">
+            SecureConnectionInfo </span>property of RFIDReader object before calling Connect method
+        </p>
+    <p>
+        Please refer Reader Integrator Guide for documentation on generation of certificates
+        for reader as well as client use. The example below illustrates use of <span style="font-family: Courier New">
+            SecureConnectionInfo</span> property to establish a secure to connection to a reader which
+        is configured to operate in Secure LLRP mode.</p>
+    <p>
+        <span style="color: #009900; font-family: Courier New">&nbsp; &nbsp;&nbsp; // Establish
+            secure connection to the RFID Reader</span></p>
+    <p style="text-indent:.5in">
+        <span style="font-family:&quot;Courier New&quot;;color:green">String</span><span style="font-family:&quot;Courier New&quot;"> hostname = <span style="color:maroon">
+                "157.235.208.20";</span><?xml namespace="" prefix="O" ?><o:p></o:p></span></p>
+    <p style="text-indent:.5in">
+        <span style="font-family:&quot;Courier New&quot;;color:#009900">RFIDReader</span><span style="font-family:&quot;Courier New&quot;"> 
+		reader = <span style="color:blue">new</span>
+            <span style="color:#009900">RFIDReader</span>(hostname, 0, 0);</span></p>
+    <span></span><span>
+        <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+            <span style="font-size: 12pt; color: green; line-height: 200%; font-family: 'Courier New';
+                mso-no-proof: yes">// Secure Connection to the reader
+                <?xml namespace="" ns="urn:schemas-microsoft-com:office:office" prefix="o" ?><o:p></o:p></span></p>
+        <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+            <span style="font-size: 12pt; color: teal; line-height: 200%; font-family: 'Courier New';
+                mso-no-proof: yes">SecureConnectionInfo</span><span style="font-size: 12pt; line-height: 200%;
+                    font-family: 'Courier New'; mso-no-proof: yes"> secureLLRPConnection = <span style="color: blue">
+                        new</span> <span style="color: teal">SecureConnectionInfo</span>();<o:p></o:p></span></p>
+        <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+            <span style="font-size: 12pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+                secureLLRPConnection.setSecureMode(<span style="color: blue">true)</span>;<o:p></o:p></span></p>
+        <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+            <span style="font-size: 12pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">
+                secureLLRPConnection.setValidatePeerCertificate(<span style="color: blue">false)</span>;<o:p></o:p></span></p>
+        <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+            <span class="auto-style1">reader</span><span style="font-size: 12pt; line-height: 200%; font-family: 'Courier New'; mso-no-proof: yes">.SecureConnectionInfo = secureLLRPConnection;<?xml namespace="" ns="urn:schemas-microsoft-com:office:office"
+                    prefix="o" ?><o:p></o:p></span></p>
+        </span>
+    <p class="MsoNormal" style="margin: 0in 0in 0pt 0.5in; line-height: 200%; mso-layout-grid-align: none">
+        <span class="auto-style2">reader</span><span style="font-family:&quot;Courier New&quot;">.Connect();<o:p></o:p></span></p>
+</body>
+</html>

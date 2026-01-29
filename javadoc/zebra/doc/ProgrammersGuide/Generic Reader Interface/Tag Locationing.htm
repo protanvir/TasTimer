@@ -1,0 +1,31 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Tag Locationing</title>
+</head>
+
+<body>
+
+<h2>Tag Locationing</h2>
+
+<p class="MsoNormal">Readers which support Tag Locationing
+feature report the same in the field isTagLocationingSupported of
+ReaderCapabilities as true. This feature is supported only on
+Handheld readers and is useful to locate a specific tag in the
+field of view of the reader&#146;s antenna. The default
+locationing algorithm supported on the reader can perform
+locationing only on a single antenna.
+reader.Actions.TagLocationing.Perform can be used to start
+locating a tag, and reader.Actions.TagLocationing.Stop to stop
+the locationing operation. Result of locationing of a tag is
+reported as LocationInfo in TagData and will be present in
+TagData if tagData isContainsLocationInfo is true.
+tagData.LocationInfo.getRelativeDistance gives the relative
+distance of the Tag from the Reader Antenna. </p>
+
+<p class="MsoNormal">&nbsp;</p>
+</body>
+</html>

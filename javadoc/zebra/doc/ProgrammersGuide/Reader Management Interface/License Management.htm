@@ -1,0 +1,203 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<title>License Management</title>
+<style type="text/css">
+.auto-style2 {
+	margin-left: 80px;
+}
+</style>
+</head>
+
+<body>
+
+<h2 class="MsoNormal"
+style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto"><b>License Management</b></h2>
+
+<p class="Default"><span style="font-family:&quot;Times New Roman&quot;;color:windowtext">
+Fixed Reader supports the licensed features (For example FXConnect, 
+NetworkConnect) to make ease of software development and integration faster. The 
+following APIs are supported to manage the License in rm.Licensing class</span></p>
+<ol>
+	<li>AcquireLicenseOnLine - This API acquires License from given URL and 
+	activation ID. This API also installs the Licensed feature using installApp 
+	parameter</li>
+</ol>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">String</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> serverURL, activationID;<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">boolean</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> installApp;<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">serverURL 
+= </span>
+<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:
+Consolas;color:#A31515">
+&quot;https://zebra-licensing.flexnetoperations.com/flexnet/deviceservices&quot;</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">;<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+activationID = </span>
+<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:
+Consolas;color:#A31515">&quot;8c88-d0e7-9f3c-435b-968b-69a8-7f8e-a302&quot;</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">;<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">installApp 
+= </span>
+<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:
+Consolas;color:blue">false</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black">;<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:9.5pt;line-height:107%;font-family:
+Consolas;mso-bidi-font-family:Consolas;color:black">
+rm.Licensing.AcquireOnline(serverURL, activationID, installApp);</span><o:p></o:p></p>
+<ol>
+	<li value="2">AcquireLicenseOffLine&#8211; Acquires License via license bin file. 
+	This API also installs the licensed feature using installApp parameter.</li>
+</ol>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">boolean</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> installApp = </span>
+<span style="font-size:9.5pt;font-family:
+Consolas;mso-bidi-font-family:Consolas;color:blue">false</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">; <o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">String</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> binFilePath = </span>
+<span style="font-size:9.5pt;font-family:
+Consolas;mso-bidi-font-family:Consolas;color:maroon">
+&quot;C:\\license\\FX9600_84_24_8D_FB_6C_1A.bin&quot;</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">;<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+rm.Licensing.AcquireOffline(binFilePath, installApp);</span><o:p></o:p></p>
+<ol>
+	<li value="3">Return &#8211; Returns the License. This API requires parameters 
+	License Server URL, activation ID. </li>
+</ol>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">String</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> serverURL, activationID;<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">serverURL 
+= </span>
+<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:
+Consolas;color:#A31515">
+&quot;https://zebra-licensing.flexnetoperations.com/flexnet/deviceservices&quot;</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">;<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+activationID = </span>
+<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:
+Consolas;color:#A31515">&quot;8c88-d0e7-9f3c-435b-968b-69a8-7f8e-a302&quot;</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">;<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:9.5pt;line-height:107%;font-family:Consolas;mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin;mso-bidi-font-family:Consolas;
+color:black;mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:
+AR-SA">rm.Licensing.Return(serverURL, activationID);</span></p>
+<ol>
+	<li value="4">AvailableLicenses &#8211; Gets the list of available licenses in the 
+	reader. This API returns the array of LicenseInfo</li>
+</ol>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">
+LicenseInfo</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">[] licenseList = rm.Licensing.AvailableLicenses();<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">if</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> (licenseList != </span>
+<span style="font-size:9.5pt;font-family:
+Consolas;mso-bidi-font-family:Consolas;color:blue">null</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> &amp;&amp; licenseList.length &gt; 0)<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">{<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>System.</span><span style="font-size:9.5pt;
+font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">out</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">.println(</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:#A31515">&quot;License(s) found::&quot;</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">);<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span>
+<span style="font-size:9.5pt;
+font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">for</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> (</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:blue">int</span><span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black"> index = 
+0; index &lt; licenseList.length; index++)<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>{<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+</span>
+<span style="font-size:9.5pt;
+font-family:Consolas;mso-bidi-font-family:Consolas;color:#2B91AF">LicenseInfo</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> licenseObj = licenseList[index];<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+System.</span><span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">out</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">.println(licenseObj.getName() + </span>
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:#A31515">&quot; 
+version: &quot;</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:black"> + licenseObj.getVersion() + </span>
+<span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:#A31515">&quot; host ID: &quot;</span><span style="font-size:9.5pt;
+font-family:Consolas;mso-bidi-font-family:Consolas;color:black"> + 
+licenseObj.getHostID() + </span>
+<span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:#A31515">&quot; expiring on: &quot;</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"> + licenseObj.getExpiryDate());<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">}<o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">else</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black"><o:p></o:p></span></p>
+<p class="auto-style2">
+<span style="font-size:
+9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;color:black">
+<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>System.</span><span style="font-size:9.5pt;
+font-family:Consolas;mso-bidi-font-family:Consolas;color:blue">out</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">.println(</span><span style="font-size:9.5pt;font-family:Consolas;
+mso-bidi-font-family:Consolas;color:#A31515">&quot;No Licenses installed.&quot;</span><span style="font-size:9.5pt;font-family:Consolas;mso-bidi-font-family:Consolas;
+color:black">);<o:p></o:p></span></p>
+
+
+</body>
+</html>
