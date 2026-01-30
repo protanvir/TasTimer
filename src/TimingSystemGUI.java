@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
@@ -48,6 +51,10 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
 
     // Config
     private static final String CONFIG_FILE = "config.properties";
+
+    // Wiclax Config
+    private static final String WICLAX_USER = "totalactivesports";
+    private static final String WICLAX_DEVICE_ID = "tas246";
 
     public TimingSystemGUI() {
         super("RFID Race Timing System");
@@ -284,6 +291,11 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
 
     @Override
     public void onTagRead(String epc, String timestamp, String readerIp, int antennaPort) {
+        // Process Data pipeline
+        sendToLocalApi(epc, timestamp);
+        sendToWiclax(epc);
+        saveToCsv(epc, timestamp);
+
         SwingUtilities.invokeLater(() -> {
             int count = tableModel.getRowCount() + 1;
             tableModel.insertRow(0, new Object[] { count, epc, timestamp, readerIp });
@@ -358,6 +370,69 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
                 isRaceRunning = false;
             }
         });
+    }
+
+    // --- Data Services ---
+
+    private void sendToLocalApi(String epc, String timestamp) {
+        // Run in thread to avoid blocking reader callback
+        new Thread(() -> {
+            try {
+                URL url = new URL("http://localhost:3000/api/tags");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+
+                String jsonInputString = String.format(
+                        "{\"epc\": \"%s\", \"timestamp\": \"%s\"}",
+                        epc, timestamp);
+
+                try (OutputStream os = conn.getOutputStream()) {
+                    byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+                    os.write(input, 0, input.length);
+                }
+                conn.getResponseCode(); // Trigger request
+            } catch (Exception e) {
+                System.err.println("Local API Error: " + e.getMessage());
+            }
+        }).start();
+    }
+
+    private void sendToWiclax(String epc) {
+        new Thread(() -> {
+            try {
+                DateTimeFormatter wiclaxFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+                String timestamp = LocalDateTime.now().format(wiclaxFormatter);
+                String passingData = String.format("@%s@%s", epc, timestamp);
+
+                String query = String.format("user=%s&deviceId=%s&passings=%s",
+                        WICLAX_USER, WICLAX_DEVICE_ID, passingData);
+
+                URL url = new URL("http://wiclax.com:35014?" + query);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.getResponseCode(); // Trigger request
+            } catch (Exception e) {
+                System.err.println("Wiclax Error: " + e.getMessage());
+            }
+        }).start();
+    }
+
+    private synchronized void saveToCsv(String epc, String timestamp) {
+        try {
+            File dataDir = new File("data");
+            if (!dataDir.exists())
+                dataDir.mkdirs();
+            File csvFile = new File(dataDir, "tag_reads.csv");
+
+            try (FileWriter fw = new FileWriter(csvFile, true);
+                    PrintWriter pw = new PrintWriter(fw)) {
+                pw.println(epc + "," + timestamp);
+            }
+        } catch (IOException e) {
+            System.err.println("CSV Error: " + e.getMessage());
+        }
     }
 
     public static void main(String[] args) {

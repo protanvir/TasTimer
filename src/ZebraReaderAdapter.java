@@ -71,6 +71,31 @@ public class ZebraReaderAdapter implements ReaderInterface {
             reader.Actions.Inventory.perform(null, null, null);
             isRunning = true;
             notifyStatus("Reading Tags...", true);
+
+            // Polling Thread
+            new Thread(() -> {
+                while (isRunning) {
+                    try {
+                        Thread.sleep(500); // Check every 500ms
+                        if (reader != null && reader.Actions != null) {
+                            TagData[] tags = reader.Actions.getReadTags(100);
+                            if (tags != null && tags.length > 0) {
+                                for (TagData tag : tags) {
+                                    String epc = tag.getTagID();
+                                    int antennaPort = tag.getAntennaID();
+                                    String timestamp = LocalDateTime.now()
+                                            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+                                    if (listener != null) {
+                                        listener.onTagRead(epc, timestamp, hostname, antennaPort);
+                                    }
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        // calculated risk: ignore polling errors to keep loop alive or exit gracefully
+                    }
+                }
+            }).start();
         } catch (InvalidUsageException | OperationFailureException e) {
             notifyStatus("Start Failed: " + e.getMessage(), true);
         }
@@ -105,19 +130,7 @@ public class ZebraReaderAdapter implements ReaderInterface {
     class ZebraEventsHandler implements RfidEventsListener {
         @Override
         public void eventReadNotify(RfidReadEvents rre) {
-            TagData[] tags = reader.Actions.getReadTags(100);
-            if (tags != null) {
-                for (TagData tag : tags) {
-                    String epc = tag.getTagID();
-                    int antennaPort = tag.getAntennaID();
-                    String timestamp = LocalDateTime.now()
-                            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
-
-                    if (listener != null) {
-                        listener.onTagRead(epc, timestamp, hostname, antennaPort);
-                    }
-                }
-            }
+            // Processing handled by polling loop due to event unreliability
         }
 
         @Override

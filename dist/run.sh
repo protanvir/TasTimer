@@ -10,4 +10,4 @@ trap "kill $SERVER_PID" EXIT
 sleep 2
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.
-java -jar TimingSoft.jar
+java --enable-native-access=ALL-UNNAMED -jar TimingSoft.jar
