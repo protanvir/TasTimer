@@ -166,7 +166,18 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
         controlPanel.add(readerTypeCombo);
         controlPanel.add(Box.createVerticalStrut(5));
         controlPanel.add(new JLabel("Reader IP:"));
-        controlPanel.add(ipField);
+        
+        JPanel ipPanel = new JPanel(new BorderLayout());
+        ipPanel.setMaximumSize(new Dimension(180, 30));
+        ipPanel.add(ipField, BorderLayout.CENTER);
+        
+        JButton keypadButton = new JButton("KB");
+        keypadButton.setMargin(new Insets(1, 1, 1, 1));
+        keypadButton.setPreferredSize(new Dimension(40, 30));
+        keypadButton.addActionListener(e -> showVirtualKeypad());
+        ipPanel.add(keypadButton, BorderLayout.EAST);
+        
+        controlPanel.add(ipPanel);
         controlPanel.add(Box.createVerticalStrut(10));
         controlPanel.add(connectButton);
         controlPanel.add(disconnectButton);
@@ -433,6 +444,60 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
         } catch (IOException e) {
             System.err.println("CSV Error: " + e.getMessage());
         }
+    }
+
+    private void showVirtualKeypad() {
+        JDialog dialog = new JDialog(this, "IP Keypad", true);
+        dialog.setSize(300, 450);
+        dialog.setLayout(new BorderLayout(5, 5));
+
+        JTextField displayParams = new JTextField(ipField.getText());
+        displayParams.setFont(new Font("Monospaced", Font.BOLD, 24));
+        displayParams.setHorizontalAlignment(JTextField.CENTER);
+        dialog.add(displayParams, BorderLayout.NORTH);
+
+        JPanel keys = new JPanel(new GridLayout(4, 3, 5, 5));
+        String[] labels = {
+                "7", "8", "9",
+                "4", "5", "6",
+                "1", "2", "3",
+                ".", "0", "Del"
+        };
+
+        for (String label : labels) {
+            JButton b = new JButton(label);
+            b.setFont(new Font("SansSerif", Font.BOLD, 20));
+            b.setFocusable(false);
+            b.addActionListener(ev -> {
+                String cmd = ev.getActionCommand();
+                if ("Del".equals(cmd)) {
+                    String text = displayParams.getText();
+                    if (!text.isEmpty()) {
+                        displayParams.setText(text.substring(0, text.length() - 1));
+                    }
+                } else {
+                    displayParams.setText(displayParams.getText() + cmd);
+                }
+            });
+            keys.add(b);
+        }
+
+        dialog.add(keys, BorderLayout.CENTER);
+
+        JButton enter = new JButton("ENTER");
+        enter.setFont(new Font("SansSerif", Font.BOLD, 20));
+        enter.setBackground(new Color(50, 200, 50));
+        enter.setForeground(Color.WHITE);
+        enter.addActionListener(ev -> {
+            ipField.setText(displayParams.getText());
+            dialog.dispose();
+        });
+        enter.setPreferredSize(new Dimension(0, 60));
+
+        dialog.add(enter, BorderLayout.SOUTH);
+
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }
 
     public static void main(String[] args) {
