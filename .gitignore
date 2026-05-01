@@ -1,0 +1,18 @@
+# Compiled output
+bin/
+*.class
+
+# Built artifact
+*.jar
+
+# Local config (may contain API keys or local paths)
+config.properties
+
+# Runtime data
+data/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
