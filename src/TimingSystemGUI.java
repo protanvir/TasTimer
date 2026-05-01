@@ -40,6 +40,8 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
     private final FeiBotClient        feiBotClient = new FeiBotClient();
     private final RufusAPIClient      rufusApiClient = new RufusAPIClient();
     private int                       waveCounter  = 1;  // for auto-generating wave IDs
+    private final WebBridge           bridge       = new WebBridge();
+    private WebServer                 server;
 
     // ------------------------------------------------------------------ //
     // Timing point manager + per-point tab models
@@ -141,6 +143,8 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
     public TimingSystemGUI() {
         super("RFID Race Timing System");
         controller = new RFIDController(this);
+        server = new WebServer(controller, bridge, AppConfig.getInstance(), raceSession, dupFilter);
+        Thread.ofVirtual().start(server::start);
 
         // Load persisted timing points before building UI
         tpm.loadFromConfig();
@@ -703,15 +707,9 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
         suppressedLabel.setForeground(new Color(180, 100, 0));
         updateSuppressedLabel();
 
-        JLabel nodeLabel = new JLabel("Node: " + getLocalIpAddress()
-                + ":" + AppConfig.getInstance().getLocalApiPort());
-        nodeLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        nodeLabel.setForeground(Color.BLUE);
-
         JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 0));
         left.add(statusLabel);
         left.add(suppressedLabel);
-        left.add(nodeLabel);
 
         antennaPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         for (int i = 1; i <= 4; i++) {
@@ -776,6 +774,7 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
                         long el = System.currentTimeMillis() - raceStartTime;
                         raceTimerLabel.setText(String.format("Race Time: %02d:%02d:%02d",
                                 el / 3_600_000, (el / 60_000) % 60, (el / 1000) % 60));
+                        bridge.broadcastRaceTimer(el);
                     }
                 });
             }
@@ -871,6 +870,7 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
             if (!registry.isEmpty()) refreshParticipantsPanel();
             if (isNewFinish)         refreshResultsPanel();
         });
+        bridge.onTagRead(epc, timestamp, readerIp, antennaPort);
     }
 
     @Override
@@ -881,6 +881,7 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
                 updateAntennaColor(s.getPortNumber());
             }
         });
+        bridge.onAntennaStatus(statuses, readerIp);
     }
 
     @Override
@@ -913,6 +914,7 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
                 statusLabel.setForeground(isConnected ? new Color(0, 150, 0) : Color.RED);
             }
         });
+        bridge.onReaderStatus(status, isConnected, readerIp);
     }
 
     @Override
@@ -1357,6 +1359,9 @@ public class TimingSystemGUI extends JFrame implements RFIDDataListener {
     public static void main(String[] args) {
         try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
         catch (Exception ignored) {}
-        SwingUtilities.invokeLater(() -> new TimingSystemGUI().setVisible(true));
+        SwingUtilities.invokeLater(() -> {
+            TimingSystemGUI gui = new TimingSystemGUI(); // server starts inside constructor
+            gui.setVisible(true);
+        });
     }
 }

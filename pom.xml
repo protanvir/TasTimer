@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>bd.tastimer</groupId>
+    <artifactId>tastimer</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!--
+            Local RFID SDK JARs.
+            system scope puts them on the compile classpath but excludes them
+            from the shaded fat JAR — they stay in lib/ at runtime.
+        -->
+        <dependency>
+            <groupId>com.impinj</groupId>
+            <artifactId>octane-sdk</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/octane-sdk.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.symbol</groupId>
+            <artifactId>rfid-api3</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/Symbol.RFID.API3.jar</systemPath>
+        </dependency>
+
+        <!-- Javalin embedded HTTP + WebSocket server -->
+        <dependency>
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin</artifactId>
+            <version>6.3.0</version>
+        </dependency>
+
+        <!-- SLF4J simple logger (required by Javalin) -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.13</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!--
+            Sources live directly in src/, not src/main/java/.
+            Maven's default excludes avoid picking up the stale .class files
+            in src/ that were left by the old javac build.
+        -->
+        <sourceDirectory>src</sourceDirectory>
+        <finalName>TimingSoft</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                    <encoding>UTF-8</encoding>
+                    <!-- .class files left in src/ by the old javac build -->
+                    <excludes>
+                        <exclude>**/*.class</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <!--
+                                system-scope jars (RFID SDKs) are excluded from
+                                the shaded JAR by default; be explicit to be safe.
+                            -->
+                            <includeSystemScope>false</includeSystemScope>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>TimingSystemGUI</mainClass>
+                                </transformer>
+                                <!--
+                                    Merge META-INF/services/ entries so Javalin's
+                                    ServiceLoader registrations survive shading.
+                                -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                            </transformers>
+                            <filters>
+                                <!-- Strip module-info and signature files that cause issues in fat JARs -->
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>module-info.class</exclude>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
